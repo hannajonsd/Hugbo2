@@ -1,3 +1,4 @@
 # Hugbúnaðarverkefni 2
 
-Hanna Margrét Jónsdóttir
+- Hanna Margrét Jónsdóttir
+- Björgvin Atli Júlíusson
