@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="hbv601g.hugb2_team2.ui.home.HomeFragment"
+        android:name="hbv601g.hugb2_team2.ui.activities.main.fragments.establishment_list_fragment.EstablishmentListFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_establishment_list" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="hbv601g.hugb2_team2.ui.dashboard.DashboardFragment"
+        android:name="hbv601g.hugb2_team2.ui.activities.main.fragments.drinktype_list_fragment.DrinkTypeListFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_drinktype_list" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="hbv601g.hugb2_team2.ui.notifications.NotificationsFragment"
+        android:name="hbv601g.hugb2_team2.ui.activities.main.fragments.profile_fragment.ProfileFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_profile" />
 </navigation>
