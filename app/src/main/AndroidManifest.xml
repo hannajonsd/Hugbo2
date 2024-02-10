@@ -13,16 +13,55 @@
         android:theme="@style/Theme.Hugb2_Team2"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.single_establishment.SingleEstablishmentActivity"
+            android:name=".ui.activities.reviews.EditReviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.reviews.CreateReviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.user.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.user.CreateAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.user.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".ui.activities.establishment.EditEstablishmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.establishment.CreateEstablishmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.establishment.NearbyEstablishmentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.beverage.EditBeverageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.beverage.CreateBeverageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.beverage.BeverageListActivity"
+            android:exported="false"
+            android:label="@string/title_activity_beverage_list"
+            android:theme="@style/Theme.Hugb2_Team2" />
+        <activity
+            android:name=".ui.activities.establishment.single_establishment.SingleEstablishmentActivity"
             android:exported="false"
             android:label="@string/title_activity_single_establishment" />
         <activity
-            android:name=".ui.activities.edit_drinktype.EditDrinkTypeActivity"
+            android:name=".ui.activities.drinktype.EditDrinkTypeActivity"
             android:exported="false"
             android:label="@string/title_activity_edit_drink_type"
             android:theme="@style/Theme.Hugb2_Team2" />
         <activity
-            android:name=".ui.activities.create_drinktype.CreateDrinkTypeActivity"
+            android:name=".ui.activities.drinktype.CreateDrinkTypeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.main.MainActivity"

@@ -1,4 +1,4 @@
-package hbv601g.hugb2_team2.ui.activities.single_establishment.fragments.establishment_info
+package hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_info
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_establishment_menu"
-        android:name="hbv601g.hugb2_team2.ui.activities.single_establishment.fragments.establishment_menu.EstablishmentMenuFragment"
+        android:name="hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_menu.EstablishmentMenuFragment"
         android:label="@string/title_fragment_drinks_menu"
         tools:layout="@layout/fragment_establishment_menu" />
 
     <fragment
         android:id="@+id/navigation_establishment_info"
-        android:name="hbv601g.hugb2_team2.ui.activities.single_establishment.fragments.establishment_info.EstablishmentInfoFragment"
+        android:name="hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_info.EstablishmentInfoFragment"
         android:label="@string/title_fragment_establishment_info"
         tools:layout="@layout/fragment_establishment_info" />
 
     <fragment
         android:id="@+id/navigation_establishment_reviews"
-        android:name="hbv601g.hugb2_team2.ui.activities.single_establishment.fragments.establishment_reviews.EstablishmentReviewsFragment"
+        android:name="hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_reviews.EstablishmentReviewsFragment"
         android:label="@string/title_fragment_reviews"
         tools:layout="@layout/fragment_establishment_reviews" />
 </navigation>

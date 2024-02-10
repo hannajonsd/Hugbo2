@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.single_establishment.fragments.establishment_menu.EstablishmentMenuFragment">
+    tools:context=".ui.activities.establishment.single_establishment.fragments.establishment_menu.EstablishmentMenuFragment">
 
     <TextView
         android:id="@+id/text_establishment_menu"

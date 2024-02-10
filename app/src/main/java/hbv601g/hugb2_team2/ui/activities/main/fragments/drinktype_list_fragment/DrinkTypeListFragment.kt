@@ -11,7 +11,9 @@ import hbv601g.hugb2_team2.databinding.FragmentDrinktypeListBinding
 import android.content.Intent
 import android.widget.Button
 import hbv601g.hugb2_team2.R
-import hbv601g.hugb2_team2.ui.activities.create_drinktype.CreateDrinkTypeActivity
+import hbv601g.hugb2_team2.ui.activities.beverage.BeverageListActivity
+import hbv601g.hugb2_team2.ui.activities.drinktype.CreateDrinkTypeActivity
+import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
 
 class DrinkTypeListFragment : Fragment() {
 
@@ -32,7 +34,7 @@ class DrinkTypeListFragment : Fragment() {
         _binding = FragmentDrinktypeListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDrinkTypeList
+        val textView: TextView = binding.titleFragmentDrinktypeList
         drinkTypeListViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
@@ -50,9 +52,21 @@ class DrinkTypeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val buttonOpenCreateDrinkType = view.findViewById<Button>(R.id.button_open_create_drink_type)
-        buttonOpenCreateDrinkType.setOnClickListener {
+        val buttonCreateDrinkType = view.findViewById<Button>(R.id.button_create_drinktype)
+        buttonCreateDrinkType.setOnClickListener {
             val intent = Intent(activity, CreateDrinkTypeActivity::class.java)
+            startActivity(intent)
+        }
+
+        val buttonEditDrinkType = view.findViewById<Button>(R.id.button_edit_drinktype)
+        buttonEditDrinkType.setOnClickListener {
+            val intent = Intent(activity, EditDrinkTypeActivity::class.java)
+            startActivity(intent)
+        }
+
+        val buttonViewBeverageList = view.findViewById<Button>(R.id.button_go_to_beverage_list)
+        buttonViewBeverageList.setOnClickListener {
+            val intent = Intent(activity, BeverageListActivity::class.java)
             startActivity(intent)
         }
     }

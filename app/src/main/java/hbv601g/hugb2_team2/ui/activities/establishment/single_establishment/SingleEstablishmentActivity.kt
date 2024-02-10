@@ -1,4 +1,4 @@
-package hbv601g.hugb2_team2.ui.activities.single_establishment
+package hbv601g.hugb2_team2.ui.activities.establishment.single_establishment
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
