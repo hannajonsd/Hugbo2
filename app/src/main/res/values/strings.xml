@@ -1,9 +1,28 @@
 <resources>
     <string name="app_name">Hugb2_Team2</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_create_establishment">CreateEstablishmentActivity</string>
+
+    <!-- Titles of activities / fragments -->
+    <string name="title_activity_single_establishment">SingleEstablishmentActivity</string>
+    <string name="title_fragment_establishment_list">Establishments</string>
+    <string name="title_fragment_drinktype_list">Drink Types</string>
+    <string name="title_fragment_profile">Profile</string>
+    <string name="title_activity_create_drinktype">Create DrinkType</string>
+    <string name="title_activity_edit_drink_type">Edit DrinkType</string>
+    <string name="title_activity_nearby_establishments">Nearby Establishments</string>
+    <string name="title_activity_create_establishment">Create Establishment</string>
+    <string name="title_activity_edit_establishment">Edit Establishment</string>
+    <string name="title_fragment_establishment_info">Establishment Info</string>
+    <string name="title_fragment_drinks_menu">Drinks Menu</string>
+    <string name="title_fragment_reviews">Reviews</string>
+    <string name="title_activity_beverage_list">Beverage List</string>
+    <string name="title_activity_create_beverage">Create Beverage</string>
+    <string name="title_activity_edit_beverage">Edit Beverage</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_create_account">Create Account</string>
+    <string name="title_activity_edit_profile">Edit Profile</string>
+    <string name="title_activity_create_review">Add Review</string>
+    <string name="title_activity_edit_review">Edit Review</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -46,4 +65,6 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
+
 </resources>

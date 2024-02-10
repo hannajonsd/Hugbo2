@@ -1,13 +1,18 @@
 package hbv601g.hugb2_team2.ui.activities.main.fragments.establishment_list_fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentListBinding
+import hbv601g.hugb2_team2.ui.activities.create_drinktype.CreateDrinkTypeActivity
+import hbv601g.hugb2_team2.ui.activities.single_establishment.SingleEstablishmentActivity
 
 class EstablishmentListFragment : Fragment() {
 
@@ -28,7 +33,7 @@ class EstablishmentListFragment : Fragment() {
         _binding = FragmentEstablishmentListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
+        val textView: TextView = binding.textEstablishmentList
         establishmentListViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
@@ -38,5 +43,17 @@ class EstablishmentListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val buttonOpenCreateDrinkType =
+            view.findViewById<Button>(R.id.button_go_to_single_establishment)
+        buttonOpenCreateDrinkType.setOnClickListener {
+            val intent = Intent(activity, SingleEstablishmentActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

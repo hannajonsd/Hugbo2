@@ -7,7 +7,7 @@
     tools:context=".ui.activities.main.fragments.profile_fragment.ProfileFragment">
 
     <TextView
-        android:id="@+id/text_notifications"
+        android:id="@+id/text_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

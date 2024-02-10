@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_establishment_list">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_establishment_list"
         android:name="hbv601g.hugb2_team2.ui.activities.main.fragments.establishment_list_fragment.EstablishmentListFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_fragment_establishment_list"
         tools:layout="@layout/fragment_establishment_list" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_drinktype_list"
         android:name="hbv601g.hugb2_team2.ui.activities.main.fragments.drinktype_list_fragment.DrinkTypeListFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_fragment_drinktype_list"
         tools:layout="@layout/fragment_drinktype_list" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_profile"
         android:name="hbv601g.hugb2_team2.ui.activities.main.fragments.profile_fragment.ProfileFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

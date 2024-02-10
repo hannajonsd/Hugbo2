@@ -32,7 +32,7 @@ class DrinkTypeListFragment : Fragment() {
         _binding = FragmentDrinktypeListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
+        val textView: TextView = binding.textDrinkTypeList
         drinkTypeListViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

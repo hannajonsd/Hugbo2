@@ -1,13 +1,13 @@
-package hbv601g.hugb2_team2.ui.activities.main.fragments.drinktype_list_fragment
+package hbv601g.hugb2_team2.ui.activities.single_establishment.fragments.establishment_reviews
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DrinkTypeListViewModel : ViewModel() {
+class EstablishmentReviewsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is drinktype list Fragment"
+        value = "This is notifications Fragment"
     }
     val text: LiveData<String> = _text
 }
