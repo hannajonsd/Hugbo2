@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import hbv601g.hugb2_team2.databinding.FragmentDashboardBinding
+import hbv601g.hugb2_team2.databinding.FragmentEstablishmentInfoBinding
 
 class EstablishmentInfoFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
+    private var _binding: FragmentEstablishmentInfoBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,10 +25,10 @@ class EstablishmentInfoFragment : Fragment() {
         val establishmentInfoViewModel =
             ViewModelProvider(this).get(EstablishmentInfoViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentEstablishmentInfoBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
+        val textView: TextView = binding.textEstablishmentInfo
         establishmentInfoViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

@@ -16,19 +16,4 @@
         android:icon="@drawable/ic_profile"
         android:title="@string/title_fragment_profile" />
 
-    <item
-        android:id="@+id/navigation_establishment_menu"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_fragment_drinks_menu" />
-
-    <item
-        android:id="@+id/navigation_establishment_info"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_fragment_establishment_info" />
-
-    <item
-        android:id="@+id/navigation_establishment_reviews"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_fragment_reviews" />
-
 </menu>

@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class EstablishmentMenuViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "This is Establishment Menu Fragment"
     }
     val text: LiveData<String> = _text
 }
