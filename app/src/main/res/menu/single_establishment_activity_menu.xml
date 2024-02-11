@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_establishment_menu"
+        android:icon="@drawable/ic_establishment_menu"
+        android:title="@string/title_fragment_drinks_menu" />
+
+    <item
+        android:id="@+id/navigation_establishment_info"
+        android:icon="@drawable/ic_establishment_info"
+        android:title="@string/title_fragment_establishment_info" />
+
+    <item
+        android:id="@+id/navigation_establishment_reviews"
+        android:icon="@drawable/ic_establishment_reviews"
+        android:title="@string/title_fragment_reviews" />
+
+</menu>
