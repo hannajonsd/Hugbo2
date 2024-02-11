@@ -11,7 +11,17 @@ class NetworkingServiceImpl : NetworkingService {
         TODO("Not yet implemented")
     }
 
+    override suspend fun putRequest(reqURL: String, data: JSONObject): JSONObject {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun patchRequest(reqURL: String, data: JSONObject): JSONObject {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun deleteRequest(reqURL: String): JSONObject {
         TODO("Not yet implemented")
     }
+
+
 }
