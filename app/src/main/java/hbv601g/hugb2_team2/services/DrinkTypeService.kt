@@ -9,7 +9,7 @@ interface DrinkTypeService {
     suspend fun getDrinkTypesByType(type: String): List<DrinkType>
     suspend fun getDrinkTypesByTypeAndSubtype(type: String, subtype: String): List<DrinkType>
     suspend fun createDrinkType(drinkType: DrinkType): DrinkType
-    suspend fun updateDrinkType(drinkType: DrinkType): DrinkType
+    suspend fun editDrinkType(drinkType: DrinkType): DrinkType
     suspend fun deleteDrinkType(drinkType: DrinkType) : Boolean
 
 }

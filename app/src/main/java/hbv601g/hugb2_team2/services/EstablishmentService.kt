@@ -14,4 +14,5 @@ interface EstablishmentService {
     suspend fun deleteEstablishment(establishment: Establishment) : Boolean
     suspend fun getNearbyEstablishments(lat: Double, lon: Double, radius: Int): List<Establishment>
 
+
 }
