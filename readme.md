@@ -2,6 +2,7 @@
 
 - Hanna Margrét Jónsdóttir
 - Björgvin Atli Júlíusson
+- Benedikt Þorsteinsson
 
 -------------------------
 
