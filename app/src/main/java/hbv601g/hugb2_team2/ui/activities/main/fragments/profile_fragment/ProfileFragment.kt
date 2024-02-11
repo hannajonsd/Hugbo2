@@ -11,11 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.FragmentProfileBinding
+import hbv601g.hugb2_team2.services.providers.UserServiceProvider
 import hbv601g.hugb2_team2.ui.activities.user.CreateAccountActivity
 import hbv601g.hugb2_team2.ui.activities.user.EditProfileActivity
 import hbv601g.hugb2_team2.ui.activities.user.LoginActivity
 
 class ProfileFragment : Fragment() {
+
+    private var userService = UserServiceProvider.getUserService()
 
     private var _binding: FragmentProfileBinding ? = null
 

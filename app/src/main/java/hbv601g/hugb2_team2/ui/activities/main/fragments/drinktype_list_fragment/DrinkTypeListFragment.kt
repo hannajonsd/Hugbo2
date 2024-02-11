@@ -11,11 +11,14 @@ import hbv601g.hugb2_team2.databinding.FragmentDrinktypeListBinding
 import android.content.Intent
 import android.widget.Button
 import hbv601g.hugb2_team2.R
+import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
 import hbv601g.hugb2_team2.ui.activities.beverage.BeverageListActivity
 import hbv601g.hugb2_team2.ui.activities.drinktype.CreateDrinkTypeActivity
 import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
 
 class DrinkTypeListFragment : Fragment() {
+
+    private var drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService()
 
     private var _binding: FragmentDrinktypeListBinding? = null
 
