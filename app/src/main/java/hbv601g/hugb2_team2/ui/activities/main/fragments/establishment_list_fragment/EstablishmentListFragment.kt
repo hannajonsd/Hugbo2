@@ -11,10 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentListBinding
+import hbv601g.hugb2_team2.services.EstablishmentService
 import hbv601g.hugb2_team2.ui.activities.establishment.NearbyEstablishmentsActivity
 import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity
 
 class EstablishmentListFragment : Fragment() {
+
+    private lateinit var establishmentService: EstablishmentService
 
     private var _binding: FragmentEstablishmentListBinding? = null
 
