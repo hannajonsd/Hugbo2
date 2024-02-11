@@ -2,8 +2,12 @@ package hbv601g.hugb2_team2.services.implementation
 
 import hbv601g.hugb2_team2.entities.DrinkType
 import hbv601g.hugb2_team2.services.DrinkTypeService
+import hbv601g.hugb2_team2.services.network.NetworkingServiceProvider
 
 class DrinkTypeServiceImpl : DrinkTypeService {
+
+    private var networkingService = NetworkingServiceProvider.getNetworkingService()
+
     override suspend fun getAllDrinkTypes(): List<DrinkType> {
         TODO("Not yet implemented")
     }

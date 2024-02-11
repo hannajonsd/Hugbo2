@@ -8,8 +8,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentReviewsBinding
+import hbv601g.hugb2_team2.services.providers.ReviewServiceProvider
 
 class EstablishmentReviewsFragment : Fragment() {
+
+    private var reviewService = ReviewServiceProvider.getReviewService()
 
     private var _binding: FragmentEstablishmentReviewsBinding? = null
 

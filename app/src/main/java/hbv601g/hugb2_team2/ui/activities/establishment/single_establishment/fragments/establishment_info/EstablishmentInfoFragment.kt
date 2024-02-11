@@ -8,8 +8,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentInfoBinding
+import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 
 class EstablishmentInfoFragment : Fragment() {
+
+    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
+
 
     private var _binding: FragmentEstablishmentInfoBinding? = null
 

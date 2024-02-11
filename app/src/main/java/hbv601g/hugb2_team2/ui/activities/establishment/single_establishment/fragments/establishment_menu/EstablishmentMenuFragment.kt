@@ -8,8 +8,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentMenuBinding
+import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 
 class EstablishmentMenuFragment : Fragment() {
+
+    private var beverageService = BeverageServiceProvider.getBeverageService()
 
     private var _binding: FragmentEstablishmentMenuBinding? = null
 

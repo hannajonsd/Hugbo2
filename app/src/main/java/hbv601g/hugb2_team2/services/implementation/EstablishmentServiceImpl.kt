@@ -2,8 +2,11 @@ package hbv601g.hugb2_team2.services.implementation
 
 import hbv601g.hugb2_team2.entities.Establishment
 import hbv601g.hugb2_team2.services.EstablishmentService
+import hbv601g.hugb2_team2.services.network.NetworkingServiceProvider
 
 class EstablishmentServiceImpl : EstablishmentService {
+
+    private var networkingService = NetworkingServiceProvider.getNetworkingService()
 
     override suspend fun getAllEstablishments(): List<Establishment> {
         TODO("Not yet implemented")
