@@ -1,5 +1,6 @@
 package hbv601g.hugb2_team2.ui.activities.main.fragments.establishment_list_fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,19 +13,27 @@ import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentListBinding
 import hbv601g.hugb2_team2.services.EstablishmentService
+import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 import hbv601g.hugb2_team2.ui.activities.establishment.NearbyEstablishmentsActivity
 import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity
 
 class EstablishmentListFragment : Fragment() {
 
-    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
+    private lateinit var establishmentService : EstablishmentService
 
     private var _binding: FragmentEstablishmentListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        // get the establishment service
+        establishmentService = EstablishmentServiceProvider.getEstablishmentService(context)
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater,

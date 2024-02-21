@@ -1,5 +1,6 @@
 package hbv601g.hugb2_team2.ui.activities.main.fragments.drinktype_list_fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import hbv601g.hugb2_team2.databinding.FragmentDrinktypeListBinding
 import android.content.Intent
 import android.widget.Button
 import hbv601g.hugb2_team2.R
+import hbv601g.hugb2_team2.services.DrinkTypeService
+import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
 import hbv601g.hugb2_team2.ui.activities.beverage.BeverageListActivity
 import hbv601g.hugb2_team2.ui.activities.drinktype.CreateDrinkTypeActivity
@@ -18,13 +21,20 @@ import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
 
 class DrinkTypeListFragment : Fragment() {
 
-    private var drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService()
+    private lateinit var drinkTypeService : DrinkTypeService
 
     private var _binding: FragmentDrinktypeListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        // get the drink type service
+        drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService(context)
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater,

@@ -1,5 +1,6 @@
 package hbv601g.hugb2_team2.services
 
+import android.content.Context
 import hbv601g.hugb2_team2.entities.Beverage
 import hbv601g.hugb2_team2.entities.DrinkType
 import hbv601g.hugb2_team2.entities.Establishment
@@ -13,6 +14,7 @@ interface BeverageService {
     suspend fun getAllBeveragesByDrinkType(drinkType: DrinkType): List<Beverage>
     suspend fun getAllBeveragesByDrinkTypeSortByPriceDesc(drinkType: DrinkType): List<Beverage>
     suspend fun getAllBeveragesByDrinkTypeSortByPriceAsc(drinkType: DrinkType): List<Beverage>
+    fun setContext(context: Context)
 
 
 }

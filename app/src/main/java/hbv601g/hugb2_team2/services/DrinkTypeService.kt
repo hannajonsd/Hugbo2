@@ -1,5 +1,6 @@
 package hbv601g.hugb2_team2.services
 
+import android.content.Context
 import hbv601g.hugb2_team2.entities.DrinkType
 
 interface DrinkTypeService {
@@ -11,5 +12,6 @@ interface DrinkTypeService {
     suspend fun createDrinkType(drinkType: DrinkType): DrinkType
     suspend fun editDrinkType(drinkType: DrinkType): DrinkType
     suspend fun deleteDrinkType(drinkType: DrinkType) : Boolean
+    fun setContext(context: Context)
 
 }

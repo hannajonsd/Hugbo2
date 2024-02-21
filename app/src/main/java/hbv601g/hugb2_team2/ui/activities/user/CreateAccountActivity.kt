@@ -7,7 +7,7 @@ import hbv601g.hugb2_team2.services.providers.UserServiceProvider
 
 class CreateAccountActivity : AppCompatActivity() {
 
-    private var userService = UserServiceProvider.getUserService()
+    private var userService = UserServiceProvider.getUserService(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)

@@ -7,7 +7,7 @@ import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 
 class NearbyEstablishmentsActivity : AppCompatActivity() {
 
-    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
+    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
