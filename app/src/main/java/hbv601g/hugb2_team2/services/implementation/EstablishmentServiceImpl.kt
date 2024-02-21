@@ -1,13 +1,14 @@
 package hbv601g.hugb2_team2.services.implementation
 
+import android.content.Context
 import hbv601g.hugb2_team2.entities.Establishment
 import hbv601g.hugb2_team2.services.EstablishmentService
 import hbv601g.hugb2_team2.services.network.NetworkingServiceProvider
 
-class EstablishmentServiceImpl : EstablishmentService {
+class EstablishmentServiceImpl(context: Context) : EstablishmentService {
 
-    private var networkingService = NetworkingServiceProvider.getNetworkingService()
-
+    private var networkingService = NetworkingServiceProvider.getNetworkingService(this.context)
+    private lateinit var context: Context
     override suspend fun getAllEstablishments(): List<Establishment> {
         TODO("Not yet implemented")
     }
@@ -46,5 +47,9 @@ class EstablishmentServiceImpl : EstablishmentService {
         radius: Int
     ): List<Establishment> {
         TODO("Not yet implemented")
+    }
+
+    override fun setContext(context: Context) {
+        this.context = context
     }
 }

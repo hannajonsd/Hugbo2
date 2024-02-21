@@ -1,12 +1,14 @@
 package hbv601g.hugb2_team2.services.implementation
 
+import android.content.Context
 import hbv601g.hugb2_team2.entities.DrinkType
 import hbv601g.hugb2_team2.services.DrinkTypeService
 import hbv601g.hugb2_team2.services.network.NetworkingServiceProvider
 
-class DrinkTypeServiceImpl : DrinkTypeService {
+class DrinkTypeServiceImpl(context: Context) : DrinkTypeService {
+    private lateinit var context: Context
 
-    private var networkingService = NetworkingServiceProvider.getNetworkingService()
+    private var networkingService = NetworkingServiceProvider.getNetworkingService(context)
 
     override suspend fun getAllDrinkTypes(): List<DrinkType> {
         TODO("Not yet implemented")
@@ -37,5 +39,9 @@ class DrinkTypeServiceImpl : DrinkTypeService {
 
     override suspend fun deleteDrinkType(drinkType: DrinkType): Boolean {
         TODO("Not yet implemented")
+    }
+
+    override fun setContext(context: Context) {
+        this.context = context
     }
 }

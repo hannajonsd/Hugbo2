@@ -1,5 +1,6 @@
 package hbv601g.hugb2_team2.services
 
+import android.content.Context
 import hbv601g.hugb2_team2.entities.Establishment
 
 interface EstablishmentService {
@@ -13,6 +14,7 @@ interface EstablishmentService {
     suspend fun updateEstablishment(establishment: Establishment): Establishment
     suspend fun deleteEstablishment(establishment: Establishment) : Boolean
     suspend fun getNearbyEstablishments(lat: Double, lon: Double, radius: Int): List<Establishment>
+    fun setContext(context: Context)
 
 
 }

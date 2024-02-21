@@ -1,5 +1,6 @@
 package hbv601g.hugb2_team2.ui.activities.main.fragments.profile_fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.FragmentProfileBinding
+import hbv601g.hugb2_team2.services.UserService
+import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.UserServiceProvider
 import hbv601g.hugb2_team2.ui.activities.user.CreateAccountActivity
 import hbv601g.hugb2_team2.ui.activities.user.EditProfileActivity
@@ -18,13 +21,20 @@ import hbv601g.hugb2_team2.ui.activities.user.LoginActivity
 
 class ProfileFragment : Fragment() {
 
-    private var userService = UserServiceProvider.getUserService()
+    private lateinit var userService : UserService
 
     private var _binding: FragmentProfileBinding ? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        // get the user service
+        userService = UserServiceProvider.getUserService(context)
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater,

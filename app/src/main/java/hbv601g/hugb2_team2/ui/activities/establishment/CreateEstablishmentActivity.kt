@@ -7,7 +7,7 @@ import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 
 class CreateEstablishmentActivity : AppCompatActivity() {
 
-    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
+    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_establishment)

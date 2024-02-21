@@ -1,5 +1,6 @@
 package hbv601g.hugb2_team2.services
 
+import android.content.Context
 import hbv601g.hugb2_team2.entities.User
 
 interface UserService {
@@ -10,4 +11,5 @@ interface UserService {
     suspend fun getUserById(id: Long): User
     suspend fun login(username: String, password: String): User
     suspend fun logout(user: User): Boolean
+    fun setContext(context: Context)
 }

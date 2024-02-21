@@ -1,5 +1,6 @@
 package hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_menu
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,17 +9,28 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentMenuBinding
+import hbv601g.hugb2_team2.services.BeverageService
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
+import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity
 
 class EstablishmentMenuFragment : Fragment() {
 
-    private var beverageService = BeverageServiceProvider.getBeverageService()
+    // pass context of the activiry to the service
+    private lateinit var beverageService: BeverageService
 
     private var _binding: FragmentEstablishmentMenuBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        // get the beverage service
+        beverageService = BeverageServiceProvider.getBeverageService(context)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
