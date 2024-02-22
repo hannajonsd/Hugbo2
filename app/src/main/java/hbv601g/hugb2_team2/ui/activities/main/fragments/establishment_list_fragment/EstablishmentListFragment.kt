@@ -3,6 +3,7 @@ package hbv601g.hugb2_team2.ui.activities.main.fragments.establishment_list_frag
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,27 +14,26 @@ import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentListBinding
 import hbv601g.hugb2_team2.services.EstablishmentService
+import hbv601g.hugb2_team2.services.network.NetworkCallback
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 import hbv601g.hugb2_team2.ui.activities.establishment.NearbyEstablishmentsActivity
 import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EstablishmentListFragment : Fragment() {
 
-    private lateinit var establishmentService : EstablishmentService
+    private val establishmentService: EstablishmentService by lazy {
+        EstablishmentServiceProvider.getEstablishmentService(requireContext())
+    }
 
     private var _binding: FragmentEstablishmentListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        // get the establishment service
-        establishmentService = EstablishmentServiceProvider.getEstablishmentService(context)
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -50,8 +50,28 @@ class EstablishmentListFragment : Fragment() {
         establishmentListViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+        getEstablishmentList()
         return root
     }
+
+    private fun getEstablishmentList() {
+       CoroutineScope(Dispatchers.Main).launch {
+           try {
+               Log.d("EstablishmentListFragment", "Trying to ping")
+           establishmentService.ping(object : NetworkCallback<String> {
+               override fun onSuccess(result: String) {
+                   Log.d("EstablishmentListFragment", "Success: $result")
+               }
+               override fun onFailure(error: String) {
+                     Log.d("EstablishmentListFragment", "Failure: $error")
+               }
+           })
+           } catch (e: Exception) {
+                Log.d("EstablishmentListFragment", "Exception: $e")
+           }
+       }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

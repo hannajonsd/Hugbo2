@@ -15,20 +15,15 @@ import hbv601g.hugb2_team2.services.providers.ReviewServiceProvider
 
 class EstablishmentReviewsFragment : Fragment() {
 
-    private lateinit var reviewService : ReviewService
+    private val reviewService : ReviewService by lazy {
+        ReviewServiceProvider.getReviewService(requireContext())
+    }
 
     private var _binding: FragmentEstablishmentReviewsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        // get the reviewservice
-        reviewService = ReviewServiceProvider.getReviewService(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

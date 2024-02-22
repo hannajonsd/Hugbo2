@@ -8,12 +8,10 @@ object NetworkingServiceProvider {
     private var networkingService: NetworkingService? = null
 
     fun getNetworkingService(context: Context): NetworkingService {
-        return networkingService ?: synchronized(this) {
-            networkingService ?: createNetworkingService(context).also { networkingService = it }
+        if (networkingService == null) {
+            networkingService = NetworkingServiceImpl(context)
+            networkingService!!.setContent(context)
         }
-    }
-
-    private fun createNetworkingService(context: Context): NetworkingService {
-        return NetworkingServiceImpl(context.applicationContext)
+        return networkingService!!
     }
 }

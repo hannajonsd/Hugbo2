@@ -8,14 +8,10 @@ object EstablishmentServiceProvider {
     private var establishmentService: EstablishmentService? = null
 
     fun getEstablishmentService(context: Context): EstablishmentService {
-        return establishmentService ?: synchronized(this) {
-            establishmentService ?: createEstablishmentService(context).also { establishmentService = it }
+        if (establishmentService == null) {
+            establishmentService = EstablishmentServiceImpl()
+            establishmentService!!.setContext(context)
         }
-    }
-
-    private fun createEstablishmentService(context: Context): EstablishmentService {
-        val service = EstablishmentServiceImpl(context)
-        service.setContext(context)
-        return service
+        return establishmentService!!
     }
 }

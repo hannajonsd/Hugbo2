@@ -9,15 +9,10 @@ object BeverageServiceProvider {
 
         private var beverageService: BeverageService? = null
 
-        fun getBeverageService(context: Context): BeverageService {
-            return beverageService ?: synchronized(this) {
-                beverageService ?: createBeverageService(context).also { beverageService = it }
-            }
+    fun getBeverageService(context: Context): BeverageService {
+        if (beverageService == null) {
+            beverageService = BeverageServiceImpl(context)
         }
-
-        private fun createBeverageService(context: Context): BeverageService {
-            val service = BeverageServiceImpl(context)
-            service.setContext(context)
-            return service
-        }
+        return beverageService!!
+    }
 }
