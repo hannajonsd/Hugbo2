@@ -4,14 +4,13 @@ import android.content.Context
 
 object NetworkingServiceProvider {
 
-    @Volatile
-    private var networkingService: NetworkingService? = null
+    private lateinit var NetworkingService: NetworkingService
 
-    fun getNetworkingService(context: Context): NetworkingService {
-        if (networkingService == null) {
-            networkingService = NetworkingServiceImpl(context)
-            networkingService!!.setContent(context)
-        }
-        return networkingService!!
+    fun getNetworkingService(): NetworkingService {
+        return NetworkingService
+    }
+
+    fun initialize(context: Context) {
+        NetworkingService = NetworkingServiceImpl(context)
     }
 }

@@ -15,9 +15,7 @@ import hbv601g.hugb2_team2.services.providers.ReviewServiceProvider
 
 class EstablishmentReviewsFragment : Fragment() {
 
-    private val reviewService : ReviewService by lazy {
-        ReviewServiceProvider.getReviewService(requireContext())
-    }
+    private var reviewService = ReviewServiceProvider.getReviewService()
 
     private var _binding: FragmentEstablishmentReviewsBinding? = null
 

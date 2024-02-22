@@ -22,9 +22,7 @@ import hbv601g.hugb2_team2.ui.activities.user.LoginActivity
 
 class ProfileFragment : Fragment() {
 
-    private val userService : UserService by lazy {
-        UserServiceProvider.getUserService(requireContext())
-    }
+    private var userService = UserServiceProvider.getUserService()
 
     private var _binding: FragmentProfileBinding ? = null
 

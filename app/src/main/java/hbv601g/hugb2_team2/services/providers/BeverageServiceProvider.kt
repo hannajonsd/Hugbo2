@@ -6,13 +6,13 @@ import hbv601g.hugb2_team2.services.implementation.BeverageServiceImpl
 
 object BeverageServiceProvider {
 
+    private lateinit var beverageService: BeverageService
 
-        private var beverageService: BeverageService? = null
-
-    fun getBeverageService(context: Context): BeverageService {
-        if (beverageService == null) {
-            beverageService = BeverageServiceImpl(context)
+    fun getBeverageService() : BeverageService {
+        if (!::beverageService.isInitialized) {
+            beverageService = BeverageServiceImpl()
         }
-        return beverageService!!
+        return beverageService
     }
+
 }

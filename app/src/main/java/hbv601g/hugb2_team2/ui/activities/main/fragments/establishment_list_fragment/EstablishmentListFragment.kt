@@ -25,9 +25,7 @@ import kotlinx.coroutines.launch
 
 class EstablishmentListFragment : Fragment() {
 
-    private val establishmentService: EstablishmentService by lazy {
-        EstablishmentServiceProvider.getEstablishmentService(requireContext())
-    }
+    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
 
     private var _binding: FragmentEstablishmentListBinding? = null
 

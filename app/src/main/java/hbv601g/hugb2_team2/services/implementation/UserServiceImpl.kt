@@ -5,9 +5,8 @@ import hbv601g.hugb2_team2.entities.User
 import hbv601g.hugb2_team2.services.UserService
 import hbv601g.hugb2_team2.services.network.NetworkingServiceProvider
 
-class UserServiceImpl(context: Context) : UserService {
-    private lateinit var context: Context
-    private var networkingService = NetworkingServiceProvider.getNetworkingService(context)
+class UserServiceImpl : UserService {
+    private var networkingService = NetworkingServiceProvider.getNetworkingService()
 
     override suspend fun createUser(user: User): User {
         TODO("Not yet implemented")
@@ -37,7 +36,4 @@ class UserServiceImpl(context: Context) : UserService {
         TODO("Not yet implemented")
     }
 
-    override fun setContext(context: Context) {
-        this.context = context
-    }
 }

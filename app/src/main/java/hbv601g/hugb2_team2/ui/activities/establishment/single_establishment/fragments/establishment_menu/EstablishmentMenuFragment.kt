@@ -15,10 +15,7 @@ import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.Sing
 
 class EstablishmentMenuFragment : Fragment() {
 
-    // pass context of the activiry to the service
-    private val beverageService: BeverageService by lazy {
-        BeverageServiceProvider.getBeverageService(requireContext())
-    }
+    private var beverageService = BeverageServiceProvider.getBeverageService()
 
     private var _binding: FragmentEstablishmentMenuBinding? = null
 

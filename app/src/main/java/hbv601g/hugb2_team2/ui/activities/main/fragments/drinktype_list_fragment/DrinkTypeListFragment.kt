@@ -21,9 +21,7 @@ import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
 
 class DrinkTypeListFragment : Fragment() {
 
-    private val drinkTypeService : DrinkTypeService by lazy {
-        DrinkTypeServiceProvider.getDrinkTypeService(requireContext())
-    }
+    private var drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService()
 
     private var _binding: FragmentDrinktypeListBinding? = null
 

@@ -7,7 +7,7 @@ import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 
 class BeverageListActivity : AppCompatActivity() {
 
-    private var beverageService = BeverageServiceProvider.getBeverageService(this)
+    private var beverageService = BeverageServiceProvider.getBeverageService()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_beverage_list)

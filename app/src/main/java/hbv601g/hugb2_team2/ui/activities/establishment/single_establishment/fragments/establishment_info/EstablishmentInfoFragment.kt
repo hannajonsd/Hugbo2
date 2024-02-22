@@ -15,9 +15,7 @@ import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 
 class EstablishmentInfoFragment : Fragment() {
 
-    private val establishmentService: EstablishmentService by lazy {
-        EstablishmentServiceProvider.getEstablishmentService(requireContext())
-    }
+    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
 
 
     private var _binding: FragmentEstablishmentInfoBinding? = null

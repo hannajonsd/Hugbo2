@@ -12,6 +12,5 @@ interface ReviewService {
     suspend fun getReviewById(id: Long): Review
     suspend fun getReviewsByEstablishment(establishment: Establishment): List<Review>
     suspend fun getReviewByUserAndEstablishment(user: User, establishment: Establishment): Review
-    fun setContext(context: Context)
 
 }

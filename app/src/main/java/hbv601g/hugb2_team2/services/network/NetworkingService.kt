@@ -10,5 +10,5 @@ interface NetworkingService {
     suspend fun putRequest(reqURL: String, data: JSONObject): JSONObject
     suspend fun patchRequest(reqURL: String, data: JSONObject): JSONObject
     suspend fun deleteRequest(reqURL: String): JSONObject
-    fun setContent(context: Context)
+
 }
