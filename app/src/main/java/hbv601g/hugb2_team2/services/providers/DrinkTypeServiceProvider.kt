@@ -5,17 +5,13 @@ import hbv601g.hugb2_team2.services.DrinkTypeService
 import hbv601g.hugb2_team2.services.implementation.DrinkTypeServiceImpl
 
 object DrinkTypeServiceProvider {
-    private var drinkTypeService: DrinkTypeService? = null
 
-    fun getDrinkTypeService(context: Context): DrinkTypeService {
-        return drinkTypeService ?: synchronized(this) {
-            drinkTypeService ?: createDrinkTypeService(context).also { drinkTypeService = it }
+    private lateinit var drinkTypeService: DrinkTypeService
+
+    fun getDrinkTypeService() : DrinkTypeService {
+        if (!::drinkTypeService.isInitialized) {
+            drinkTypeService = DrinkTypeServiceImpl()
         }
-    }
-
-    private fun createDrinkTypeService(context: Context): DrinkTypeService {
-        val service = DrinkTypeServiceImpl(context)
-        service.setContext(context)
-        return service
+        return drinkTypeService
     }
 }

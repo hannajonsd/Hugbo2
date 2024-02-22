@@ -5,17 +5,12 @@ import hbv601g.hugb2_team2.services.EstablishmentService
 import hbv601g.hugb2_team2.services.implementation.EstablishmentServiceImpl
 
 object EstablishmentServiceProvider {
-    private var establishmentService: EstablishmentService? = null
 
-    fun getEstablishmentService(context: Context): EstablishmentService {
-        return establishmentService ?: synchronized(this) {
-            establishmentService ?: createEstablishmentService(context).also { establishmentService = it }
+    private lateinit var establishmentService: EstablishmentService
+    fun getEstablishmentService() : EstablishmentService {
+        if (!::establishmentService.isInitialized) {
+            establishmentService = EstablishmentServiceImpl()
         }
-    }
-
-    private fun createEstablishmentService(context: Context): EstablishmentService {
-        val service = EstablishmentServiceImpl(context)
-        service.setContext(context)
-        return service
+        return establishmentService
     }
 }

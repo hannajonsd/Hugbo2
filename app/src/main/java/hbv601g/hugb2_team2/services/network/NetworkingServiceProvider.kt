@@ -4,16 +4,13 @@ import android.content.Context
 
 object NetworkingServiceProvider {
 
-    @Volatile
-    private var networkingService: NetworkingService? = null
+    private lateinit var NetworkingService: NetworkingService
 
-    fun getNetworkingService(context: Context): NetworkingService {
-        return networkingService ?: synchronized(this) {
-            networkingService ?: createNetworkingService(context).also { networkingService = it }
-        }
+    fun getNetworkingService(): NetworkingService {
+        return NetworkingService
     }
 
-    private fun createNetworkingService(context: Context): NetworkingService {
-        return NetworkingServiceImpl(context.applicationContext)
+    fun initialize(context: Context) {
+        NetworkingService = NetworkingServiceImpl(context)
     }
 }

@@ -14,6 +14,7 @@ import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.FragmentProfileBinding
 import hbv601g.hugb2_team2.services.UserService
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
+import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 import hbv601g.hugb2_team2.services.providers.UserServiceProvider
 import hbv601g.hugb2_team2.ui.activities.user.CreateAccountActivity
 import hbv601g.hugb2_team2.ui.activities.user.EditProfileActivity
@@ -21,7 +22,7 @@ import hbv601g.hugb2_team2.ui.activities.user.LoginActivity
 
 class ProfileFragment : Fragment() {
 
-    private lateinit var userService : UserService
+    private var userService = UserServiceProvider.getUserService()
 
     private var _binding: FragmentProfileBinding ? = null
 
@@ -29,12 +30,6 @@ class ProfileFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        // get the user service
-        userService = UserServiceProvider.getUserService(context)
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater,

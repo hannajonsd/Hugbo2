@@ -1,14 +1,17 @@
 package hbv601g.hugb2_team2.services.implementation
 
 import android.content.Context
+import android.util.Log
 import hbv601g.hugb2_team2.entities.Establishment
 import hbv601g.hugb2_team2.services.EstablishmentService
+import hbv601g.hugb2_team2.services.network.NetworkCallback
 import hbv601g.hugb2_team2.services.network.NetworkingServiceProvider
 
-class EstablishmentServiceImpl(context: Context) : EstablishmentService {
+class EstablishmentServiceImpl : EstablishmentService {
 
-    private var networkingService = NetworkingServiceProvider.getNetworkingService(this.context)
-    private lateinit var context: Context
+    private var networkingService = NetworkingServiceProvider.getNetworkingService()
+
+
     override suspend fun getAllEstablishments(): List<Establishment> {
         TODO("Not yet implemented")
     }
@@ -49,7 +52,15 @@ class EstablishmentServiceImpl(context: Context) : EstablishmentService {
         TODO("Not yet implemented")
     }
 
-    override fun setContext(context: Context) {
-        this.context = context
+    override suspend fun ping(callback: NetworkCallback<String>) {
+        val reqURL = "/ping"
+        try {
+            val response = networkingService.getRequest(reqURL)
+            callback.onSuccess(response.toString())
+        } catch (e: Exception) {
+            Log.d("EstablishmentServiceImpl", "Exception: $e")
+            callback.onFailure(e.message ?: "Unknown error")
+        }
     }
+
 }

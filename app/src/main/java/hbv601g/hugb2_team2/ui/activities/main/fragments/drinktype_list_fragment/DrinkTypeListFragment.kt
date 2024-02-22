@@ -21,7 +21,7 @@ import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
 
 class DrinkTypeListFragment : Fragment() {
 
-    private lateinit var drinkTypeService : DrinkTypeService
+    private var drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService()
 
     private var _binding: FragmentDrinktypeListBinding? = null
 
@@ -29,12 +29,6 @@ class DrinkTypeListFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        // get the drink type service
-        drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService(context)
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater,

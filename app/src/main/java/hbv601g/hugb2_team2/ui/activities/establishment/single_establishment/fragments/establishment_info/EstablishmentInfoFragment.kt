@@ -15,7 +15,7 @@ import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 
 class EstablishmentInfoFragment : Fragment() {
 
-    private lateinit var establishmentService: EstablishmentService
+    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
 
 
     private var _binding: FragmentEstablishmentInfoBinding? = null
@@ -23,13 +23,6 @@ class EstablishmentInfoFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        // get the beverage service
-        establishmentService = EstablishmentServiceProvider.getEstablishmentService(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

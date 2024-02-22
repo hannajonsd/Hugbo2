@@ -6,18 +6,13 @@ import hbv601g.hugb2_team2.services.implementation.BeverageServiceImpl
 
 object BeverageServiceProvider {
 
+    private lateinit var beverageService: BeverageService
 
-        private var beverageService: BeverageService? = null
-
-        fun getBeverageService(context: Context): BeverageService {
-            return beverageService ?: synchronized(this) {
-                beverageService ?: createBeverageService(context).also { beverageService = it }
-            }
+    fun getBeverageService() : BeverageService {
+        if (!::beverageService.isInitialized) {
+            beverageService = BeverageServiceImpl()
         }
+        return beverageService
+    }
 
-        private fun createBeverageService(context: Context): BeverageService {
-            val service = BeverageServiceImpl(context)
-            service.setContext(context)
-            return service
-        }
 }

@@ -7,7 +7,7 @@ import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
 
 class EditDrinkTypeActivity : AppCompatActivity() {
 
-    private var drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService(this)
+    private var drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_drink_type)

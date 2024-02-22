@@ -11,5 +11,4 @@ interface UserService {
     suspend fun getUserById(id: Long): User
     suspend fun login(username: String, password: String): User
     suspend fun logout(user: User): Boolean
-    fun setContext(context: Context)
 }

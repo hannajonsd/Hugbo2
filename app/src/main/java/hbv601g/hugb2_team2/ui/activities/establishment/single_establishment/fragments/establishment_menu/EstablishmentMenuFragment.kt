@@ -15,8 +15,7 @@ import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.Sing
 
 class EstablishmentMenuFragment : Fragment() {
 
-    // pass context of the activiry to the service
-    private lateinit var beverageService: BeverageService
+    private var beverageService = BeverageServiceProvider.getBeverageService()
 
     private var _binding: FragmentEstablishmentMenuBinding? = null
 
@@ -24,12 +23,6 @@ class EstablishmentMenuFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        // get the beverage service
-        beverageService = BeverageServiceProvider.getBeverageService(context)
-    }
 
 
     override fun onCreateView(

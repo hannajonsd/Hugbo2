@@ -8,10 +8,9 @@ import hbv601g.hugb2_team2.services.BeverageService
 import hbv601g.hugb2_team2.services.network.NetworkingService
 import hbv601g.hugb2_team2.services.network.NetworkingServiceProvider
 
-class BeverageServiceImpl(context: Context) : BeverageService
+class BeverageServiceImpl : BeverageService
 {
-    private lateinit var context: Context
-    private var networkingService = NetworkingServiceProvider.getNetworkingService(context)
+    private var networkingService = NetworkingServiceProvider.getNetworkingService()
     override suspend fun createBeverage(beverage: Beverage): Beverage {
         TODO("Not yet implemented")
     }
@@ -40,8 +39,5 @@ class BeverageServiceImpl(context: Context) : BeverageService
         TODO("Not yet implemented")
     }
 
-    override fun setContext(context: Context) {
-        this.context = context
-    }
 
 }
