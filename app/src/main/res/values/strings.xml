@@ -78,5 +78,19 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="delete_account">Delete Account</string>
 
+    <!-- Login / create account strings  -->
+    <string name="legend_name">Name</string>
+    <string name="legend_email">Email</string>
+    <string name="legend_pass">Password</string>
+    <string name="legend_confirm_pass">Confirm password</string>
+
+    <string name="hint_name">Enter your name</string>
+    <string name="hint_email">Enter your email</string>
+    <string name="hint_pass">Enter your password</string>
+    <string name="hint_confirm_pass">Enter your password again</string>
+
+    <string name="has_account">Already have an account?</string>
+    <string name="does_not_have_account">Don\'t have an account?</string>
+
 
 </resources>
