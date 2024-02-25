@@ -60,19 +60,19 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/legend_email" />
+            android:text="@string/legend_username" />
 
         <EditText
-            android:id="@+id/login_email"
+            android:id="@+id/login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="10dp"
             android:ems="10"
-            android:hint="@string/hint_email"
-            android:autofillHints="emailAddress"
-            android:inputType="textEmailAddress" />
+            android:hint="@string/hint_username"
+            android:autofillHints="username"
+            android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/textView3"

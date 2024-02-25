@@ -80,11 +80,13 @@
 
     <!-- Login / create account strings  -->
     <string name="legend_name">Name</string>
+    <string name="legend_username">Username</string>
     <string name="legend_email">Email</string>
     <string name="legend_pass">Password</string>
     <string name="legend_confirm_pass">Confirm password</string>
 
     <string name="hint_name">Enter your name</string>
+    <string name="hint_username">Enter your username</string>
     <string name="hint_email">Enter your email</string>
     <string name="hint_pass">Enter your password</string>
     <string name="hint_confirm_pass">Enter your password again</string>

@@ -73,7 +73,7 @@
             android:ems="10"
             android:hint="@string/hint_name"
             android:autofillHints="name"
-            android:inputType="textEmailAddress" />
+            android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/textView2"
