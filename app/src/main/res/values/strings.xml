@@ -77,6 +77,7 @@
     <string name="create_account">Create Account</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="delete_account">Delete Account</string>
+    <string name="logout">Logout</string>
 
     <!-- Login / create account strings  -->
     <string name="legend_name">Name</string>
