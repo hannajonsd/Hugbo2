@@ -12,14 +12,20 @@ class SessionManager(context: Context) {
         private const val KEY_IS_LOGGED_IN = "isLoggedIn"
         private const val KEY_USER_ID = "userId"
         private const val KEY_IS_ADMIN = "isAdmin"
-        private const val KEY_NAME = "name"
+        private const val KEY_USERNAME = "username"
+        private const val KEY_FIRST_NAME = "firstName"
+        private const val KEY_LAST_NAME = "lastName"
+        private const val KEY_EMAIL = "email"
     }
 
-    fun createSession(userId: Long, isAdmin: Boolean, name: String) {
+    fun createSession(userId: Long, isAdmin: Boolean, username: String, firstName: String, lastName: String, email: String) {
         editor.putBoolean(KEY_IS_LOGGED_IN, true)
         editor.putLong(KEY_USER_ID, userId)
         editor.putBoolean(KEY_IS_ADMIN, isAdmin)
-        editor.putString(KEY_NAME, name)
+        editor.putString(KEY_USERNAME, username)
+        editor.putString(KEY_FIRST_NAME, firstName)
+        editor.putString(KEY_LAST_NAME, lastName)
+        editor.putString(KEY_EMAIL, email)
         editor.apply()
     }
 
@@ -35,8 +41,20 @@ class SessionManager(context: Context) {
         return pref.getBoolean(KEY_IS_ADMIN, false)
     }
 
-    fun getName(): String? {
-        return pref.getString(KEY_NAME, null)
+    fun getUsername(): String? {
+        return pref.getString(KEY_USERNAME, null)
+    }
+
+    fun getFirstName(): String? {
+        return pref.getString(KEY_FIRST_NAME, null)
+    }
+
+    fun getLastName(): String? {
+        return pref.getString(KEY_LAST_NAME, null)
+    }
+
+    fun getLastEmail(): String? {
+        return pref.getString(KEY_EMAIL, null)
     }
 
     fun logout() {

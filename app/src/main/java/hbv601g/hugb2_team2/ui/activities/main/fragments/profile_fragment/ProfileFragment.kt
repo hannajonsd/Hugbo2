@@ -104,7 +104,7 @@ class ProfileFragment : Fragment() {
             createAccountButton.visibility = View.GONE
 
             val nameField = view.findViewById<TextView>(R.id.logged_in_name)
-            nameField.text = sessionManager.getName()
+            nameField.text = getString(R.string.full_name, sessionManager.getFirstName(), sessionManager.getLastName())
         } else {
             editProfileButton.visibility = View.GONE
             deleteAccountButton.visibility = View.GONE

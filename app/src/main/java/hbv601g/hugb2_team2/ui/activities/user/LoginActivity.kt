@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                 }*/
 
                 val dummyUser = User(0, "mikael", "123", "mikael", "andri", "mai@email.is", true)
-                sessionManager.createSession(dummyUser.ID, dummyUser.isAdmin, dummyUser.username)
+                sessionManager.createSession(dummyUser.ID, dummyUser.isAdmin, dummyUser.username, dummyUser.firstName, dummyUser.lastName, dummyUser.email)
 
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)

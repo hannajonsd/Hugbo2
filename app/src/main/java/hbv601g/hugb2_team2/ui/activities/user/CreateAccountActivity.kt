@@ -19,7 +19,9 @@ class CreateAccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
 
-        val nameInput: EditText = findViewById(R.id.signup_name)
+        val usernameInput: EditText = findViewById(R.id.signup_username)
+        val firstNameInput: EditText = findViewById(R.id.signup_first_name)
+        val lastNameInput: EditText = findViewById(R.id.signup_last_name)
         val emailInput: EditText = findViewById(R.id.signup_email)
         val passwordInput: EditText = findViewById(R.id.signup_pass)
         val confirmPasswordInput: EditText = findViewById(R.id.signup_pass_confirm)
@@ -28,13 +30,25 @@ class CreateAccountActivity : AppCompatActivity() {
         val switchToLogin: Button = findViewById(R.id.switch_to_login_btn)
 
         submitButton.setOnClickListener {
-            val name = nameInput.text.toString()
+            val username = usernameInput.text.toString()
+            val firstName = firstNameInput.text.toString()
+            val lastName = lastNameInput.text.toString()
             val email = emailInput.text.toString()
             val password = passwordInput.text.toString()
             val confirmPassword = confirmPasswordInput.text.toString()
 
-            if (name.isEmpty()) {
-                nameInput.error = "Username can't be blank"
+            if (username.isEmpty()) {
+                usernameInput.error = "Username can't be blank"
+                return@setOnClickListener
+            }
+
+            if (firstName.isEmpty()) {
+                firstNameInput.error = "First name can't be blank"
+                return@setOnClickListener
+            }
+
+            if (lastName.isEmpty()) {
+                lastNameInput.error = "Last name can't be blank"
                 return@setOnClickListener
             }
 
@@ -61,7 +75,7 @@ class CreateAccountActivity : AppCompatActivity() {
             // TODO: Salt-a password
 
             // POST-a user í database
-            val newUser = User(0, name, password, name, name, email,false)
+            val newUser = User(0, username, password, firstName, lastName, email,false)
             CoroutineScope(Dispatchers.IO).launch {
                 userService.createUser(newUser)
             }

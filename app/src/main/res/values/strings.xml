@@ -79,14 +79,18 @@
     <string name="delete_account">Delete Account</string>
     <string name="logout">Logout</string>
 
+    <string name="full_name">%1$s %2$s</string>
+
     <!-- Login / create account strings  -->
-    <string name="legend_name">Name</string>
+    <string name="legend_first_name">First name</string>
+    <string name="legend_last_name">Last name</string>
     <string name="legend_username">Username</string>
     <string name="legend_email">Email</string>
     <string name="legend_pass">Password</string>
     <string name="legend_confirm_pass">Confirm password</string>
 
-    <string name="hint_name">Enter your name</string>
+    <string name="hint_first_name">Enter your first name</string>
+    <string name="hint_last_name">Enter your last name</string>
     <string name="hint_username">Enter your username</string>
     <string name="hint_email">Enter your email</string>
     <string name="hint_pass">Enter your password</string>
