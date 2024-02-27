@@ -14,7 +14,7 @@ import kotlin.coroutines.resumeWithException
 
 class NetworkingServiceImpl(applicationContext: Context) : NetworkingService {
 
-    private var BASE_URL = "http://10.0.2.2:8080"
+    private var BASE_URL = "http://10.0.2.2:8080/api"
 
     private val context = applicationContext
 
