@@ -44,23 +44,17 @@ class EstablishmentServiceImpl : EstablishmentService {
     }
 
     override suspend fun createEstablishment(establishment: Establishment): Establishment? {
-        val reqURL = baseUrl + "/create"
-        val latLon = calculateLatLon(establishment.address)
-        // return mock establishment
-        val newEst = Establishment(mockEstablishments.size.toLong() + 1,
-            establishment.name,
-            establishment.type,
-            establishment.address,
-            establishment.location,
-            0.0,
-            0.0,
-            0.0,
-            establishment.openingHours,
-            latLon[0],
-            latLon[1]
-        )
-        mockEstablishments.add(newEst)
-        return newEst
+        val reqURL = "$baseUrl/create"
+        return try {
+            val estJson = Gson().toJson(establishment)
+            val response = networkingService.postRequest(reqURL, estJson)
+            Log.d("EstablishmentServiceImpl", "Response: $response")
+            // convert response to establishment
+            Gson().fromJson(response.toString(), Establishment::class.java)
+        } catch (e: Exception) {
+            Log.d("EstablishmentServiceImpl", "Exception: $e")
+            null
+        }
     }
 
     override suspend fun updateEstablishment(establishment: Establishment): Establishment {

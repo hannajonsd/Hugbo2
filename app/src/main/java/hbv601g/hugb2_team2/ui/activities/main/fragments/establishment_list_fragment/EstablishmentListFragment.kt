@@ -17,6 +17,7 @@ import hbv601g.hugb2_team2.services.EstablishmentService
 import hbv601g.hugb2_team2.services.network.NetworkCallback
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
+import hbv601g.hugb2_team2.session.SessionManager
 import hbv601g.hugb2_team2.ui.activities.establishment.CreateEstablishmentActivity
 import hbv601g.hugb2_team2.ui.activities.establishment.NearbyEstablishmentsActivity
 import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity
@@ -27,6 +28,8 @@ import kotlinx.coroutines.launch
 class EstablishmentListFragment : Fragment() {
 
     private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
+    private lateinit var sessionManager: SessionManager
+
 
     private var _binding: FragmentEstablishmentListBinding? = null
 
@@ -41,6 +44,7 @@ class EstablishmentListFragment : Fragment() {
     ): View {
         val establishmentListViewModel =
                 ViewModelProvider(this).get(EstablishmentListViewModel::class.java)
+        sessionManager = SessionManager(requireContext())
 
         _binding = FragmentEstablishmentListBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -101,18 +105,17 @@ class EstablishmentListFragment : Fragment() {
             val intent = Intent(activity, NearbyEstablishmentsActivity::class.java)
             startActivity(intent)
         }
-
-        // CREATE ESTABLISHMENT BUTTON
-        // if user is not logged in and an admin, hide the create establishment button
-        val sharedPref = activity?.getSharedPreferences("session", Context.MODE_PRIVATE)
-        val isAdmin = sharedPref?.getBoolean("isAdmin", false)
         val createEstablishmentButton = view.findViewById<Button>(R.id.button_create_establishment)
-        if (isAdmin == false) {
+        // CREATE ESTABLISHMENT BUTTON
+        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+            createEstablishmentButton.visibility = View.VISIBLE
+            createEstablishmentButton.setOnClickListener {
+                val intent = Intent(activity, CreateEstablishmentActivity::class.java)
+                startActivity(intent)
+            }
+        } else {
             createEstablishmentButton.visibility = View.GONE
         }
-        createEstablishmentButton.setOnClickListener {
-            val intent = Intent(activity, CreateEstablishmentActivity::class.java)
-            startActivity(intent)
-        }
+
     }
 }
