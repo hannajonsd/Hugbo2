@@ -6,7 +6,7 @@ import hbv601g.hugb2_team2.services.network.NetworkCallback
 
 interface EstablishmentService {
 
-    suspend fun getAllEstablishments(): List<Establishment>
+    suspend fun getAllEstablishments(): List<Establishment>?
     suspend fun getEstablishmentById(id: Long): Establishment
     suspend fun getEstablishmentTypes(): List<String>
     suspend fun getEstablishmentByType(type: String): List<Establishment>
