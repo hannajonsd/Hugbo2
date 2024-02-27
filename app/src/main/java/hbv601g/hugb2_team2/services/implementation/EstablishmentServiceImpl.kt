@@ -1,7 +1,7 @@
 package hbv601g.hugb2_team2.services.implementation
 
-import android.content.Context
 import android.util.Log
+import com.google.gson.Gson
 import hbv601g.hugb2_team2.entities.Establishment
 import hbv601g.hugb2_team2.services.EstablishmentService
 import hbv601g.hugb2_team2.services.network.NetworkCallback
@@ -10,13 +10,21 @@ import hbv601g.hugb2_team2.services.network.NetworkingServiceProvider
 class EstablishmentServiceImpl : EstablishmentService {
 
     private var networkingService = NetworkingServiceProvider.getNetworkingService()
-    private var baseUrl = "api/establishments"
+    private var baseUrl = "/establishments"
     private var mockEstablishments = mutableListOf<Establishment>()
 
-    override suspend fun getAllEstablishments(): List<Establishment> {
+    override suspend fun getAllEstablishments(): List<Establishment>? {
         val reqURL = "$baseUrl/"
-        createMockEstablishmentsIfNotExist()
-        return mockEstablishments
+        try {
+            val response = networkingService.getRequest(reqURL)
+            Log.d("EstablishmentServiceImpl", "Response: $response")
+            // response is JSON element, convert to list of establishments
+            val gson = Gson()
+            return gson.fromJson(response, Array<Establishment>::class.java).toList()
+        } catch (e: Exception) {
+            Log.d("EstablishmentServiceImpl", "Exception: $e")
+            return null
+        }
     }
 
     override suspend fun getEstablishmentById(id: Long): Establishment {
