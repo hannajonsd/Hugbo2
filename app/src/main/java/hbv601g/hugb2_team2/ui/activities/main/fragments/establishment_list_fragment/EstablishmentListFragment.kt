@@ -17,6 +17,7 @@ import hbv601g.hugb2_team2.services.EstablishmentService
 import hbv601g.hugb2_team2.services.network.NetworkCallback
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
+import hbv601g.hugb2_team2.ui.activities.establishment.CreateEstablishmentActivity
 import hbv601g.hugb2_team2.ui.activities.establishment.NearbyEstablishmentsActivity
 import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity
 import kotlinx.coroutines.CoroutineScope
@@ -90,6 +91,19 @@ class EstablishmentListFragment : Fragment() {
         val buttonOpenNearbyEstablishments = view.findViewById<Button>(R.id.button_nearby_establishments)
         buttonOpenNearbyEstablishments.setOnClickListener {
             val intent = Intent(activity, NearbyEstablishmentsActivity::class.java)
+            startActivity(intent)
+        }
+
+        // CREATE ESTABLISHMENT BUTTON
+        // if user is not logged in and an admin, hide the create establishment button
+        val sharedPref = activity?.getSharedPreferences("session", Context.MODE_PRIVATE)
+        val isAdmin = sharedPref?.getBoolean("isAdmin", false)
+        val createEstablishmentButton = view.findViewById<Button>(R.id.button_create_establishment)
+        if (isAdmin == false) {
+            createEstablishmentButton.visibility = View.GONE
+        }
+        createEstablishmentButton.setOnClickListener {
+            val intent = Intent(activity, CreateEstablishmentActivity::class.java)
             startActivity(intent)
         }
     }

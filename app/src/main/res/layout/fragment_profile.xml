@@ -26,6 +26,16 @@
             android:textAlignment="center"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/logged_in_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
         <Button
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
@@ -61,5 +71,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="@string/delete_account" />
+
+        <Button
+            android:id="@+id/logout_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/logout" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

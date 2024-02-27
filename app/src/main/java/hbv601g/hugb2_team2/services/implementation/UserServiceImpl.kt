@@ -20,7 +20,7 @@ class UserServiceImpl : UserService {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getUserByUsername(username: String): User {
+    override suspend fun getUserByUsername(username: String): User? {
         TODO("Not yet implemented")
     }
 
