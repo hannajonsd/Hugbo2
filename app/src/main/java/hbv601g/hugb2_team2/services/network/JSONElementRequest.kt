@@ -19,7 +19,10 @@ class JsonElementRequest(
     errorListener: Response.ErrorListener
 ) : Request<JsonElement>(method, url, errorListener) {
 
-    override fun deliverResponse(response: JsonElement): Unit = listener?.onResponse(response)!!
+    //override fun deliverResponse(response: JsonElement): Unit = listener?.onResponse(response)!!
+    override fun deliverResponse(response: JsonElement?) {
+        listener?.onResponse(response)
+    }
 
     override fun parseNetworkResponse(response: NetworkResponse): Response<JsonElement> {
         return try {

@@ -9,9 +9,9 @@ import hbv601g.hugb2_team2.services.providers.UserServiceProvider
 import android.widget.EditText
 import android.widget.Toast
 import hbv601g.hugb2_team2.entities.User
+import hbv601g.hugb2_team2.session.PasswordHash
 import hbv601g.hugb2_team2.session.SessionManager
 import hbv601g.hugb2_team2.ui.activities.main.MainActivity
-import hbv601g.hugb2_team2.ui.activities.main.fragments.profile_fragment.ProfileFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,24 +46,39 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            CoroutineScope(Dispatchers.IO).launch {
-                /* TODO: Error message ef user er ekki til eða password er ekki rétt, annars búa til session (ekki með dummy user)
-                val user = userService.getUserByUsername(username)
-                if (user == null || user.password == password) {
-                    Toast.makeText(this@LoginActivity, "Username or password is incorrect", Toast.LENGTH_SHORT).show()
-                }*/
-
-                val dummyUser = User(0, "mikael", "123", "mikael", "andri", "mai@email.is", true)
-                sessionManager.createSession(dummyUser.ID, dummyUser.isAdmin, dummyUser.username, dummyUser.firstName, dummyUser.lastName, dummyUser.email)
-
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
-            }
+            login(username, password)
         }
 
         switchToCreateAccount.setOnClickListener {
             val intent = Intent(this, CreateAccountActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    /**
+     * Login, skráir notandan inn ef upplýsingar passa
+     * @param username username notandans
+     * @param password password notandans
+     */
+    private fun login(username: String, password: String) {
+        val hasher = PasswordHash()
+        CoroutineScope(Dispatchers.Main).launch {
+            val user: User? = userService.getUserByUsername(username)
+
+            if (user != null && hasher.checkPassword(password, user.password)) {
+                createToast("Logged in")
+
+                sessionManager.createSession(user)
+
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                createToast("Username or password is incorrect")
+            }
+        }
+    }
+
+    private fun createToast(msg: String) {
+        Toast.makeText(this@LoginActivity, msg, Toast.LENGTH_SHORT).show()
     }
 }

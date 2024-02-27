@@ -2,6 +2,7 @@ package hbv601g.hugb2_team2.session
 
 import android.content.Context
 import android.content.SharedPreferences
+import hbv601g.hugb2_team2.entities.User
 
 class SessionManager(context: Context) {
     private val pref: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -18,14 +19,14 @@ class SessionManager(context: Context) {
         private const val KEY_EMAIL = "email"
     }
 
-    fun createSession(userId: Long, isAdmin: Boolean, username: String, firstName: String, lastName: String, email: String) {
+    fun createSession(user: User) {
         editor.putBoolean(KEY_IS_LOGGED_IN, true)
-        editor.putLong(KEY_USER_ID, userId)
-        editor.putBoolean(KEY_IS_ADMIN, isAdmin)
-        editor.putString(KEY_USERNAME, username)
-        editor.putString(KEY_FIRST_NAME, firstName)
-        editor.putString(KEY_LAST_NAME, lastName)
-        editor.putString(KEY_EMAIL, email)
+        editor.putLong(KEY_USER_ID, user.id ?: -1)
+        editor.putBoolean(KEY_IS_ADMIN, user.isAdmin)
+        editor.putString(KEY_USERNAME, user.username)
+        editor.putString(KEY_FIRST_NAME, user.firstName)
+        editor.putString(KEY_LAST_NAME, user.lastName)
+        editor.putString(KEY_EMAIL, user.email)
         editor.apply()
     }
 

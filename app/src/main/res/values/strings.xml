@@ -44,7 +44,7 @@
     <string name="delete_account">Delete Account</string>
     <string name="logout">Logout</string>
 
-    <string name="full_name">%1$s %2$s</string>
+    <string name="full_name">Welcome %1$s %2$s</string>
 
     <!-- Login / create account strings  -->
     <string name="legend_first_name">First name</string>
