@@ -2,9 +2,9 @@ package hbv601g.hugb2_team2.services.network
 
 import android.content.Context
 import com.android.volley.Request
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
+import com.google.gson.JsonElement
 import hbv601g.hugb2_team2.WineNotApp
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.json.JSONObject;
@@ -17,20 +17,20 @@ class NetworkingServiceImpl(applicationContext: Context) : NetworkingService {
     private var BASE_URL = "http://10.0.2.2:8080/api"
 
     private val context = applicationContext
+    var apiRequestQueue : RequestQueue = Volley.newRequestQueue(context)
 
-override suspend fun getRequest(reqURL: String): JSONObject = suspendCancellableCoroutine { continuation ->
-    val url = BASE_URL + reqURL
-    val jsonObjectRequest = JsonObjectRequest(
-        Request.Method.GET, url, null,
+    override suspend fun getRequest(reqURL: String): JsonElement = suspendCancellableCoroutine { continuation ->
+    val url = "$BASE_URL$reqURL"
+    val jsonElementRequest = JsonElementRequest(
+        Request.Method.GET, url,
         { response ->
             continuation.resume(response)
         },
         { error ->
-            continuation.resumeWithException(VolleyError("Request failed"))
+            continuation.resumeWithException(Exception(error.toString()))
         }
     )
-    // Add the request to the RequestQueue.
-    WineNotApp.requestQueue.add(jsonObjectRequest)
+    apiRequestQueue.add(jsonElementRequest)
 }
 
     override suspend fun postRequest(reqURL: String, data: JSONObject): JSONObject {
