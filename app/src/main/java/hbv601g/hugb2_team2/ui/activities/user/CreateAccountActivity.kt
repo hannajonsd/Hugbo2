@@ -71,6 +71,11 @@ class CreateAccountActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if (password.length < 8 || !password.matches(".*[a-zA-Z].*".toRegex()) || !password.matches(".*\\d.*".toRegex())) {
+                passwordInput.error = "Password must be at least 8 characters long and contain both letters and numbers"
+                return@setOnClickListener
+            }
+
             if (confirmPassword.isEmpty()) {
                 confirmPasswordInput.error = "Password can't be blank"
                 return@setOnClickListener
