@@ -1,27 +1,25 @@
 package hbv601g.hugb2_team2.ui.activities.main.fragments.drinktype_list_fragment
 
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import hbv601g.hugb2_team2.databinding.FragmentDrinktypeListBinding
-import android.content.Intent
-import android.widget.Button
-import android.widget.TableLayout
-import android.widget.TableRow
 import hbv601g.hugb2_team2.R
+import hbv601g.hugb2_team2.databinding.FragmentDrinktypeListBinding
 import hbv601g.hugb2_team2.entities.DrinkType
-import hbv601g.hugb2_team2.services.DrinkTypeService
-import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
-import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
 import hbv601g.hugb2_team2.ui.activities.beverage.BeverageListActivity
 import hbv601g.hugb2_team2.ui.activities.drinktype.CreateDrinkTypeActivity
 import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
+import android.graphics.Color
+import android.graphics.Paint
+import android.util.Log
 
 
 class DrinkTypeListFragment : Fragment() {
@@ -50,12 +48,10 @@ class DrinkTypeListFragment : Fragment() {
 
 
         viewModel.drinkTypes.observe(viewLifecycleOwner) { drinkTypes ->
-            populateTable(drinkTypes)
+            if (drinkTypes != null) {
+                populateTable(drinkTypes)
+            }
         }
-
-
-        viewModel.fetchDrinkTypes()
-
 
         return root
     }
@@ -63,32 +59,40 @@ class DrinkTypeListFragment : Fragment() {
 
     private fun populateTable(drinkTypes: List<DrinkType>) {
         val tableLayout = binding.tableLayout
-        tableLayout.removeAllViews()
 
-
-        for (drinkType in drinkTypes) {
-            val row = TableRow(requireContext())
-
-
-            val nameTextView = TextView(requireContext())
-            nameTextView.text = drinkType.name
+        for ((id, name, percentage, type, subType) in drinkTypes) {
+            val row = TableRow(context)
+            val nameTextView = TextView(context).apply {
+                text = name
+                setTextColor(Color.BLUE) // Set text color to blue for a link-like appearance
+                paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG // Add underline
+                isClickable = true // Set clickable
+                isFocusable = true // Set focusable
+                setOnClickListener {
+                // Handle click event here
+                val intent = Intent(context, BeverageListActivity::class.java)
+                // Pass any necessary data with the intent
+                Log.d("id", id.toString())
+                intent.putExtra("drinkTypeId", id)
+                context.startActivity(intent)
+                }
+            }
             row.addView(nameTextView)
 
-
-            val typeTextView = TextView(requireContext())
-            typeTextView.text = drinkType.type
+            val typeTextView = TextView(context).apply {
+                text = type
+            }
             row.addView(typeTextView)
 
-
-            val subtypeTextView = TextView(requireContext())
-            subtypeTextView.text = drinkType.subtype
+            val subtypeTextView = TextView(context).apply {
+                text = subType
+            }
             row.addView(subtypeTextView)
 
-
-            val percentageTextView = TextView(requireContext())
-            percentageTextView.text = drinkType.percentage.toString()
+            val percentageTextView = TextView(context).apply {
+                text = percentage.toString()
+            }
             row.addView(percentageTextView)
-
 
             tableLayout.addView(row)
         }
@@ -106,11 +110,6 @@ class DrinkTypeListFragment : Fragment() {
 
         binding.buttonEditDrinktype.setOnClickListener {
             startActivity(Intent(activity, EditDrinkTypeActivity::class.java))
-        }
-
-
-        binding.buttonGoToBeverageList.setOnClickListener {
-            startActivity(Intent(activity, BeverageListActivity::class.java))
         }
     }
 

@@ -5,5 +5,5 @@ data class DrinkType(
     val name: String,
     val percentage: Double,
     val type: String,
-    val subtype: String
+    val subType: String
 )

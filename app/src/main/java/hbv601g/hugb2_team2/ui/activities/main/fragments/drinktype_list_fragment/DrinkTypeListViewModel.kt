@@ -16,8 +16,8 @@ import kotlinx.coroutines.withContext
 class DrinkTypeListViewModel : ViewModel() {
 
 
-    private val _drinkTypes = MutableLiveData<List<DrinkType>>()
-    val drinkTypes: LiveData<List<DrinkType>> = _drinkTypes
+    private val _drinkTypes = MutableLiveData<List<DrinkType>?>()
+    val drinkTypes: MutableLiveData<List<DrinkType>?> = _drinkTypes
     private var drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService()
 
 
@@ -33,7 +33,7 @@ class DrinkTypeListViewModel : ViewModel() {
             try {
                 val response = drinkTypeService.getAllDrinkTypes()
                 withContext(Dispatchers.Main) {
-                    _drinkTypes.value = response
+                    _drinkTypes.value = response!!
                 }
             } catch (e: Exception) {
                 // Handle error
