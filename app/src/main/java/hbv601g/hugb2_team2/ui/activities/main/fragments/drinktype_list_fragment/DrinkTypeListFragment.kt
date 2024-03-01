@@ -1,5 +1,6 @@
 package hbv601g.hugb2_team2.ui.activities.main.fragments.drinktype_list_fragment
 
+
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.databinding.FragmentDrinktypeListBinding
 import android.content.Intent
 import android.widget.Button
+import android.widget.TableLayout
+import android.widget.TableRow
 import hbv601g.hugb2_team2.R
+import hbv601g.hugb2_team2.entities.DrinkType
 import hbv601g.hugb2_team2.services.DrinkTypeService
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
@@ -19,62 +23,100 @@ import hbv601g.hugb2_team2.ui.activities.beverage.BeverageListActivity
 import hbv601g.hugb2_team2.ui.activities.drinktype.CreateDrinkTypeActivity
 import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
 
+
 class DrinkTypeListFragment : Fragment() {
 
-    private var drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService()
+
+    private lateinit var viewModel: DrinkTypeListViewModel
+    private lateinit var binding: FragmentDrinktypeListBinding
+
 
     private var _binding: FragmentDrinktypeListBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        val drinkTypeListViewModel =
-                ViewModelProvider(this).get(DrinkTypeListViewModel::class.java)
-
-        _binding = FragmentDrinktypeListBinding.inflate(inflater, container, false)
+        binding = FragmentDrinktypeListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.titleFragmentDrinktypeList
-        drinkTypeListViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+
+        viewModel = ViewModelProvider(this).get(DrinkTypeListViewModel::class.java)
+
+
+        val tableLayout = root.findViewById<TableLayout>(R.id.tableLayout)
+
+
+        viewModel.drinkTypes.observe(viewLifecycleOwner) { drinkTypes ->
+            populateTable(drinkTypes)
         }
+
+
+        viewModel.fetchDrinkTypes()
+
+
         return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+
+    private fun populateTable(drinkTypes: List<DrinkType>) {
+        val tableLayout = binding.tableLayout
+        tableLayout.removeAllViews()
+
+
+        for (drinkType in drinkTypes) {
+            val row = TableRow(requireContext())
+
+
+            val nameTextView = TextView(requireContext())
+            nameTextView.text = drinkType.name
+            row.addView(nameTextView)
+
+
+            val typeTextView = TextView(requireContext())
+            typeTextView.text = drinkType.type
+            row.addView(typeTextView)
+
+
+            val subtypeTextView = TextView(requireContext())
+            subtypeTextView.text = drinkType.subtype
+            row.addView(subtypeTextView)
+
+
+            val percentageTextView = TextView(requireContext())
+            percentageTextView.text = drinkType.percentage.toString()
+            row.addView(percentageTextView)
+
+
+            tableLayout.addView(row)
+        }
     }
 
-
-// ...
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val buttonCreateDrinkType = view.findViewById<Button>(R.id.button_create_drinktype)
-        buttonCreateDrinkType.setOnClickListener {
-            val intent = Intent(activity, CreateDrinkTypeActivity::class.java)
-            startActivity(intent)
+
+        binding.buttonCreateDrinktype.setOnClickListener {
+            startActivity(Intent(activity, CreateDrinkTypeActivity::class.java))
         }
 
-        val buttonEditDrinkType = view.findViewById<Button>(R.id.button_edit_drinktype)
-        buttonEditDrinkType.setOnClickListener {
-            val intent = Intent(activity, EditDrinkTypeActivity::class.java)
-            startActivity(intent)
+
+        binding.buttonEditDrinktype.setOnClickListener {
+            startActivity(Intent(activity, EditDrinkTypeActivity::class.java))
         }
 
-        val buttonViewBeverageList = view.findViewById<Button>(R.id.button_go_to_beverage_list)
-        buttonViewBeverageList.setOnClickListener {
-            val intent = Intent(activity, BeverageListActivity::class.java)
-            startActivity(intent)
+
+        binding.buttonGoToBeverageList.setOnClickListener {
+            startActivity(Intent(activity, BeverageListActivity::class.java))
         }
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
