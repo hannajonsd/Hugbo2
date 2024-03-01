@@ -24,6 +24,8 @@ import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.Sing
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import androidx.recyclerview.widget.LinearLayoutManager;
+import kotlinx.coroutines.withContext
 
 class EstablishmentListFragment : Fragment() {
 
@@ -38,12 +40,12 @@ class EstablishmentListFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         val establishmentListViewModel =
-                ViewModelProvider(this).get(EstablishmentListViewModel::class.java)
+            ViewModelProvider(this).get(EstablishmentListViewModel::class.java)
         sessionManager = SessionManager(requireContext())
 
         _binding = FragmentEstablishmentListBinding.inflate(inflater, container, false)
@@ -53,9 +55,27 @@ class EstablishmentListFragment : Fragment() {
         establishmentListViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        setupRecyclerView()
+
         getEstablishmentList()
         return root
     }
+
+    private fun setupRecyclerView() {
+        binding.recyclerViewEstablishments.apply {
+
+            setHasFixedSize(true)
+
+            layoutManager = LinearLayoutManager(context)
+
+            adapter = EstablishmentAdapter(emptyList())
+        }
+    }
+
+
+
+
 
     private fun getEstablishmentList() {
 //       CoroutineScope(Dispatchers.Main).launch {
@@ -73,15 +93,34 @@ class EstablishmentListFragment : Fragment() {
 //                Log.d("EstablishmentListFragment", "Exception: $e")
 //           }
 //       }
-        CoroutineScope(Dispatchers.Main).launch {
+        /*CoroutineScope(Dispatchers.Main).launch {
             try {
                 val establishments = establishmentService.getAllEstablishments()
                 Log.d("EstablishmentListFragment", "Establishments: $establishments")
             } catch (e: Exception) {
                 Log.d("EstablishmentListFragment", "Exception: $e")
             }
+        }*/
+
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val establishments = establishmentService.getAllEstablishments() // This returns List<Establishment>?
+                binding.recyclerViewEstablishments.adapter?.let { adapter ->
+                    if (adapter is EstablishmentAdapter) {
+                        adapter.updateData(establishments ?: emptyList())
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("EstablishmentListFragment", "Error fetching establishments", e)
+            }
         }
+
+
+
+
+
     }
+
 
 
     override fun onDestroyView() {
