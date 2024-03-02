@@ -25,6 +25,7 @@ class EstablishmentAdapter(private var dataSet: List<Establishment>) :
         val establishment = dataSet[position]
         holder.textViewName.text = establishment.name
         holder.textViewAddress?.text = establishment.address
+
     }
 
 

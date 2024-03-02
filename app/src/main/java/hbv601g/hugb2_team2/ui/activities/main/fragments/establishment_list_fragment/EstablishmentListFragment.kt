@@ -51,10 +51,10 @@ class EstablishmentListFragment : Fragment() {
         _binding = FragmentEstablishmentListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.titleEstablishmentList
+        /*val textView: TextView = binding.titleEstablishmentList
         establishmentListViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
-        }
+        }*/
 
         setupRecyclerView()
 
@@ -104,7 +104,7 @@ class EstablishmentListFragment : Fragment() {
 
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val establishments = establishmentService.getAllEstablishments() // This returns List<Establishment>?
+                val establishments = establishmentService.getAllEstablishments()
                 binding.recyclerViewEstablishments.adapter?.let { adapter ->
                     if (adapter is EstablishmentAdapter) {
                         adapter.updateData(establishments ?: emptyList())
