@@ -69,12 +69,9 @@ class EstablishmentListFragment : Fragment() {
 
             layoutManager = LinearLayoutManager(context)
 
-            adapter = EstablishmentAdapter(emptyList())
+            adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager)
         }
     }
-
-
-
 
 
     private fun getEstablishmentList() {
