@@ -1,5 +1,5 @@
 package hbv601g.hugb2_team2.ui.activities.main.fragments.establishment_list_fragment
-
+import hbv601g.hugb2_team2.entities.Establishment;
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -69,9 +69,13 @@ class EstablishmentListFragment : Fragment() {
 
             layoutManager = LinearLayoutManager(context)
 
-            adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager)
+            // adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager)
+            adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager, onDeleteClicked = { establishment ->
+                deleteEstablishment(establishment)
+            })
         }
     }
+
 
 
     private fun getEstablishmentList() {
@@ -112,12 +116,22 @@ class EstablishmentListFragment : Fragment() {
             }
         }
 
-
-
-
-
     }
 
+    private fun deleteEstablishment(establishment: Establishment) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                establishmentService.deleteEstablishment(establishment)
+                withContext(Dispatchers.Main) {
+                    // Example: adapter.removeEstablishment(establishment)
+                    // Or fetch the updated list again
+                    getEstablishmentList()
+                }
+            } catch (e: Exception) {
+                Log.e("EstablishmentListFragment", "Error deleting establishment", e)
+            }
+        }
+    }
 
 
     override fun onDestroyView() {
