@@ -37,11 +37,27 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_establishment_menu"/>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBeverageMenu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="580dp"
+        app:layout_constraintBottom_toTopOf="@id/addDrinkButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_beverage_list_menu" />
+
+    <Button
+        android:id="@+id/addDrinkButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="148dp"
+        android:layout_marginBottom="92dp"
+        android:text="Add drink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rvBeverageMenu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

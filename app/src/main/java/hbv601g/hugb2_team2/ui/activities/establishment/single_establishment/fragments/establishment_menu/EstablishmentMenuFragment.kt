@@ -1,6 +1,7 @@
 package hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_menu
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,41 +20,10 @@ import hbv601g.hugb2_team2.entities.Establishment
 import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_menu.EstablishmentMenuAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
-
-
-
-/*class EstablishmentMenuFragment : Fragment() {
-
-    private var beverageService = BeverageServiceProvider.getBeverageService()
-
-    private var _binding: FragmentEstablishmentMenuBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val establishmentMenuViewModel =
-            ViewModelProvider(this).get(EstablishmentMenuViewModel::class.java)
-
-        _binding = FragmentEstablishmentMenuBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textEstablishmentMenu
-        establishmentMenuViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
-    }
-
-
-}*/
+import android.widget.Button
+import hbv601g.hugb2_team2.R
+import hbv601g.hugb2_team2.ui.activities.establishment.CreateEstablishmentActivity
+import hbv601g.hugb2_team2.session.SessionManager
 
 class EstablishmentMenuFragment : Fragment() {
 
@@ -61,29 +31,38 @@ class EstablishmentMenuFragment : Fragment() {
     private lateinit var menuAdapter: EstablishmentMenuAdapter
     private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
     private var beverageService = BeverageServiceProvider.getBeverageService()
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentEstablishmentMenuBinding.inflate(inflater, container, false)
+        sessionManager = SessionManager(requireContext())
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        menuAdapter = EstablishmentMenuAdapter(listOf())
+        menuAdapter = EstablishmentMenuAdapter(listOf(), sessionManager)
 
         binding.rvBeverageMenu.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = menuAdapter
         }
 
+        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+            binding.addDrinkButton.visibility = View.VISIBLE
+        } else {
+            binding.addDrinkButton.visibility = View.GONE
+        }
+
         val establishmentId = requireActivity().intent.getLongExtra("ESTABLISHMENT_ID", -1L)
         if (establishmentId != -1L) {
-            fetchAndDisplayMenu(establishmentId)
+            getAndDisplayMenu(establishmentId)
         }
+
     }
 
-    private fun fetchAndDisplayMenu(establishmentId: Long) {
+    private fun getAndDisplayMenu(establishmentId: Long) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val establishment = establishmentService.getEstablishmentById(establishmentId)

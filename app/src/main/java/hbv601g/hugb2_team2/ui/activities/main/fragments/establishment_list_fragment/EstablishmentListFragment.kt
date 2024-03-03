@@ -92,30 +92,6 @@ class EstablishmentListFragment : Fragment() {
 
 
     private fun getEstablishmentList() {
-//       CoroutineScope(Dispatchers.Main).launch {
-//           try {
-//               Log.d("EstablishmentListFragment", "Trying to ping")
-//           establishmentService.ping(object : NetworkCallback<String> {
-//               override fun onSuccess(result: String) {
-//                   Log.d("EstablishmentListFragment", "Success: $result")
-//               }
-//               override fun onFailure(error: String) {
-//                     Log.d("EstablishmentListFragment", "Failure: $error")
-//               }
-//           })
-//           } catch (e: Exception) {
-//                Log.d("EstablishmentListFragment", "Exception: $e")
-//           }
-//       }
-        /*CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val establishments = establishmentService.getAllEstablishments()
-                Log.d("EstablishmentListFragment", "Establishments: $establishments")
-            } catch (e: Exception) {
-                Log.d("EstablishmentListFragment", "Exception: $e")
-            }
-        }*/
-
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val establishments = establishmentService.getAllEstablishments()
@@ -155,12 +131,12 @@ class EstablishmentListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val buttonOpenCreateDrinkType =
+        /*val buttonOpenCreateDrinkType =
             view.findViewById<Button>(R.id.button_go_to_single_establishment)
         buttonOpenCreateDrinkType.setOnClickListener {
             val intent = Intent(activity, SingleEstablishmentActivity::class.java)
             startActivity(intent)
-        }
+        }*/
 
         val buttonOpenNearbyEstablishments = view.findViewById<Button>(R.id.button_nearby_establishments)
         buttonOpenNearbyEstablishments.setOnClickListener {

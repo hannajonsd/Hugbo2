@@ -62,14 +62,14 @@ class EstablishmentAdapter(
         }
 
         // Delete button visibility and action
-        /*if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
             holder.buttonDelete.visibility = View.VISIBLE
-            holder.buttonDelete.setOnClickListener {
+           /* holder.buttonDelete.setOnClickListener {
                 onDeleteClicked(establishment)
-            }
+            }*/
         } else {
             holder.buttonDelete.visibility = View.GONE
-        }*/
+        }
 
     }
 
