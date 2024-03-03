@@ -70,9 +70,22 @@ class EstablishmentListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
 
             // adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager)
-            adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager, onDeleteClicked = { establishment ->
+            /*adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager, onClick = {} , onDeleteClicked = { establishment ->
                 deleteEstablishment(establishment)
-            })
+            })*/
+
+                val adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager) { establishment ->
+                    val intent = Intent(activity, SingleEstablishmentActivity::class.java).apply {
+                        putExtra("EXTRA_ESTABLISHMENT_ID", establishment.id)
+                    }
+                    startActivity(intent)
+                }
+                binding.recyclerViewEstablishments.apply {
+                    setHasFixedSize(true)
+                    layoutManager = LinearLayoutManager(context)
+                    this.adapter = adapter
+                }
+
         }
     }
 
@@ -115,7 +128,6 @@ class EstablishmentListFragment : Fragment() {
                 Log.e("EstablishmentListFragment", "Error fetching establishments", e)
             }
         }
-
     }
 
     private fun deleteEstablishment(establishment: Establishment) {

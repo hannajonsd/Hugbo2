@@ -12,11 +12,15 @@ import hbv601g.hugb2_team2.databinding.FragmentEstablishmentInfoBinding
 import hbv601g.hugb2_team2.services.EstablishmentService
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
+import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity.SharedViewModel
+import kotlinx.coroutines.launch
+import androidx.lifecycle.lifecycleScope
+import android.util.Log
+import hbv601g.hugb2_team2.R
+import hbv601g.hugb2_team2.entities.Establishment
+
 
 class EstablishmentInfoFragment : Fragment() {
-
-    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
-
 
     private var _binding: FragmentEstablishmentInfoBinding? = null
 
@@ -29,17 +33,21 @@ class EstablishmentInfoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val establishmentInfoViewModel =
-            ViewModelProvider(this).get(EstablishmentInfoViewModel::class.java)
-
         _binding = FragmentEstablishmentInfoBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textEstablishmentInfo
-        establishmentInfoViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+
+        sharedViewModel.establishment.observe(viewLifecycleOwner) { establishment ->
+            Log.d("SharedViewModel", "Setting establishment in ViewModel: $establishment")
+            binding.textEstablishmentInfo.text = "Name: ${establishment.name}\nAddress: ${establishment.address}"
+        }
     }
 
     override fun onDestroyView() {

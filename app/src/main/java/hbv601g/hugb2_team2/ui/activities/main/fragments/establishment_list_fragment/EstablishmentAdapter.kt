@@ -12,12 +12,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity;
+import android.util.Log;
 
 class EstablishmentAdapter(
     private var dataSet: List<Establishment>,
     private val context: Context,
     private val sessionManager: SessionManager,
-    private val onDeleteClicked: (Establishment) -> Unit
+    private val onClick: (Establishment) -> Unit
 ) : RecyclerView.Adapter<EstablishmentAdapter.MyViewHolder>() {
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -35,11 +36,14 @@ class EstablishmentAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val establishment = dataSet[position]
         holder.textViewName.text = establishment.name
+        // holder.itemView.setOnClickListener { onClick(establishment) }
         holder.textViewAddress?.text = establishment.address
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, SingleEstablishmentActivity::class.java).apply {
                 putExtra("ESTABLISHMENT_ID", establishment.id)
+                Log.d("EstablishmentAdapter", "Navigating to SingleEstablishmentActivity with ID: $establishment.id")
+
             }
             context.startActivity(intent)
         }
@@ -58,14 +62,14 @@ class EstablishmentAdapter(
         }
 
         // Delete button visibility and action
-        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+        /*if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
             holder.buttonDelete.visibility = View.VISIBLE
             holder.buttonDelete.setOnClickListener {
                 onDeleteClicked(establishment)
             }
         } else {
             holder.buttonDelete.visibility = View.GONE
-        }
+        }*/
 
     }
 
