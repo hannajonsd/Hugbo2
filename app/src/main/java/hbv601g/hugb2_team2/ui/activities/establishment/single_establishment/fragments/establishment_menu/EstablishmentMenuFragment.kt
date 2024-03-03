@@ -1,28 +1,17 @@
 package hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_menu
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentMenuBinding
-import hbv601g.hugb2_team2.services.BeverageService
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
-import hbv601g.hugb2_team2.entities.Beverage
-import hbv601g.hugb2_team2.entities.Establishment
-import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_menu.EstablishmentMenuAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
-import android.widget.Button
-import hbv601g.hugb2_team2.R
-import hbv601g.hugb2_team2.ui.activities.establishment.CreateEstablishmentActivity
 import hbv601g.hugb2_team2.session.SessionManager
 
 class EstablishmentMenuFragment : Fragment() {
@@ -42,7 +31,7 @@ class EstablishmentMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        menuAdapter = EstablishmentMenuAdapter(listOf(), sessionManager)
+        menuAdapter = EstablishmentMenuAdapter(listOf(), sessionManager, viewLifecycleOwner.lifecycleScope)
 
         binding.rvBeverageMenu.apply {
             layoutManager = LinearLayoutManager(context)

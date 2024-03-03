@@ -10,13 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.entities.Beverage
 import hbv601g.hugb2_team2.entities.Establishment
+import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
+import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 import hbv601g.hugb2_team2.session.SessionManager
-import hbv601g.hugb2_team2.ui.activities.establishment.CreateEstablishmentActivity
-import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_menu.EstablishmentMenuAdapter.ViewHolder
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import android.util.Log
+import kotlinx.coroutines.CoroutineScope
 
 class EstablishmentMenuAdapter(private var beverages: List<Beverage>,
-                               private val sessionManager: SessionManager,)
+                               private val sessionManager: SessionManager,
+                               private val coroutineScope: CoroutineScope,)
     : RecyclerView.Adapter<EstablishmentMenuAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -34,7 +39,18 @@ class EstablishmentMenuAdapter(private var beverages: List<Beverage>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val beverage = beverages[position]
-        holder.nameTextView.text = beverage.id.toString()
+        // holder.nameTextView.text = DrinkTypeServiceProvider.getDrinkTypeService().getDrinkTypesByType(beverage.drinkType.toString()).name
+
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val drinkTypeName = DrinkTypeServiceProvider.getDrinkTypeService().getDrinkTypeById(beverage.drinkType.id).name
+                withContext(Dispatchers.Main) {
+                    holder.nameTextView.text = drinkTypeName
+                }
+            } catch (e: Exception) {
+                Log.e("EstablishmentMenuAdapter", "Error fetching drink type name", e)
+            }
+        }
 
         holder.priceTextView.text = "Price: ${beverage.price.toString()} kr"
         holder.volumeTextView.text = "Volume: ${beverage.volume.toString()} ml"

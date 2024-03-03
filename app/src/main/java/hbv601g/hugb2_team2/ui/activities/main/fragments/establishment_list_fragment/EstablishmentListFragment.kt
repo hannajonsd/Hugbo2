@@ -1,6 +1,6 @@
 package hbv601g.hugb2_team2.ui.activities.main.fragments.establishment_list_fragment
+
 import hbv601g.hugb2_team2.entities.Establishment;
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,14 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentListBinding
-import hbv601g.hugb2_team2.services.EstablishmentService
-import hbv601g.hugb2_team2.services.network.NetworkCallback
-import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 import hbv601g.hugb2_team2.session.SessionManager
 import hbv601g.hugb2_team2.ui.activities.establishment.CreateEstablishmentActivity
@@ -51,10 +47,6 @@ class EstablishmentListFragment : Fragment() {
         _binding = FragmentEstablishmentListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        /*val textView: TextView = binding.titleEstablishmentList
-        establishmentListViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
 
         setupRecyclerView()
 
@@ -69,10 +61,6 @@ class EstablishmentListFragment : Fragment() {
 
             layoutManager = LinearLayoutManager(context)
 
-            // adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager)
-            /*adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager, onClick = {} , onDeleteClicked = { establishment ->
-                deleteEstablishment(establishment)
-            })*/
 
                 val adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager) { establishment ->
                     val intent = Intent(activity, SingleEstablishmentActivity::class.java).apply {
@@ -106,13 +94,12 @@ class EstablishmentListFragment : Fragment() {
         }
     }
 
+    // TODO: Implement delete establishment
     private fun deleteEstablishment(establishment: Establishment) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 establishmentService.deleteEstablishment(establishment)
                 withContext(Dispatchers.Main) {
-                    // Example: adapter.removeEstablishment(establishment)
-                    // Or fetch the updated list again
                     getEstablishmentList()
                 }
             } catch (e: Exception) {
