@@ -46,7 +46,7 @@ class EstablishmentInfoFragment : Fragment() {
 
         sharedViewModel.establishment.observe(viewLifecycleOwner) { establishment ->
             Log.d("SharedViewModel", "Setting establishment in ViewModel: $establishment")
-            binding.textEstablishmentInfo.text = "Name: ${establishment.name}\nAddress: ${establishment.address}"
+            binding.textEstablishmentInfo.text = "${establishment.name}\nAddress: ${establishment.address}\nType of establishment: ${establishment.type}\nLocation: ${establishment.location}\nOpening hours: ${establishment.openingHours} \n"
         }
     }
 
