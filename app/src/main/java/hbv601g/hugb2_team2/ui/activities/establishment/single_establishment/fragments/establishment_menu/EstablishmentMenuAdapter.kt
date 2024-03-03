@@ -43,7 +43,7 @@ class EstablishmentMenuAdapter(private var beverages: List<Beverage>,
 
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val drinkTypeName = DrinkTypeServiceProvider.getDrinkTypeService().getDrinkTypeById(beverage.drinkType.id).name
+                val drinkTypeName = DrinkTypeServiceProvider.getDrinkTypeService().getDrinkTypeById(beverage.drinkType.id)?.name
                 withContext(Dispatchers.Main) {
                     holder.nameTextView.text = drinkTypeName
                 }
