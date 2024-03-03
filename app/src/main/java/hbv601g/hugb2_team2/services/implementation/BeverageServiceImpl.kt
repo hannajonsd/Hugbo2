@@ -7,10 +7,17 @@ import hbv601g.hugb2_team2.entities.Establishment
 import hbv601g.hugb2_team2.services.BeverageService
 import hbv601g.hugb2_team2.services.network.NetworkingService
 import hbv601g.hugb2_team2.services.network.NetworkingServiceProvider
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.withContext
+import android.util.Log
+import kotlinx.coroutines.Dispatchers
+
 
 class BeverageServiceImpl : BeverageService
 {
     private var networkingService = NetworkingServiceProvider.getNetworkingService()
+    private var baseUrl = "/drinks"
     override suspend fun createBeverage(beverage: Beverage): Beverage {
         TODO("Not yet implemented")
     }
@@ -24,8 +31,21 @@ class BeverageServiceImpl : BeverageService
     }
 
     override suspend fun getMenu(establishment: Establishment): List<Beverage> {
-        TODO("Not yet implemented")
+        return withContext(Dispatchers.IO) {
+            try {
+                val menuUrl = "$baseUrl/${establishment.id}"
+                val jsonResponse = networkingService.getRequest(menuUrl)
+                Log.d("getMenu", "Response: $jsonResponse")
+                val gson = Gson()
+                val listType = object : TypeToken<List<Beverage>>() {}.type
+                gson.fromJson<List<Beverage>>(jsonResponse, listType)
+            } catch (e: Exception) {
+                Log.e("getMenu", "Error fetching menu for establishment ${establishment.name}", e)
+                emptyList<Beverage>()
+            }
+        }
     }
+
 
     override suspend fun getAllBeveragesByDrinkType(drinkType: DrinkType): List<Beverage> {
         TODO("Not yet implemented")

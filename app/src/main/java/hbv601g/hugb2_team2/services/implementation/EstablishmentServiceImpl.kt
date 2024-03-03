@@ -28,8 +28,19 @@ class EstablishmentServiceImpl : EstablishmentService {
     }
 
     override suspend fun getEstablishmentById(id: Long): Establishment {
-        TODO("Not yet implemented")
+        val reqURL = "$baseUrl/$id"
+        try {
+            val response = networkingService.getRequest(reqURL)
+            Log.d("EstablishmentServiceImpl", "Response: $response")
+            val gson = Gson()
+            return gson.fromJson(response, Establishment::class.java)
+                ?: throw Exception("Failed to parse establishment from response")
+        } catch (e: Exception) {
+            Log.e("EstablishmentServiceImpl", "Error fetching establishment by ID", e)
+            throw e
+        }
     }
+
 
     override suspend fun getEstablishmentTypes(): List<String> {
         TODO("Not yet implemented")
