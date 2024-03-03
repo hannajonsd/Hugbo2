@@ -51,11 +51,10 @@ class SingleEstablishmentActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val establishmentId = intent.getLongExtra("EXTRA_ESTABLISHMENT_ID", -1L)
+        val establishmentId = intent.getLongExtra("ESTABLISHMENT_ID", -1L)
         if (establishmentId != -1L) {
             getEstablishmentAndSetInViewModel(establishmentId)
         }
-
     }
 
     private fun getEstablishmentAndSetInViewModel(establishmentId: Long) {
