@@ -20,7 +20,6 @@
         android:id="@+id/textViewBeverageName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{drinkType.name}"
         android:textStyle="bold"/>
     <TableLayout
         android:id= "@+id/beverageTypeTableLayout"

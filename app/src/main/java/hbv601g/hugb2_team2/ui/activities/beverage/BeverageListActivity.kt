@@ -53,10 +53,7 @@ class BeverageListActivity : AppCompatActivity() {
                 val drinkType = drinkTypeService.getDrinkTypeById(drinkTypeId)
                 val row = TableRow(this@BeverageListActivity)
                 if(drinkType != null){
-                    beverageNameTextView.clearComposingText()
-                    beverageNameTextView = TextView(this@BeverageListActivity).apply {
-                        text = "${drinkType.name}"
-                    }
+                    beverageNameTextView.text = "${drinkType.name}"
                     val typeTextView = TextView(this@BeverageListActivity).apply {
                         text = "${drinkType.type}"
                         layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1f)
