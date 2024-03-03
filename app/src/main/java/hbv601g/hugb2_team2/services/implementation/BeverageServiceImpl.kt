@@ -14,8 +14,7 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 
 
-class BeverageServiceImpl : BeverageService
-{
+class BeverageServiceImpl : BeverageService {
     private var networkingService = NetworkingServiceProvider.getNetworkingService()
     private var baseUrl = "/drinks"
     override suspend fun createBeverage(beverage: Beverage): Beverage {
@@ -46,9 +45,23 @@ class BeverageServiceImpl : BeverageService
         }
     }
 
-
     override suspend fun getAllBeveragesByDrinkType(drinkType: DrinkType): List<Beverage> {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun getAllBeveragesByDrinkTypeId(drinkTypeId: Long): List<Beverage>? {
+        val reqURL = "$baseUrl/types/$drinkTypeId"
+        return try {
+            val response = networkingService.getRequest(reqURL)
+            Log.d("BeverageServiceImpl", "Response: $response")
+            // response is JSON element, convert to list of establishments
+            val gson = Gson()
+            gson.fromJson(response, Array<Beverage>::class.java).toList()
+        } catch (e: Exception) {
+            Log.d("DrinkTypeServiceImpl", "Exception: $e")
+            null
+        }
+
     }
 
     override suspend fun getAllBeveragesByDrinkTypeSortByPriceDesc(drinkType: DrinkType): List<Beverage> {
@@ -58,6 +71,4 @@ class BeverageServiceImpl : BeverageService
     override suspend fun getAllBeveragesByDrinkTypeSortByPriceAsc(drinkType: DrinkType): List<Beverage> {
         TODO("Not yet implemented")
     }
-
-
 }
