@@ -12,7 +12,7 @@
     <string name="title_activity_create_establishment">Create Establishment</string>
     <string name="title_activity_edit_establishment">Edit Establishment</string>
     <string name="title_fragment_establishment_info">Establishment Info</string>
-    <string name="title_fragment_drinks_menu">Drinks Menu</string>
+    <string name="title_fragment_drinks_menu">Drink Menu</string>
     <string name="title_fragment_reviews">Reviews</string>
     <string name="title_activity_beverage_list">Beverage List</string>
     <string name="title_activity_create_beverage">Create Beverage</string>

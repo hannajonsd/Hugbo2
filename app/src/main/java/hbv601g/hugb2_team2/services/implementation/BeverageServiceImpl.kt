@@ -11,14 +11,22 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.withContext
 import android.util.Log
+import hbv601g.hugb2_team2.entities.User
 import kotlinx.coroutines.Dispatchers
 
 
 class BeverageServiceImpl : BeverageService {
     private var networkingService = NetworkingServiceProvider.getNetworkingService()
     private var baseUrl = "/drinks"
-    override suspend fun createBeverage(beverage: Beverage): Beverage {
-        TODO("Not yet implemented")
+    override suspend fun createBeverage(beverage: Beverage): Beverage? {
+        val reqURL = "$baseUrl/create"
+        return try {
+            val estJson = Gson().toJson(beverage)
+            val response = networkingService.postRequest(reqURL, estJson)
+            Gson().fromJson(response.toString(), Beverage::class.java)
+        } catch (e: Exception) {
+            null
+        }
     }
 
     override suspend fun editBeverage(beverage: Beverage): Beverage {
@@ -70,5 +78,9 @@ class BeverageServiceImpl : BeverageService {
 
     override suspend fun getAllBeveragesByDrinkTypeSortByPriceAsc(drinkType: DrinkType): List<Beverage> {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun findDrinksByDrinkTypeAndVolumeAndEstablishment(drinkType: DrinkType, volume: Int, establishment: Establishment) {
+
     }
 }

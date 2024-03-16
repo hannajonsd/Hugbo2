@@ -53,6 +53,7 @@ class EstablishmentMenuFragment : Fragment() {
 
         binding.addDrinkButton.setOnClickListener {
             val intent = Intent(context, AddMenuDrinkActivity::class.java)
+            intent.putExtra("ESTABLISHMENT_ID", establishmentId)
             startActivity(intent)
         }
 
@@ -72,6 +73,17 @@ class EstablishmentMenuFragment : Fragment() {
             } catch (e: Exception) {
                 Log.e("EstablishmentMenuFragment", "Error fetching menu", e)
             }
+        }
+    }
+
+    /**
+     * Uppfæra menu listann þegar við komum til baka
+     */
+    override fun onResume() {
+        super.onResume()
+        val establishmentId = requireActivity().intent.getLongExtra("ESTABLISHMENT_ID", -1L)
+        if (establishmentId != -1L) {
+            getAndDisplayMenu(establishmentId)
         }
     }
 
