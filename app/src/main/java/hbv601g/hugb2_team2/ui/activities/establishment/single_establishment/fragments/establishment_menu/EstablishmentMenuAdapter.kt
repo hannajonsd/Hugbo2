@@ -1,5 +1,6 @@
 package hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_menu
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +18,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import android.util.Log
+import hbv601g.hugb2_team2.ui.activities.establishment.EditEstablishmentActivity
+import hbv601g.hugb2_team2.ui.activities.menu.EditMenuDrinkActivity
 import kotlinx.coroutines.CoroutineScope
 
-class EstablishmentMenuAdapter(private var beverages: List<Beverage>,
-                               private val sessionManager: SessionManager,
-                               private val coroutineScope: CoroutineScope,)
+class EstablishmentMenuAdapter(
+    private var beverages: List<Beverage>,
+    private val context: Context,
+    private val sessionManager: SessionManager,
+    private val coroutineScope: CoroutineScope,)
     : RecyclerView.Adapter<EstablishmentMenuAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -55,13 +60,18 @@ class EstablishmentMenuAdapter(private var beverages: List<Beverage>,
         holder.priceTextView.text = "Price: ${beverage.price.toString()} kr"
         holder.volumeTextView.text = "Volume: ${beverage.volume.toString()} ml"
 
-
         if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
             holder.editButton.visibility = View.VISIBLE
-
+            holder.editButton.setOnClickListener {
+                val intent = Intent(context, EditMenuDrinkActivity::class.java).apply {
+                    putExtra("BEVERAGE_ID", beverage.id)
+                }
+                context.startActivity(intent)
+            }
         } else {
-            holder.editButton.visibility =  View.GONE
+            holder.editButton.visibility = View.GONE
         }
+
 
         if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
             holder.deleteButton.visibility = View.VISIBLE

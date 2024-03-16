@@ -27,7 +27,7 @@ class AddMenuDrinkActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_to_menu)
+        setContentView(R.layout.activity_create_beverage)
 
         val drinkDropdown: Spinner = findViewById(R.id.drink_type_input)
         val volumeInput: EditText = findViewById(R.id.drink_volume_input)

@@ -33,7 +33,7 @@ class EstablishmentMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        menuAdapter = EstablishmentMenuAdapter(listOf(), sessionManager, viewLifecycleOwner.lifecycleScope)
+        menuAdapter = EstablishmentMenuAdapter(listOf(), requireContext(), sessionManager, viewLifecycleOwner.lifecycleScope)
 
         binding.rvBeverageMenu.apply {
             layoutManager = LinearLayoutManager(context)

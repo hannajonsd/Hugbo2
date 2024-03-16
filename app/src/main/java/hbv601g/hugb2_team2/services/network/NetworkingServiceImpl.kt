@@ -48,12 +48,24 @@ class NetworkingServiceImpl(applicationContext: Context) : NetworkingService {
                 }
             )
             apiRequestQueue.add(jsonObjectRequest)
-    }
+        }
 
 
-    override suspend fun putRequest(reqURL: String, data: JSONObject): JSONObject {
-        TODO("Not yet implemented")
-    }
+    override suspend fun putRequest(reqURL: String, data: String): JSONObject =
+        suspendCancellableCoroutine { continuation ->
+            val url = "$BASE_URL$reqURL"
+            val jsonObject = JSONObject(data)
+            val jsonObjectRequest = JsonObjectRequest(
+                Request.Method.PUT, url, jsonObject,
+                { response ->
+                    continuation.resume(response)
+                },
+                { error ->
+                    continuation.resumeWithException(Exception(error.toString()))
+                }
+            )
+            apiRequestQueue.add(jsonObjectRequest)
+        }
 
     override suspend fun patchRequest(reqURL: String, data: JSONObject): JSONObject {
         TODO("Not yet implemented")
