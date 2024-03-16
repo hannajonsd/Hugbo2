@@ -1,6 +1,7 @@
 package hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_menu
 
 import android.os.Bundle
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import hbv601g.hugb2_team2.session.SessionManager
+import hbv601g.hugb2_team2.ui.activities.menu.AddMenuDrinkActivity
 
 class EstablishmentMenuFragment : Fragment() {
 
@@ -47,6 +49,11 @@ class EstablishmentMenuFragment : Fragment() {
         val establishmentId = requireActivity().intent.getLongExtra("ESTABLISHMENT_ID", -1L)
         if (establishmentId != -1L) {
             getAndDisplayMenu(establishmentId)
+        }
+
+        binding.addDrinkButton.setOnClickListener {
+            val intent = Intent(context, AddMenuDrinkActivity::class.java)
+            startActivity(intent)
         }
 
     }

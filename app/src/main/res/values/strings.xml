@@ -75,5 +75,13 @@
     <string name="hint_opening_hours">Enter opening hours…</string>
     <string name="cancel">Cancel</string>
 
+    <string name="add_drink">Add drink to menu</string>
+    <string name="legend_drink_type">Drink type</string>
+    <string name="legend_drink_volume">Volume (mL)</string>
+    <string name="legend_drink_price">Price (ISK)</string>
+    <string name="hint_drink_volume">0</string>
+    <string name="hint_drink_price">0</string>
+    <string name="btn_add_to_menu">Add drink</string>
+
 
 </resources>
