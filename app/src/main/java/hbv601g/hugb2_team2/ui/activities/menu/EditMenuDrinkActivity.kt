@@ -43,7 +43,6 @@ class EditMenuDrinkActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 selectedDrink = beverageService.getBeverageById(beverageId)
-                Log.d("SELECTED DRINK", selectedDrink.toString())
 
                 allDrinkTypes = drinkTypeService.getAllDrinkTypes()
                 val drinkTypeNames = allDrinkTypes?.map { it.name } ?: emptyList()

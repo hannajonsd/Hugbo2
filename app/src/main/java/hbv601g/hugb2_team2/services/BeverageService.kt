@@ -9,7 +9,7 @@ interface BeverageService {
 
     suspend fun createBeverage(beverage: Beverage): Beverage?
     suspend fun editBeverage(beverage: Beverage): Beverage?
-    suspend fun deleteBeverage(beverage: Beverage): Beverage
+    suspend fun deleteBeverage(beverage: Beverage): Beverage?
     suspend fun getMenu(establishment: Establishment): List<Beverage>
     suspend fun getAllBeveragesByDrinkTypeId(drinkTypeId: Long ): List<Beverage>?
     suspend fun getAllBeveragesByDrinkTypeSortByPriceDesc(drinkType: DrinkType): List<Beverage>

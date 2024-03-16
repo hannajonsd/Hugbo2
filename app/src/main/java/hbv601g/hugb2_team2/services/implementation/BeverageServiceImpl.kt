@@ -37,8 +37,14 @@ class BeverageServiceImpl : BeverageService {
         }
     }
 
-    override suspend fun deleteBeverage(beverage: Beverage): Beverage {
-        TODO("Not yet implemented")
+    override suspend fun deleteBeverage(beverage: Beverage): Beverage? {
+        val reqURL = "$baseUrl/${beverage.id}"
+        return try {
+            val response = networkingService.deleteRequest(reqURL)
+            Gson().fromJson(response.toString(), Beverage::class.java)
+        } catch (e: Exception) {
+            null
+        }
     }
 
     override suspend fun getMenu(establishment: Establishment): List<Beverage> {
