@@ -97,15 +97,23 @@ class BeverageServiceImpl : BeverageService {
                 val gson = Gson()
                 val listType = object : TypeToken<Beverage>() {}.type
                 gson.fromJson<Beverage>(jsonResponse, listType)
-                    ?: throw IllegalStateException("Failed to parse drink type from JSON")
+                    ?: throw IllegalStateException("Failed to beverage from JSON")
             } catch (e: Exception) {
-                Log.e("getBeverage", "Error fetching beverage by id", e)
+                Log.e("DrinkTypeServiceImpl", "Error fetching beverage by id", e)
                 throw e
             }
         }
     }
 
-    override suspend fun findDrinksByDrinkTypeAndVolumeAndEstablishment(drinkType: DrinkType, volume: Int, establishment: Establishment) {
-
+    override suspend fun findDrinksByDrinkTypeAndVolumeAndEstablishment(drinkType: DrinkType, volume: Int, establishment: Establishment): List<Beverage>? {
+        val reqURL = "$baseUrl/types/${drinkType.id}/volume/${volume}/establishment/${establishment.id}"
+        return try {
+            val response = networkingService.getRequest(reqURL)
+            val gson = Gson()
+            gson.fromJson(response, Array<Beverage>::class.java).toList()
+        } catch (e: Exception) {
+            Log.e("DrinkTypeServiceImpl", "Error fetching beverage by drinktype, volume and establishment", e)
+            null
+        }
     }
 }

@@ -76,16 +76,19 @@ class AddMenuDrinkActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // TODO: Checka findDrinksByDrinkTypeAndVolumeAndEstablishment
-
             CoroutineScope(Dispatchers.Main).launch {
                 try {
                     val selectedDrinkType = allDrinkTypes?.find { it.name == drinkTypeValue } ?: return@launch
 
                     val establishment = establishmentService.getEstablishmentById(establishmentId)
 
-                    val drinkToAdd = Beverage(0, priceValue, volumeValue, establishment, selectedDrinkType)
-                    addDrink(drinkToAdd)
+                    val exists: List<Beverage>? = beverageService.findDrinksByDrinkTypeAndVolumeAndEstablishment(selectedDrinkType, volumeValue, establishment)
+                    if (exists.isNullOrEmpty()) {
+                        val drinkToAdd = Beverage(0, priceValue, volumeValue, establishment, selectedDrinkType)
+                        addDrink(drinkToAdd)
+                    } else {
+                        Toast.makeText(this@AddMenuDrinkActivity, "Drink with same type and volume already exists in this menu", Toast.LENGTH_SHORT).show()
+                    }
 
                 } catch (e: Exception) {
                     Log.e("AddMenuDrinkActivity", "Error fetching drink types", e)

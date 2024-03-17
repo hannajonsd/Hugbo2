@@ -15,7 +15,7 @@ interface BeverageService {
     suspend fun getAllBeveragesByDrinkTypeSortByPriceDesc(drinkType: DrinkType): List<Beverage>
     suspend fun getAllBeveragesByDrinkTypeSortByPriceAsc(drinkType: DrinkType): List<Beverage>
     suspend fun getBeverageById(id: Long): Beverage?
-    suspend fun findDrinksByDrinkTypeAndVolumeAndEstablishment(drinkType: DrinkType, volume: Int, establishment: Establishment)
+    suspend fun findDrinksByDrinkTypeAndVolumeAndEstablishment(drinkType: DrinkType, volume: Int, establishment: Establishment): List<Beverage>?
 
 
     suspend fun getAllBeveragesByDrinkType(drinkType: DrinkType): List<Beverage>
