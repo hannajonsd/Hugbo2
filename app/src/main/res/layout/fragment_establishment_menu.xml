@@ -41,7 +41,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBeverageMenu"
         android:layout_width="0dp"
-        android:layout_height="580dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="-60dp"
         app:layout_constraintBottom_toTopOf="@id/addDrinkButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

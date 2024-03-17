@@ -64,6 +64,12 @@
             android:name=".ui.activities.drinktype.CreateDrinkTypeActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.activities.menu.AddMenuDrinkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.menu.EditMenuDrinkActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.main.MainActivity"
             android:exported="true"
             android:label="@string/app_name">

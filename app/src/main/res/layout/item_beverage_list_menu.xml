@@ -9,8 +9,8 @@
         android:id="@+id/beverageName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
         android:text="Beverage Name"
         android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +22,8 @@
         android:id="@+id/beveragePrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="4dp"
         android:text="Beverage Price"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,8 +35,8 @@
         android:id="@+id/beverageVolume"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="4dp"
         android:text="Beverage Volume"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,8 +62,6 @@
         android:text="Delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/beverageVolume" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
