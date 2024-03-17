@@ -1,4 +1,5 @@
 package hbv601g.hugb2_team2.ui.activities.main.fragments.establishment_list_fragment;
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -13,6 +14,12 @@ import android.widget.TextView;
 import android.widget.Button;
 import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity;
 import android.util.Log;
+import android.widget.Toast
+import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EstablishmentAdapter(
     private var dataSet: List<Establishment>,
@@ -20,6 +27,8 @@ class EstablishmentAdapter(
     private val sessionManager: SessionManager,
     private val onClick: (Establishment) -> Unit
 ) : RecyclerView.Adapter<EstablishmentAdapter.MyViewHolder>() {
+
+    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewName: TextView = view.findViewById(R.id.textViewEstablishmentName)
@@ -64,13 +73,39 @@ class EstablishmentAdapter(
         // Delete button visibility and action
         if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
             holder.buttonDelete.visibility = View.VISIBLE
-           /* holder.buttonDelete.setOnClickListener {
-                onDeleteClicked(establishment)
-            }*/
+            holder.buttonDelete.setOnClickListener {
+                showDeleteConfirmation(context, establishment.id)
+            }
         } else {
             holder.buttonDelete.visibility = View.GONE
         }
 
+    }
+
+    fun showDeleteConfirmation(context: Context, establishmentID: Long) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Delete establishment?")
+        builder.setMessage("Are you sure you want to delete this establishment?")
+        builder.setPositiveButton("Yes") { _, _ ->
+            CoroutineScope(Dispatchers.Main).launch {
+                try {
+                    val selectedEstablishment = establishmentService.getEstablishmentById(establishmentID)
+                    establishmentService.deleteEstablishment(selectedEstablishment.id)
+                    Toast.makeText(context, "Establishment deleted", Toast.LENGTH_SHORT).show()
+
+                    dataSet = dataSet.filter { it.id != establishmentID }
+                    notifyDataSetChanged()
+                } catch (e: Exception) {
+                    Log.e("EstablishmentAdapter", "Error deleting drink", e)
+                    Toast.makeText(context, "failed to delete establishment", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
     override fun getItemCount() = dataSet.size
