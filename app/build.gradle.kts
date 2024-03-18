@@ -42,7 +42,7 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/{AL2.0,LGPL2.1,INDEX.LIST}"
         }
     }
 }
@@ -75,6 +75,11 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("com.android.volley:volley:1.2.1")
+
     // GSON
     implementation("com.google.code.gson:gson:2.8.9")
+
+    implementation("jakarta.persistence:jakarta.persistence-api:3.0.0")
+
+    implementation("org.hibernate:hibernate-core:5.6.1.Final")
 }

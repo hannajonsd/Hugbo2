@@ -2,6 +2,7 @@ package hbv601g.hugb2_team2.services.implementation
 
 import android.util.Log
 import com.google.gson.Gson
+import hbv601g.hugb2_team2.entities.Beverage
 import hbv601g.hugb2_team2.entities.Establishment
 import hbv601g.hugb2_team2.services.EstablishmentService
 import hbv601g.hugb2_team2.services.network.NetworkCallback
@@ -68,13 +69,21 @@ class EstablishmentServiceImpl : EstablishmentService {
         }
     }
 
-    override suspend fun updateEstablishment(establishment: Establishment): Establishment {
+    override suspend fun editEstablishment(establishment: Establishment): Establishment {
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteEstablishment(establishment: Establishment): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun deleteEstablishment(id: Long): Boolean {
+        val reqURL = "$baseUrl/${id}/delete"
+        return try {
+            val response = networkingService.deleteRequest(reqURL)
+            true
+        } catch (e: Exception) {
+            Log.d("EstablishmentServiceImpl", "Exception: $e")
+            false
+        }
     }
+
 
     override suspend fun getNearbyEstablishments(
         lat: Double,
