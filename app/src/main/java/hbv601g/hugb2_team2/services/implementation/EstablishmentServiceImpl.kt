@@ -74,7 +74,7 @@ class EstablishmentServiceImpl : EstablishmentService {
     }
 
     override suspend fun deleteEstablishment(id: Long): Boolean {
-        val reqURL = "$baseUrl/delete/${id}"
+        val reqURL = "$baseUrl/${id}/delete"
         return try {
             val response = networkingService.deleteRequest(reqURL)
             true
@@ -83,6 +83,7 @@ class EstablishmentServiceImpl : EstablishmentService {
             false
         }
     }
+
 
     override suspend fun getNearbyEstablishments(
         lat: Double,

@@ -89,8 +89,7 @@ class EstablishmentAdapter(
         builder.setPositiveButton("Yes") { _, _ ->
             CoroutineScope(Dispatchers.Main).launch {
                 try {
-                    val selectedEstablishment = establishmentService.getEstablishmentById(establishmentID)
-                    establishmentService.deleteEstablishment(selectedEstablishment.id)
+                    establishmentService.deleteEstablishment(establishmentID)
                     Toast.makeText(context, "Establishment deleted", Toast.LENGTH_SHORT).show()
 
                     dataSet = dataSet.filter { it.id != establishmentID }
