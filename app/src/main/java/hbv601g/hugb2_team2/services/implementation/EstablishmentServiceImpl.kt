@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.gson.Gson
 import hbv601g.hugb2_team2.entities.Beverage
 import hbv601g.hugb2_team2.entities.Establishment
+import hbv601g.hugb2_team2.entities.EstablishmentWithDistance
 import hbv601g.hugb2_team2.services.EstablishmentService
 import hbv601g.hugb2_team2.services.network.NetworkCallback
 import hbv601g.hugb2_team2.services.network.NetworkingServiceProvider
@@ -84,13 +85,27 @@ class EstablishmentServiceImpl : EstablishmentService {
         }
     }
 
-
+    /**
+     * Calls the networking service to get nearby establishments
+     * Endpoint: /api/establishments/nearby/{latidude}/{longitude}/{radius}
+     * Radius is in kilometers
+     */
     override suspend fun getNearbyEstablishments(
         lat: Double,
         lon: Double,
         radius: Int
-    ): List<Establishment> {
-        TODO("Not yet implemented")
+    ): List<EstablishmentWithDistance> {
+        val reqUrl = "$baseUrl/nearby/$lat/$lon/$radius"
+        return try {
+            Log.d("EstablishmentServiceImpl", "Request URL: $reqUrl")
+            val response = networkingService.getRequest(reqUrl)
+            Log.d("EstablishmentServiceImpl", "Response: $response")
+            val gson = Gson()
+            gson.fromJson(response, Array<EstablishmentWithDistance>::class.java).toList()
+        } catch (e: Exception) {
+            Log.d("EstablishmentServiceImpl", "Exception: $e")
+            emptyList()
+        }
     }
 
     override suspend fun ping(callback: NetworkCallback<String>) {
@@ -102,16 +117,6 @@ class EstablishmentServiceImpl : EstablishmentService {
             Log.d("EstablishmentServiceImpl", "Exception: $e")
             callback.onFailure(e.message ?: "Unknown error")
         }
-    }
-
-    fun calculateLatLon(address : String): List<Double> {
-        // TODO: implement google maps api to get lat and lon from address
-        val latLon = mutableListOf<Double>()
-        val lat = 64.140813
-        val lon = -21.94607
-        latLon.add(lat)
-        latLon.add(lon)
-        return latLon
     }
 
     fun createMockEstablishmentsIfNotExist()
