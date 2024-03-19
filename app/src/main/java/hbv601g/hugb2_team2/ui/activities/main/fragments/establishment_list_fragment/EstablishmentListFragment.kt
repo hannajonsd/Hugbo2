@@ -94,20 +94,6 @@ class EstablishmentListFragment : Fragment() {
         }
     }
 
-    // TODO: Implement delete establishment
-    private fun deleteEstablishment(establishment: Establishment) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                establishmentService.deleteEstablishment(establishment)
-                withContext(Dispatchers.Main) {
-                    getEstablishmentList()
-                }
-            } catch (e: Exception) {
-                Log.e("EstablishmentListFragment", "Error deleting establishment", e)
-            }
-        }
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

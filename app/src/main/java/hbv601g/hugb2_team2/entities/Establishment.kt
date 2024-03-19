@@ -1,5 +1,9 @@
 package hbv601g.hugb2_team2.entities
 
+import javax.persistence.CascadeType
+import javax.persistence.OneToMany
+
+
 data class Establishment(
 
     // add mapping for GSON to work
@@ -15,6 +19,9 @@ data class Establishment(
     val openingHours: String,
     val lat: Double,
     val lon: Double,
+
+    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
+    val menu: MutableList<Beverage> = mutableListOf()
 ) {
     enum class Location(val value: Int) {
         Miðbærinn(0),
@@ -26,4 +33,8 @@ data class Establishment(
         Vesturland(6),
         Vestfirðir(7)
     }
+
+
+
+
 }
