@@ -65,8 +65,18 @@ class DrinkTypeServiceImpl : DrinkTypeService {
         TODO("Not yet implemented")
     }
 
-    override suspend fun createDrinkType(drinkType: DrinkType): DrinkType {
-        TODO("Not yet implemented")
+    override suspend fun createDrinkType(drinkType: DrinkType): DrinkType? {
+        val reqURL = "$baseUrl/create"
+        return try {
+            val drinkTypeJson = Gson().toJson(drinkType)
+            val response = networkingService.postRequest(reqURL, drinkTypeJson)
+            Log.d("drinkTypeJsonServiceImpl", "Response: $response")
+            // convert response to establishment
+            Gson().fromJson(response.toString(), DrinkType::class.java)
+        } catch (e: Exception) {
+            Log.d("DrinkTypeServiceImpl", "Exception: $e")
+            null
+        }
     }
 
     override suspend fun editDrinkType(drinkType: DrinkType): DrinkType {
