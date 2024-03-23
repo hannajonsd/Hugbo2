@@ -13,7 +13,7 @@ interface EstablishmentService {
     suspend fun getEstablishmentByType(type: String): List<Establishment>
     suspend fun getEstablishmentByArea(area: String): List<Establishment>
     suspend fun createEstablishment(establishment: Establishment): Establishment?
-    suspend fun editEstablishment(establishment: Establishment): Establishment
+    suspend fun editEstablishment(establishment: Establishment): Establishment?
     suspend fun deleteEstablishment(id: Long) : Boolean
     suspend fun getNearbyEstablishments(lat: Double, lon: Double, radius: Int): List<EstablishmentWithDistance>
     suspend fun ping(callback: NetworkCallback<String>)

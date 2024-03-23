@@ -70,8 +70,15 @@ class EstablishmentServiceImpl : EstablishmentService {
         }
     }
 
-    override suspend fun editEstablishment(establishment: Establishment): Establishment {
-        TODO("Not yet implemented")
+    override suspend fun editEstablishment(establishment: Establishment): Establishment? {
+        val reqURL = "$baseUrl/edit/${establishment.id}"
+        return try {
+            val estJson = Gson().toJson(establishment)
+            val response = networkingService.putRequest(reqURL, estJson)
+            Gson().fromJson(response.toString(), Establishment::class.java)
+        } catch (e: Exception) {
+            null
+        }
     }
 
     override suspend fun deleteEstablishment(id: Long): Boolean {
