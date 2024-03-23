@@ -20,6 +20,9 @@ import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
+import android.widget.Button
+import hbv601g.hugb2_team2.session.SessionManager
+import hbv601g.hugb2_team2.ui.activities.establishment.CreateEstablishmentActivity
 
 
 class DrinkTypeListFragment : Fragment() {
@@ -27,6 +30,7 @@ class DrinkTypeListFragment : Fragment() {
 
     private lateinit var viewModel: DrinkTypeListViewModel
     private lateinit var binding: FragmentDrinktypeListBinding
+    private lateinit var sessionManager: SessionManager
 
 
     private var _binding: FragmentDrinktypeListBinding? = null
@@ -39,7 +43,7 @@ class DrinkTypeListFragment : Fragment() {
     ): View {
         binding = FragmentDrinktypeListBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        sessionManager = SessionManager(requireContext())
 
         viewModel = ViewModelProvider(this).get(DrinkTypeListViewModel::class.java)
 
@@ -102,15 +106,27 @@ class DrinkTypeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        binding.buttonCreateDrinktype.setOnClickListener {
-            startActivity(Intent(activity, CreateDrinkTypeActivity::class.java))
+        val createDrinkTypeButton = view.findViewById<Button>(R.id.button_create_drinktype)
+        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+            createDrinkTypeButton.visibility = View.VISIBLE
+            createDrinkTypeButton.setOnClickListener {
+                val intent = Intent(activity, CreateDrinkTypeActivity::class.java)
+                startActivity(intent)
+            }
+        } else {
+            createDrinkTypeButton.visibility = View.GONE
+        }
+        val editDrinkTypeButton = view.findViewById<Button>(R.id.button_edit_drinktype)
+        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+            editDrinkTypeButton.visibility = View.VISIBLE
+            editDrinkTypeButton.setOnClickListener {
+                val intent = Intent(activity, EditDrinkTypeActivity::class.java)
+                startActivity(intent)
+            }
+        } else {
+            editDrinkTypeButton.visibility = View.GONE
         }
 
-
-        binding.buttonEditDrinktype.setOnClickListener {
-            startActivity(Intent(activity, EditDrinkTypeActivity::class.java))
-        }
     }
 
 

@@ -94,6 +94,7 @@
     <string name="hint_subtype">Enter subtype...</string>
     <string name="hint_drinktypename">Enter name...</string>
     <string name="hint_drinktype_percentage">Enter percentage...</string>
+    <string name="btn_edit_drinktype">Save DrinkType</string>
 
 
 </resources>

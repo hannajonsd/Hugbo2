@@ -58,7 +58,7 @@ class CreateDrinkTypeActivity : AppCompatActivity() {
 
         // Set up click listener for the cancel button
         cancelButton.setOnClickListener {
-            // navigate back to the establishment list
+            // navigate back to the drinktype list
             finish()
         }
     }

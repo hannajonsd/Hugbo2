@@ -11,9 +11,11 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import hbv601g.hugb2_team2.R
+import hbv601g.hugb2_team2.databinding.ActivityBeverageListBinding
 import hbv601g.hugb2_team2.databinding.FragmentDrinktypeListBinding
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
+import hbv601g.hugb2_team2.session.SessionManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -28,11 +30,16 @@ class BeverageListActivity : AppCompatActivity() {
     private lateinit var beverageTypeTableLayout: TableLayout
     private lateinit var establishmentTableLayout: TableLayout
     private lateinit var beverageNameTextView: TextView
+    private lateinit var sessionManager: SessionManager
+    private lateinit var binding: ActivityBeverageListBinding
+
+
 
     @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_beverage_list)
+        binding = ActivityBeverageListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Get the drink type ID passed to the activity
         beverageTypeTableLayout = findViewById(R.id.beverageTypeTableLayout)
@@ -76,6 +83,8 @@ class BeverageListActivity : AppCompatActivity() {
 
                 // Fetch all beverages by drink type
                 val beverages = beverageService.getAllBeveragesByDrinkTypeId(drinkTypeId)
+
+
 
                 // Populate table with beverages
                 if (beverages != null) {
