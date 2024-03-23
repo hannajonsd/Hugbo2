@@ -87,4 +87,8 @@ class DrinkTypeServiceImpl : DrinkTypeService {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getDrinkTypeByName(): List<DrinkType>? {
+        TODO("Not yet implemented")
+    }
+
 }
