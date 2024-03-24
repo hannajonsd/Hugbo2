@@ -92,7 +92,7 @@ class EditMenuDrinkActivity : AppCompatActivity() {
                     val selectedDrinkType = allDrinkTypes?.find { it.name == drinkTypeValue } ?: return@launch
 
                     val exists: List<Beverage>? = beverageService.findDrinksByDrinkTypeAndVolumeAndEstablishment(selectedDrinkType, volumeValue, selectedDrink!!.establishment)
-                    if (exists.isNullOrEmpty()) {
+                    if (exists.isNullOrEmpty() || exists.any { it.id == selectedDrink!!.id }) {
                         val editedDrink = Beverage(selectedDrink!!.id, priceValue, volumeValue, selectedDrink!!.establishment, selectedDrinkType)
                         editDrink(editedDrink)
                     } else {
