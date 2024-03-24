@@ -12,6 +12,6 @@ interface DrinkTypeService {
     suspend fun createDrinkType(drinkType: DrinkType): DrinkType?
     suspend fun editDrinkType(drinkType: DrinkType): DrinkType
     suspend fun deleteDrinkType(drinkType: DrinkType) : Boolean
-    suspend fun getDrinkTypeByName(): List<DrinkType>?
+    suspend fun getDrinkTypeByName(name: String): DrinkType?
 
 }

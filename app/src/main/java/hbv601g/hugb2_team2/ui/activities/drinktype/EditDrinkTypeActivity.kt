@@ -44,7 +44,26 @@ class EditDrinkTypeActivity : AppCompatActivity() {
 
         var drinkTypeId = intent.getLongExtra("DRINKTYPE_ID", -1L)
 
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+               val drinkTypeToedit = drinkTypeService.getDrinkTypeById(drinkTypeId)
+                if (drinkTypeToedit != null) {
+                    nameInput.setText(drinkTypeToedit.name)
+                }
+                if (drinkTypeToedit != null) {
+                    perInput.setText(drinkTypeToedit.percentage.toString())
+                }
+                if (drinkTypeToedit != null) {
+                    typeInput.setText(drinkTypeToedit.type)
+                }
+                if (drinkTypeToedit != null) {
+                    subtypeInput.setText(drinkTypeToedit.subType)
+                }
 
+            } catch (e: Exception) {
+                Log.e("AddMenuDrinkActivity", "Error fetching drink types", e)
+            }
+        }
 
 
         cancelButton.setOnClickListener {
@@ -70,14 +89,9 @@ class EditDrinkTypeActivity : AppCompatActivity() {
 
             CoroutineScope(Dispatchers.Main).launch {
                 try {
+                    val editedDrinkType = DrinkType(drinkTypeId, nameValue, perValue, typeValue, subTypeValue)
+                    editDrinkType(editedDrinkType)
 
-                    val exists: List<DrinkType>? = drinkTypeService.getDrinkTypeByName()
-                    if (exists.isNullOrEmpty()) {
-                        val editedDrinkType = DrinkType(drinkTypeId, nameValue, perValue, typeValue, subTypeValue)
-                        editDrinkType(editedDrinkType)
-                    } else {
-                        Toast.makeText(this@EditDrinkTypeActivity, "Drink with same type and volume already exists in this menu", Toast.LENGTH_SHORT).show()
-                    }
                 } catch (e: Exception) {
                     Log.e("AddMenuDrinkActivity", "Error fetching drink types", e)
                 }

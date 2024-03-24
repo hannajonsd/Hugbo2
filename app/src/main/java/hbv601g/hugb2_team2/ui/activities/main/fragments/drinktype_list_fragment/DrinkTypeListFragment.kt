@@ -116,16 +116,7 @@ class DrinkTypeListFragment : Fragment() {
         } else {
             createDrinkTypeButton.visibility = View.GONE
         }
-        val editDrinkTypeButton = view.findViewById<Button>(R.id.button_edit_drinktype)
-        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
-            editDrinkTypeButton.visibility = View.VISIBLE
-            editDrinkTypeButton.setOnClickListener {
-                val intent = Intent(activity, EditDrinkTypeActivity::class.java)
-                startActivity(intent)
-            }
-        } else {
-            editDrinkTypeButton.visibility = View.GONE
-        }
+
 
     }
 

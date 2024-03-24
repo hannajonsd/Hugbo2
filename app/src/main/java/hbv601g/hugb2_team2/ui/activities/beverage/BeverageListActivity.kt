@@ -7,6 +7,8 @@ import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -16,6 +18,8 @@ import hbv601g.hugb2_team2.databinding.FragmentDrinktypeListBinding
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
 import hbv601g.hugb2_team2.session.SessionManager
+import hbv601g.hugb2_team2.ui.activities.drinktype.CreateDrinkTypeActivity
+import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -46,9 +50,16 @@ class BeverageListActivity : AppCompatActivity() {
         establishmentTableLayout = findViewById(R.id.establishmentTableLayout)
         beverageNameTextView = findViewById(R.id.textViewBeverageName)
 
+        val view = binding.root
+        val editDrinkTypeButton = view.findViewById<Button>(R.id.button_edit_drinktype)
+        editDrinkTypeButton.visibility = View.VISIBLE
+        editDrinkTypeButton.setOnClickListener {
+            val intent = Intent(this@BeverageListActivity, EditDrinkTypeActivity::class.java)
+            startActivity(intent)
+        }
 
 
-        val drinkTypeId = intent.getLongExtra("drinkTypeId",-1 )
+        val drinkTypeId = intent.getLongExtra("drinkTypeId", -1)
 
         CoroutineScope(Dispatchers.Main).launch {
             try {
@@ -59,19 +70,31 @@ class BeverageListActivity : AppCompatActivity() {
                 // Fetch drink type
                 val drinkType = drinkTypeService.getDrinkTypeById(drinkTypeId)
                 val row = TableRow(this@BeverageListActivity)
-                if(drinkType != null){
+                if (drinkType != null) {
                     beverageNameTextView.text = "${drinkType.name}"
                     val typeTextView = TextView(this@BeverageListActivity).apply {
                         text = "${drinkType.type}"
-                        layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1f)
+                        layoutParams = TableRow.LayoutParams(
+                            TableRow.LayoutParams.WRAP_CONTENT,
+                            TableRow.LayoutParams.WRAP_CONTENT,
+                            1f
+                        )
                     }
                     val subtypeTextView = TextView(this@BeverageListActivity).apply {
                         text = " ${drinkType.subType}"
-                        layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1f)
+                        layoutParams = TableRow.LayoutParams(
+                            TableRow.LayoutParams.WRAP_CONTENT,
+                            TableRow.LayoutParams.WRAP_CONTENT,
+                            1f
+                        )
                     }
                     val percentageTextView = TextView(this@BeverageListActivity).apply {
                         text = "${drinkType.percentage}%"
-                        layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1f)
+                        layoutParams = TableRow.LayoutParams(
+                            TableRow.LayoutParams.WRAP_CONTENT,
+                            TableRow.LayoutParams.WRAP_CONTENT,
+                            1f
+                        )
                     }
                     row.addView(typeTextView)
                     row.addView(subtypeTextView)
@@ -85,7 +108,6 @@ class BeverageListActivity : AppCompatActivity() {
                 val beverages = beverageService.getAllBeveragesByDrinkTypeId(drinkTypeId)
 
 
-
                 // Populate table with beverages
                 if (beverages != null) {
                     for (beverage in beverages) {
@@ -97,7 +119,10 @@ class BeverageListActivity : AppCompatActivity() {
                             paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
                             isClickable = true
                             setOnClickListener {
-                                val intent = Intent(this@BeverageListActivity, BeverageListActivity::class.java)
+                                val intent = Intent(
+                                    this@BeverageListActivity,
+                                    BeverageListActivity::class.java
+                                )
                                 intent.putExtra("drinkTypeId", beverage.id)
                                 startActivity(intent)
                             }
@@ -124,6 +149,5 @@ class BeverageListActivity : AppCompatActivity() {
             // Initialize the beverage service
 
         }
-
     }
 }
