@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activities.main.fragments.establishment_list_fragment.EstablishmentListFragment">
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_width="396dp"
+        android:layout_height="608dp"
         android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,22 +26,48 @@
             android:textAlignment="center"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/button_go_to_single_establishment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Go to single establishment" />
+
+        <TextView
+            android:id="@+id/item_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="16dp"
+            android:textSize="18sp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="319dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewEstablishments"
+                android:layout_width="match_parent"
+
+                android:layout_height="319dp" />
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/button_nearby_establishments"
+                android:layout_width="377dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Nearby Establishments" />
+
+        </LinearLayout>
 
         <Button
-            android:id="@+id/button_nearby_establishments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Nearby Establishments" />
+            android:id="@+id/button_create_establishment"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:text="@string/create_establishment" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

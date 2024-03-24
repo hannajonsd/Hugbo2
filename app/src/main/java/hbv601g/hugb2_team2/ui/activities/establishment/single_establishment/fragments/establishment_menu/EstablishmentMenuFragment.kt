@@ -1,45 +1,93 @@
 package hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_menu
 
 import android.os.Bundle
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentMenuBinding
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
+import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
+import kotlinx.coroutines.launch
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import android.util.Log
+import hbv601g.hugb2_team2.session.SessionManager
+import hbv601g.hugb2_team2.ui.activities.menu.AddMenuDrinkActivity
 
 class EstablishmentMenuFragment : Fragment() {
 
+    private lateinit var binding: FragmentEstablishmentMenuBinding
+    private lateinit var menuAdapter: EstablishmentMenuAdapter
+    private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
     private var beverageService = BeverageServiceProvider.getBeverageService()
+    private lateinit var sessionManager: SessionManager
 
-    private var _binding: FragmentEstablishmentMenuBinding? = null
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentEstablishmentMenuBinding.inflate(inflater, container, false)
+        sessionManager = SessionManager(requireContext())
+        return binding.root
+    }
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val establishmentMenuViewModel =
-            ViewModelProvider(this).get(EstablishmentMenuViewModel::class.java)
+        menuAdapter = EstablishmentMenuAdapter(listOf(), requireContext(), sessionManager, viewLifecycleOwner.lifecycleScope)
 
-        _binding = FragmentEstablishmentMenuBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textEstablishmentMenu
-        establishmentMenuViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        binding.rvBeverageMenu.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = menuAdapter
         }
-        return root
+
+        if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
+            binding.addDrinkButton.visibility = View.VISIBLE
+        } else {
+            binding.addDrinkButton.visibility = View.GONE
+        }
+
+        val establishmentId = requireActivity().intent.getLongExtra("ESTABLISHMENT_ID", -1L)
+        if (establishmentId != -1L) {
+            getAndDisplayMenu(establishmentId)
+        }
+
+        binding.addDrinkButton.setOnClickListener {
+            val intent = Intent(context, AddMenuDrinkActivity::class.java)
+            intent.putExtra("ESTABLISHMENT_ID", establishmentId)
+            startActivity(intent)
+        }
+
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun getAndDisplayMenu(establishmentId: Long) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val establishment = establishmentService.getEstablishmentById(establishmentId)
+                val menuItems = beverageService.getMenu(establishment)
+                if (menuItems.isEmpty()) {
+                    binding.textViewNoDrinks.visibility = View.VISIBLE
+                } else {
+                    menuAdapter.updateData(menuItems)
+                    binding.textViewNoDrinks.visibility = View.GONE
+                }
+            } catch (e: Exception) {
+                Log.e("EstablishmentMenuFragment", "Error fetching menu", e)
+            }
+        }
     }
+
+    /**
+     * Uppfæra menu listann þegar við komum til baka
+     */
+    override fun onResume() {
+        super.onResume()
+        val establishmentId = requireActivity().intent.getLongExtra("ESTABLISHMENT_ID", -1L)
+        if (establishmentId != -1L) {
+            getAndDisplayMenu(establishmentId)
+        }
+    }
+
+
+
+
 }

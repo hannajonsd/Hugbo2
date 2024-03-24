@@ -1,13 +1,16 @@
 package hbv601g.hugb2_team2.services.network
 
+import android.content.Context
+
 object NetworkingServiceProvider {
 
-    private var networkingService: NetworkingService? = null
+    private lateinit var NetworkingService: NetworkingService
 
     fun getNetworkingService(): NetworkingService {
-        if (networkingService == null) {
-            networkingService = NetworkingServiceImpl()
-        }
-        return networkingService!!
+        return NetworkingService
+    }
+
+    fun initialize(context: Context) {
+        NetworkingService = NetworkingServiceImpl(context)
     }
 }

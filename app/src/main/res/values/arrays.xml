@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="location_array">
+        <item>Miðbærinn</item>
+        <item>Höfuðborgarsvæðið</item>
+        <item>Norðurland</item>
+        <item>Suðurland</item>
+        <item>Suðvesturland</item>
+        <item>Austurland</item>
+        <item>Vesturland</item>
+        <item>Vestfirðir</item>
+    </string-array>
+    <string-array name="radius_array">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+        <item>25</item>
+        <item>50</item>
+        <item>100</item>
+    </string-array>
+</resources>
