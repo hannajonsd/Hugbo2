@@ -38,7 +38,7 @@ class EditDrinkTypeActivity : AppCompatActivity() {
 
 
         val editDrinkButton: Button = findViewById(R.id.button_edit_drinktype)
-        val cancelButton: Button = findViewById(R.id.cancel_edit_drinktype)
+        val cancelButton: Button = findViewById(R.id.button_cancel_drinktype)
 
 
 
@@ -105,7 +105,9 @@ class EditDrinkTypeActivity : AppCompatActivity() {
      */
     private fun editDrinkType(drinktype: DrinkType) {
         CoroutineScope(Dispatchers.Main).launch {
-            val drinkType: DrinkType = drinkTypeService.editDrinkType(drinktype)
+
+            val drinkType: DrinkType? = drinkTypeService.editDrinkType(drinktype)
+
 
             Toast.makeText(this@EditDrinkTypeActivity, "Drinktype saved", Toast.LENGTH_SHORT).show()
             finish()

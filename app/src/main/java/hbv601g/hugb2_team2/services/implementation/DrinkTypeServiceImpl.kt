@@ -78,7 +78,7 @@ class DrinkTypeServiceImpl : DrinkTypeService {
     }
 
     override suspend fun editDrinkType(drinkType: DrinkType): DrinkType? {
-        val reqURL = "$baseUrl/${drinkType.id}"
+        val reqURL = "$baseUrl/edit"
         return try {
             val estJson = Gson().toJson(drinkType)
             val response = networkingService.putRequest(reqURL, estJson)
