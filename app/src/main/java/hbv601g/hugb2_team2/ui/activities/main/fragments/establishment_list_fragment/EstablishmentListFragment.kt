@@ -118,7 +118,7 @@ class EstablishmentListFragment : Fragment() {
         }
         val createEstablishmentButton = view.findViewById<Button>(R.id.button_create_establishment)
         // CREATE ESTABLISHMENT BUTTON
-        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+        if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
             createEstablishmentButton.visibility = View.VISIBLE
             createEstablishmentButton.setOnClickListener {
                 val intent = Intent(activity, CreateEstablishmentActivity::class.java)

@@ -107,7 +107,7 @@ class DrinkTypeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val createDrinkTypeButton = view.findViewById<Button>(R.id.button_create_drinktype)
-        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+        if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
             createDrinkTypeButton.visibility = View.VISIBLE
             createDrinkTypeButton.setOnClickListener {
                 val intent = Intent(activity, CreateDrinkTypeActivity::class.java)

@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.ActivityBeverageListBinding
 import hbv601g.hugb2_team2.databinding.FragmentDrinktypeListBinding
@@ -52,12 +53,20 @@ class BeverageListActivity : AppCompatActivity() {
 
         val view = binding.root
         val editDrinkTypeButton = view.findViewById<Button>(R.id.button_edit_drinktype)
-        editDrinkTypeButton.visibility = View.VISIBLE
-        editDrinkTypeButton.setOnClickListener {
-            val intent = Intent(this@BeverageListActivity, EditDrinkTypeActivity::class.java)
-            startActivity(intent)
+        val deleteDrinkTypeButton = view.findViewById<Button>(R.id.button_delete_drinktype)
+        sessionManager = SessionManager(applicationContext)
+        Log.d("BeverageListActivity", "All user info: \nLogged in: ${sessionManager.isLoggedIn()}\nAdmin: ${sessionManager.isAdmin()}\nFirst name: ${sessionManager.getFirstName()}\nLast name: ${sessionManager.getLastName()}")
+        if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
+            deleteDrinkTypeButton.visibility = View.VISIBLE
+            editDrinkTypeButton.visibility = View.VISIBLE
+            editDrinkTypeButton.setOnClickListener {
+                val intent = Intent(this@BeverageListActivity, EditDrinkTypeActivity::class.java)
+                startActivity(intent)
+            }
+        } else {
+            deleteDrinkTypeButton.visibility = View.GONE
+            editDrinkTypeButton.visibility = View.GONE
         }
-
 
         val drinkTypeId = intent.getLongExtra("drinkTypeId", -1)
 

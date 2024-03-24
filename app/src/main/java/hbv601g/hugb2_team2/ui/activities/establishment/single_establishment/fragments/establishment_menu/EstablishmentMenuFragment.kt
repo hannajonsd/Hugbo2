@@ -40,7 +40,7 @@ class EstablishmentMenuFragment : Fragment() {
             adapter = menuAdapter
         }
 
-        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+        if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
             binding.addDrinkButton.visibility = View.VISIBLE
         } else {
             binding.addDrinkButton.visibility = View.GONE

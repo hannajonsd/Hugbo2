@@ -89,7 +89,7 @@ class CreateAccountActivity : AppCompatActivity() {
 
             val hashedPassword = hasher.hashPassword(password)
 
-            val newUser = User(username = username, password = hashedPassword, firstName = firstName, lastName = lastName, email = email, isAdmin = false)
+            val newUser = User(username = username, password = hashedPassword, firstName = firstName, lastName = lastName, email = email, admin = false)
             createAccount(newUser)
         }
 
