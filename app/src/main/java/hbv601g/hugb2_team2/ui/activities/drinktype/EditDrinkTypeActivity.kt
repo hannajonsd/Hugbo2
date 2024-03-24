@@ -42,7 +42,7 @@ class EditDrinkTypeActivity : AppCompatActivity() {
 
 
 
-        var drinkTypeId = intent.getLongExtra("DRINKTYPE_ID", -1L)
+        val drinkTypeId = intent.getLongExtra("DRINKTYPE_ID", -1L)
 
         CoroutineScope(Dispatchers.Main).launch {
             try {

@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.gson.Gson
 
 import com.google.gson.reflect.TypeToken
+import hbv601g.hugb2_team2.entities.Beverage
 import hbv601g.hugb2_team2.entities.DrinkType
 import hbv601g.hugb2_team2.services.DrinkTypeService
 import hbv601g.hugb2_team2.services.network.NetworkingServiceProvider
@@ -76,8 +77,15 @@ class DrinkTypeServiceImpl : DrinkTypeService {
         }
     }
 
-    override suspend fun editDrinkType(drinkType: DrinkType): DrinkType {
-        TODO("Not yet implemented")
+    override suspend fun editDrinkType(drinkType: DrinkType): DrinkType? {
+        val reqURL = "$baseUrl/${drinkType.id}"
+        return try {
+            val estJson = Gson().toJson(drinkType)
+            val response = networkingService.putRequest(reqURL, estJson)
+            Gson().fromJson(response.toString(), DrinkType::class.java)
+        } catch (e: Exception) {
+            null
+        }
     }
 
     override suspend fun deleteDrinkType(id: Long): Boolean {
