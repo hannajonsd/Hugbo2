@@ -20,6 +20,21 @@ import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
+import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import hbv601g.hugb2_team2.databinding.FragmentEstablishmentListBinding
+import hbv601g.hugb2_team2.services.DrinkTypeService
+import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
+import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
+import hbv601g.hugb2_team2.session.SessionManager
+import hbv601g.hugb2_team2.ui.activities.establishment.CreateEstablishmentActivity
+import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity
+import hbv601g.hugb2_team2.ui.activities.main.fragments.establishment_list_fragment.EstablishmentAdapter
+import hbv601g.hugb2_team2.ui.activities.main.fragments.establishment_list_fragment.EstablishmentListViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class DrinkTypeListFragment : Fragment() {
@@ -27,6 +42,10 @@ class DrinkTypeListFragment : Fragment() {
 
     private lateinit var viewModel: DrinkTypeListViewModel
     private lateinit var binding: FragmentDrinktypeListBinding
+    private lateinit var sessionManager: SessionManager
+    private lateinit var drinkTypeAdapter: DrinkTypeAdapter
+    private var drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService()
+
 
 
     private var _binding: FragmentDrinktypeListBinding? = null
@@ -37,64 +56,58 @@ class DrinkTypeListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val drinkTypeListViewModel =
+            ViewModelProvider(this).get(DrinkTypeListViewModel::class.java)
         binding = FragmentDrinktypeListBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        sessionManager = SessionManager(requireContext())
+
+        setupRecyclerView()
+
+        getDrinkTypeList()
 
 
-        viewModel = ViewModelProvider(this).get(DrinkTypeListViewModel::class.java)
-
-
-        val tableLayout = root.findViewById<TableLayout>(R.id.tableLayout)
-
-
-        viewModel.drinkTypes.observe(viewLifecycleOwner) { drinkTypes ->
-            if (drinkTypes != null) {
-                populateTable(drinkTypes)
-            }
-        }
 
         return root
     }
 
+    private fun setupRecyclerView() {
+        binding.recyclerView.apply {
 
-    private fun populateTable(drinkTypes: List<DrinkType>) {
-        val tableLayout = binding.tableLayout
+            setHasFixedSize(true)
 
-        for ((id, name, percentage, type, subType) in drinkTypes) {
-            val row = TableRow(context)
-            val nameTextView = TextView(context).apply {
-                text = name
-                setTextColor(Color.BLUE) // Set text color to blue for a link-like appearance
-                paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG // Add underline
-                isClickable = true // Set clickable
-                isFocusable = true // Set focusable
-                setOnClickListener {
-                // Handle click event here
-                val intent = Intent(context, BeverageListActivity::class.java)
-                // Pass any necessary data with the intent
-                Log.d("id", id.toString())
-                intent.putExtra("drinkTypeId", id)
-                context.startActivity(intent)
+            layoutManager = LinearLayoutManager(context)
+
+
+            val adapter = DrinkTypeAdapter(emptyList(), requireContext(), sessionManager) { drinkType ->
+                val intent = Intent(activity, BeverageListActivity::class.java).apply {
+                    putExtra("EXTRA_DRINKTYPE_ID", drinkType.id)
                 }
+                startActivity(intent)
             }
-            row.addView(nameTextView)
-
-            val typeTextView = TextView(context).apply {
-                text = type
+            binding.recyclerView.apply {
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(context)
+                this.adapter = adapter
             }
-            row.addView(typeTextView)
 
-            val subtypeTextView = TextView(context).apply {
-                text = subType
+        }
+    }
+
+
+
+    private fun getDrinkTypeList() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val drinkTypes = drinkTypeService.getAllDrinkTypes()
+                binding.recyclerView.adapter?.let { adapter ->
+                    if (adapter is DrinkTypeAdapter) {
+                        adapter.updateData(drinkTypes ?: emptyList())
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("DrinkTypeListFragment", "Error fetching drinktypes", e)
             }
-            row.addView(subtypeTextView)
-
-            val percentageTextView = TextView(context).apply {
-                text = percentage.toString()
-            }
-            row.addView(percentageTextView)
-
-            tableLayout.addView(row)
         }
     }
 
@@ -102,16 +115,20 @@ class DrinkTypeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        binding.buttonCreateDrinktype.setOnClickListener {
-            startActivity(Intent(activity, CreateDrinkTypeActivity::class.java))
+        val createDrinkTypeButton = view.findViewById<Button>(R.id.button_create_drinktype)
+        if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
+            createDrinkTypeButton.visibility = View.VISIBLE
+            createDrinkTypeButton.setOnClickListener {
+                val intent = Intent(activity, CreateDrinkTypeActivity::class.java)
+                startActivity(intent)
+            }
+        } else {
+            createDrinkTypeButton.visibility = View.GONE
         }
 
 
-        binding.buttonEditDrinktype.setOnClickListener {
-            startActivity(Intent(activity, EditDrinkTypeActivity::class.java))
-        }
     }
+
 
 
     override fun onDestroyView() {

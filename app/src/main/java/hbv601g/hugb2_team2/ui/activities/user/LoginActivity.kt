@@ -3,6 +3,7 @@ package hbv601g.hugb2_team2.ui.activities.user
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.services.providers.UserServiceProvider
@@ -64,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
         val hasher = PasswordHash()
         CoroutineScope(Dispatchers.Main).launch {
             val user: User? = userService.getUserByUsername(username)
+            Log.d("LoginActivity", "User: $user")
 
             if (user != null && hasher.checkPassword(password, user.password)) {
                 createToast("Logged in")

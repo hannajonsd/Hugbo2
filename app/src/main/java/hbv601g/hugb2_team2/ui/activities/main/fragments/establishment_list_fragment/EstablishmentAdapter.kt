@@ -58,7 +58,7 @@ class EstablishmentAdapter(
         }
 
         // Set visibility and onClickListener based on user's session status
-        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+        if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
             holder.buttonEdit.visibility = View.VISIBLE
             holder.buttonEdit.setOnClickListener {
                 val intent = Intent(context, EditEstablishmentActivity::class.java).apply {
@@ -71,7 +71,7 @@ class EstablishmentAdapter(
         }
 
         // Delete button visibility and action
-        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+        if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
             holder.buttonDelete.visibility = View.VISIBLE
             holder.buttonDelete.setOnClickListener {
                 showDeleteConfirmation(context, establishment.id)

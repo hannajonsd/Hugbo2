@@ -64,7 +64,7 @@ class EstablishmentMenuAdapter(
         holder.priceTextView.text = "Price: ${beverage.price.toString()} kr"
         holder.volumeTextView.text = "Volume: ${beverage.volume.toString()} ml"
 
-        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+        if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
             holder.editButton.visibility = View.VISIBLE
             holder.editButton.setOnClickListener {
                 val intent = Intent(context, EditMenuDrinkActivity::class.java).apply {
@@ -77,7 +77,7 @@ class EstablishmentMenuAdapter(
         }
 
 
-        if (sessionManager.isLoggedIn() || sessionManager.isAdmin()) {
+        if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
             holder.deleteButton.visibility = View.VISIBLE
             holder.deleteButton.setOnClickListener {
                 showDeleteConfirmation(context, beverage.id)

@@ -12,7 +12,7 @@ class SessionManager(context: Context) {
         private const val PREF_NAME = "UserSession"
         private const val KEY_IS_LOGGED_IN = "isLoggedIn"
         private const val KEY_USER_ID = "userId"
-        private const val KEY_IS_ADMIN = "isAdmin"
+        private const val KEY_IS_ADMIN = "admin"
         private const val KEY_USERNAME = "username"
         private const val KEY_FIRST_NAME = "firstName"
         private const val KEY_LAST_NAME = "lastName"
@@ -22,7 +22,7 @@ class SessionManager(context: Context) {
     fun createSession(user: User) {
         editor.putBoolean(KEY_IS_LOGGED_IN, true)
         editor.putLong(KEY_USER_ID, user.id ?: -1)
-        editor.putBoolean(KEY_IS_ADMIN, user.isAdmin)
+        editor.putBoolean(KEY_IS_ADMIN, user.admin)
         editor.putString(KEY_USERNAME, user.username)
         editor.putString(KEY_FIRST_NAME, user.firstName)
         editor.putString(KEY_LAST_NAME, user.lastName)

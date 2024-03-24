@@ -84,7 +84,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/cancel_add_drink_btn"
+                    android:id="@+id/cancel_edit_drinktype"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
