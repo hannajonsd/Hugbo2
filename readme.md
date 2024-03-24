@@ -28,3 +28,14 @@ Currently on schedule with regards to the project plan.
 - Beverage activity has been implemented and can display a list of beverages of a certain drink type
 - A single establishment fragment has been implemented and can display information about a single establishment split into 3 fragments: establishment info, establishment drinks and establishment reviews
 - Login, and sign up fragments have been implemented and can communicate with the backend
+
+### Construction 2
+
+As of 24/3/2024:
+
+Currently on schedule with regards to the project plan.
+
+- Establishments can be edited and deleted.
+- Drink types can be added, edited and deleted.
+- Menu drinks can be added, edited and deleted, each establishment has a menu with a list of drinks it serves.
+- A geolocation feature has been implemented, where users can get a list of nearby establishments based on their location, and specified range.
