@@ -2,7 +2,6 @@ package hbv601g.hugb2_team2.services.implementation
 
 import android.util.Log
 import com.google.gson.Gson
-import hbv601g.hugb2_team2.entities.Beverage
 import hbv601g.hugb2_team2.entities.Establishment
 import hbv601g.hugb2_team2.entities.EstablishmentWithDistance
 import hbv601g.hugb2_team2.services.EstablishmentService

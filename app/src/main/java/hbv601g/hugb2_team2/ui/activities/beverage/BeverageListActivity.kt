@@ -1,6 +1,8 @@
 package hbv601g.hugb2_team2.ui.activities.beverage
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
@@ -12,15 +14,13 @@ import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.ActivityBeverageListBinding
-import hbv601g.hugb2_team2.databinding.FragmentDrinktypeListBinding
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
 import hbv601g.hugb2_team2.session.SessionManager
-import hbv601g.hugb2_team2.ui.activities.drinktype.CreateDrinkTypeActivity
-import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -46,6 +46,8 @@ class BeverageListActivity : AppCompatActivity() {
         binding = ActivityBeverageListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val drinkTypeId = intent.getLongExtra("drinkTypeId", -1)
+
         // Get the drink type ID passed to the activity
         beverageTypeTableLayout = findViewById(R.id.beverageTypeTableLayout)
         establishmentTableLayout = findViewById(R.id.establishmentTableLayout)
@@ -58,17 +60,17 @@ class BeverageListActivity : AppCompatActivity() {
         Log.d("BeverageListActivity", "All user info: \nLogged in: ${sessionManager.isLoggedIn()}\nAdmin: ${sessionManager.isAdmin()}\nFirst name: ${sessionManager.getFirstName()}\nLast name: ${sessionManager.getLastName()}")
         if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
             deleteDrinkTypeButton.visibility = View.VISIBLE
+            deleteDrinkTypeButton.setOnClickListener {  }
             editDrinkTypeButton.visibility = View.VISIBLE
             editDrinkTypeButton.setOnClickListener {
-                val intent = Intent(this@BeverageListActivity, EditDrinkTypeActivity::class.java)
-                startActivity(intent)
+                showDeleteConfirmation(this, applicationContext, drinkTypeId)
             }
         } else {
             deleteDrinkTypeButton.visibility = View.GONE
             editDrinkTypeButton.visibility = View.GONE
         }
 
-        val drinkTypeId = intent.getLongExtra("drinkTypeId", -1)
+
 
         CoroutineScope(Dispatchers.Main).launch {
             try {
@@ -158,5 +160,27 @@ class BeverageListActivity : AppCompatActivity() {
             // Initialize the beverage service
 
         }
+    }
+    fun showDeleteConfirmation(activity: BeverageListActivity, context: Context, drinkTypeId: Long) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Delete DrinkType?")
+        builder.setMessage("Are you sure you want to delete this drinktype?")
+        builder.setPositiveButton("Yes") { _, _ ->
+            CoroutineScope(Dispatchers.Main).launch {
+                try {
+                    drinkTypeService.deleteDrinkType(drinkTypeId)
+                    Toast.makeText(context, "DrinkType deleted", Toast.LENGTH_SHORT).show()
+                    activity.supportFragmentManager.popBackStack()
+                } catch (e: Exception) {
+                    Log.e("Drinktypeactivity", "Error deleting drinktype", e)
+                    Toast.makeText(context, "failed to delete drink", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 }
