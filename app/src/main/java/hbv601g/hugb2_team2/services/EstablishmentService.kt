@@ -17,4 +17,10 @@ interface EstablishmentService {
     suspend fun deleteEstablishment(id: Long) : Boolean
     suspend fun getNearbyEstablishments(lat: Double, lon: Double, radius: Int): List<EstablishmentWithDistance>
     suspend fun ping(callback: NetworkCallback<String>)
+    suspend fun getNearbyEstablishmentsByDrinkType(
+        lat: Double,
+        lon: Double,
+        radius: Int,
+        drinkTypeId: Long
+    ): List<EstablishmentWithDistance>
 }

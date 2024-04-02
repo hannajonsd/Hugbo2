@@ -29,38 +29,108 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <TextView
-            android:id="@+id/textViewRadiusLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/select_radius_in_km"
-            android:textSize="18sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/spinnerRadius"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:entries="@array/radius_array" />
+                <TextView
+                    android:id="@+id/textViewRadiusLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radius_km"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerRadius"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/radius_array"
+                    android:minHeight="48dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textViewDrinkTypeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/drink_type_optional"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerDrinkType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/buttonSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search" />
+            android:text="@string/search"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            />
+<!--    Some text to tell the user what to do-->
+        <TextView
+            android:id="@+id/searchInstructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/search_instructions"
+            android:textStyle="italic"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/searchTempText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textStyle="italic"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:text="@string/sorry_no_establishments_found"
+            android:id="@+id/noEstablishmentsFound"
+            android:textSize="16sp"
+            />
+
+
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
 
 
             <androidx.recyclerview.widget.RecyclerView

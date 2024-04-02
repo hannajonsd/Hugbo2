@@ -99,9 +99,28 @@ class EstablishmentServiceImpl : EstablishmentService {
     override suspend fun getNearbyEstablishments(
         lat: Double,
         lon: Double,
-        radius: Int
+        radius: Int,
     ): List<EstablishmentWithDistance> {
         val reqUrl = "$baseUrl/nearby/$lat/$lon/$radius"
+        return try {
+            Log.d("EstablishmentServiceImpl", "Request URL: $reqUrl")
+            val response = networkingService.getRequest(reqUrl)
+            Log.d("EstablishmentServiceImpl", "Response: $response")
+            val gson = Gson()
+            gson.fromJson(response, Array<EstablishmentWithDistance>::class.java).toList()
+        } catch (e: Exception) {
+            Log.d("EstablishmentServiceImpl", "Exception: $e")
+            emptyList()
+        }
+    }
+
+    override suspend fun getNearbyEstablishmentsByDrinkType(
+        lat: Double,
+        lon: Double,
+        radius: Int,
+        drinkTypeId: Long,
+    ): List<EstablishmentWithDistance> {
+        val reqUrl = "$baseUrl/nearby/$lat/$lon/$radius/$drinkTypeId"
         return try {
             Log.d("EstablishmentServiceImpl", "Request URL: $reqUrl")
             val response = networkingService.getRequest(reqUrl)
