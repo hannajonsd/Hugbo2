@@ -14,11 +14,12 @@
 
 
         <TextView
-            android:id="@+id/title_beverage_list"
+            android:id="@+id/textViewBeverageName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_activity_beverage_list"
-            android:textSize="22sp" />
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:id="@+id/sortByPrice"
@@ -29,10 +30,11 @@
 
         <Spinner
             android:id="@+id/sortByPriceDropdown"
-            android:layout_width="wrap_content"
-            android:layout_height="49dp"
+            android:layout_width="177dp"
+            android:layout_height="36dp"
             android:entries="@array/sort_by_price_options"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            />
 
 
         <Button
@@ -40,75 +42,70 @@
             android:layout_width="103dp"
             android:layout_height="40dp"
             android:onClick="addBeverage"
-            android:text="Sort" />
+            android:text="Sort"
+            android:layout_marginBottom="5dp"/>
 
-        <TextView
-        android:id="@+id/textViewBeverageName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"/>
-
-    <TableLayout
-        android:id= "@+id/beverageTypeTableLayout"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
-
-    <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
+        <TableLayout
+            android:id="@+id/beverageTypeTableLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Type"
-            android:textStyle="bold"/>
+            android:stretchColumns="*"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Type"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subtype"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Percentage"
+                    android:textStyle="bold"/>
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:id="@+id/establishmentTableLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Subtype"
-            android:textStyle="bold"/>
+            android:stretchColumns="*"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">-
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Percentage"
-            android:textStyle="bold"/>
-    </TableRow>
-
-    </TableLayout>
-
-    <TableLayout
-        android:id= "@+id/establishmentTableLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*">
-
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewEstablishmentHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Establishment"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/textViewVolumeHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Volume"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/textViewPriceHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Price"
-                android:textStyle="bold"/>
-        </TableRow>
-
-    </TableLayout>
-
+            <TableRow>
+                <TextView
+                    android:id="@+id/textViewEstablishmentHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Establishment"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/textViewVolumeHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Volume"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/textViewPriceHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price"
+                    android:textStyle="bold"/>
+            </TableRow>
+        </TableLayout>
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
