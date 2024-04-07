@@ -1,42 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/textViewEstablishmentName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="Establishment Name" />
-
-    <TextView
-        android:id="@+id/textViewEstablishmentAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:text="Establishment Address" />
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape"
         android:orientation="horizontal"
-        android:gravity="end">
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/buttonEditEstablishment"
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewEstablishmentName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Establishment Name" />
+
+            <TextView
+                android:id="@+id/textViewEstablishmentAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#777777"
+                android:textSize="14sp"
+                android:text="Establishment Address" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"/>
+            android:layout_weight="0"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/buttonDeleteEstablishment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"/>
+            <Button
+                android:id="@+id/buttonEditEstablishment"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:icon="@drawable/baseline_edit_24"
+                app:iconPadding="0dp"
+                app:iconSize="24dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Material3.Button" />
+
+            <Button
+                android:id="@+id/buttonDeleteEstablishment"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="5dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:icon="@android:drawable/ic_delete"
+                app:iconPadding="0dp"
+                app:iconSize="24dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Material3.Button" />
+        </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

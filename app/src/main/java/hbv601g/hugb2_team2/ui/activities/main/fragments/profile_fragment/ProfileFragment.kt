@@ -78,17 +78,11 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
-        val editProfileButton = view.findViewById<Button>(R.id.edit_profile_button)
-        editProfileButton.setOnClickListener {
-            val intent = Intent(activity, EditProfileActivity::class.java)
-            startActivity(intent)
-        }
-
-        val deleteAccountButton = view.findViewById<Button>(R.id.delete_account_button)
+        /*val deleteAccountButton = view.findViewById<Button>(R.id.delete_account_button)
         deleteAccountButton.setOnClickListener {
             // do nothing for now. just print something to console
             println("Delete account button clicked")
-        }
+        }*/
 
         val logoutButton = view.findViewById<Button>(R.id.logout_button)
         logoutButton.setOnClickListener {
@@ -106,8 +100,7 @@ class ProfileFragment : Fragment() {
             val nameField = view.findViewById<TextView>(R.id.logged_in_name)
             nameField.text = getString(R.string.full_name, sessionManager.getFirstName(), sessionManager.getLastName())
         } else {
-            editProfileButton.visibility = View.GONE
-            deleteAccountButton.visibility = View.GONE
+            //deleteAccountButton.visibility = View.GONE
             logoutButton.visibility = View.GONE
         }
     }

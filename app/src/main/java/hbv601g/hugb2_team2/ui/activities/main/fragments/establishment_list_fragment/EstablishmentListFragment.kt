@@ -1,6 +1,5 @@
 package hbv601g.hugb2_team2.ui.activities.main.fragments.establishment_list_fragment
 
-import hbv601g.hugb2_team2.entities.Establishment;
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,107 +8,46 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentListBinding
 import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 import hbv601g.hugb2_team2.session.SessionManager
 import hbv601g.hugb2_team2.ui.activities.establishment.CreateEstablishmentActivity
 import hbv601g.hugb2_team2.ui.activities.establishment.NearbyEstablishmentsActivity
-import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.recyclerview.widget.LinearLayoutManager;
-import kotlinx.coroutines.withContext
 
 class EstablishmentListFragment : Fragment() {
 
     private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
     private lateinit var sessionManager: SessionManager
-
+    private lateinit var binding: FragmentEstablishmentListBinding
+    private lateinit var establishmentsAdapter: EstablishmentAdapter
 
     private var _binding: FragmentEstablishmentListBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val establishmentListViewModel =
-            ViewModelProvider(this).get(EstablishmentListViewModel::class.java)
+        binding = FragmentEstablishmentListBinding.inflate(inflater, container, false)
         sessionManager = SessionManager(requireContext())
-
-        _binding = FragmentEstablishmentListBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-
-        setupRecyclerView()
-
-        getEstablishmentList()
-        return root
+        return binding.root
     }
-
-    private fun setupRecyclerView() {
-        binding.recyclerViewEstablishments.apply {
-
-            setHasFixedSize(true)
-
-            layoutManager = LinearLayoutManager(context)
-
-
-                val adapter = EstablishmentAdapter(emptyList(), requireContext(), sessionManager) { establishment ->
-                    val intent = Intent(activity, SingleEstablishmentActivity::class.java).apply {
-                        putExtra("EXTRA_ESTABLISHMENT_ID", establishment.id)
-                    }
-                    startActivity(intent)
-                }
-                binding.recyclerViewEstablishments.apply {
-                    setHasFixedSize(true)
-                    layoutManager = LinearLayoutManager(context)
-                    this.adapter = adapter
-                }
-
-        }
-    }
-
-
-
-    private fun getEstablishmentList() {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val establishments = establishmentService.getAllEstablishments()
-                binding.recyclerViewEstablishments.adapter?.let { adapter ->
-                    if (adapter is EstablishmentAdapter) {
-                        adapter.updateData(establishments ?: emptyList())
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e("EstablishmentListFragment", "Error fetching establishments", e)
-            }
-        }
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*val buttonOpenCreateDrinkType =
-            view.findViewById<Button>(R.id.button_go_to_single_establishment)
-        buttonOpenCreateDrinkType.setOnClickListener {
-            val intent = Intent(activity, SingleEstablishmentActivity::class.java)
-            startActivity(intent)
-        }*/
+        establishmentsAdapter = EstablishmentAdapter(listOf(), requireContext(), sessionManager, viewLifecycleOwner.lifecycleScope)
+
+        binding.recyclerViewEstablishments.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = establishmentsAdapter
+        }
 
         val buttonOpenNearbyEstablishments = view.findViewById<Button>(R.id.button_nearby_establishments)
         buttonOpenNearbyEstablishments.setOnClickListener {
@@ -128,5 +66,29 @@ class EstablishmentListFragment : Fragment() {
             createEstablishmentButton.visibility = View.GONE
         }
 
+    }
+
+    private fun getAndDisplayEstablishments() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val establishments = establishmentService.getAllEstablishments()
+                if (establishments.isNullOrEmpty()) {
+                    binding.textViewNoEstablishments.visibility = View.VISIBLE
+                } else {
+                    establishmentsAdapter.updateData(establishments)
+                    binding.textViewNoEstablishments.visibility = View.GONE
+                }
+            } catch (e: Exception) {
+                Log.e("EstablishmentListFragment", "Error fetching establishments", e)
+            }
+        }
+    }
+
+    /**
+     * Uppfæra menu listann þegar við komum til baka
+     */
+    override fun onResume() {
+        super.onResume()
+        getAndDisplayEstablishments()
     }
 }
