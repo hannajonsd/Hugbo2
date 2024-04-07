@@ -101,5 +101,11 @@
     <string name="searching_for_establishments_serving_within_km">Searching for establishments serving %1$s within %2$s km...</string>
     <string name="sorry_no_establishments_found">Sorry, no establishments found :(</string>
 
+    <string-array name="sort_by_price_options">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+
+
 
 </resources>
