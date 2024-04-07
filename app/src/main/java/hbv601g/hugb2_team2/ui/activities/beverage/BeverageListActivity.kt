@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -18,6 +20,7 @@ import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.ActivityBeverageListBinding
+import hbv601g.hugb2_team2.entities.DrinkType
 import hbv601g.hugb2_team2.services.providers.BeverageServiceProvider
 import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
 import hbv601g.hugb2_team2.session.SessionManager
@@ -38,6 +41,9 @@ class BeverageListActivity : AppCompatActivity() {
     private lateinit var beverageNameTextView: TextView
     private lateinit var sessionManager: SessionManager
     private lateinit var binding: ActivityBeverageListBinding
+    private lateinit var sortByPriceSpinner: Spinner
+    private var currentSortOrder = "ASC"
+    private lateinit var drinkType: DrinkType
 
 
 
@@ -54,6 +60,11 @@ class BeverageListActivity : AppCompatActivity() {
         establishmentTableLayout = findViewById(R.id.establishmentTableLayout)
         beverageNameTextView = findViewById(R.id.textViewBeverageName)
 
+        setupSortByPriceSpinner()
+        findViewById<Button>(R.id.sortByPriceButton).setOnClickListener {
+            sortBeverages()
+        }
+
 
         val view = binding.root
         sessionManager = SessionManager(applicationContext)
@@ -68,8 +79,7 @@ class BeverageListActivity : AppCompatActivity() {
 
 
                 // Fetch drink type
-                val drinkType = drinkTypeService.getDrinkTypeById(drinkTypeId)
-                val row = TableRow(this@BeverageListActivity)
+                drinkType = drinkTypeService.getDrinkTypeById(drinkTypeId) ?: return@launch;               val row = TableRow(this@BeverageListActivity)
                 if (drinkType != null) {
                     beverageNameTextView.text = "${drinkType.name}"
                     val typeTextView = TextView(this@BeverageListActivity).apply {
@@ -149,6 +159,73 @@ class BeverageListActivity : AppCompatActivity() {
             // Initialize the beverage service
 
         }
+
     }
+
+    private fun setupSortByPriceSpinner() {
+        sortByPriceSpinner = findViewById(R.id.sortByPriceDropdown)
+        sortByPriceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                currentSortOrder = if (position == 0) "ASC" else "DESC"
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+            }
+        }
+    }
+
+    private fun sortBeverages() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                if(!this@BeverageListActivity::drinkType.isInitialized) {
+                    Toast.makeText(this@BeverageListActivity, "Drink type not initialized.", Toast.LENGTH_SHORT).show()
+                    return@launch
+                }
+
+                val beverages = if (currentSortOrder == "ASC") {
+                    beverageService.getAllBeveragesByDrinkTypeSortByPriceAsc(drinkType)
+                } else {
+                    beverageService.getAllBeveragesByDrinkTypeSortByPriceDesc(drinkType)
+                }
+
+                establishmentTableLayout.removeAllViews()
+
+                for (beverage in beverages) {
+                    val row = TableRow(this@BeverageListActivity)
+
+                    val establishmentTextView = TextView(this@BeverageListActivity).apply {
+                        text = beverage.establishment.name
+                        setTextColor(Color.BLUE)
+                        paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                        isClickable = true
+                        setOnClickListener {
+                            val intent = Intent(
+                                this@BeverageListActivity,
+                                BeverageListActivity::class.java
+                            )
+                            intent.putExtra("drinkTypeId", beverage.id)
+                            startActivity(intent)
+                        }
+                    }
+                    row.addView(establishmentTextView)
+
+                    val volumeTextView = TextView(this@BeverageListActivity).apply {
+                        text = beverage.volume.toString()
+                    }
+                    row.addView(volumeTextView)
+
+                    val priceTextView = TextView(this@BeverageListActivity).apply {
+                        text = beverage.price.toString()
+                    }
+                    row.addView(priceTextView)
+
+                    establishmentTableLayout.addView(row)                }
+            } catch (e: Exception) {
+                Log.e("BeverageListActivity", "Exception: $e")
+                Toast.makeText(this@BeverageListActivity, "Failed to sort beverages.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
 }

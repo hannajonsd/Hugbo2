@@ -13,14 +13,41 @@
         android:orientation="vertical">
 
 
-    <!-- Beverage details -->
+        <TextView
+            android:id="@+id/title_beverage_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_activity_beverage_list"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/sortByPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sort by price:"
+            android:textSize="17sp" />
+
+        <Spinner
+            android:id="@+id/sortByPriceDropdown"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:entries="@array/sort_by_price_options"
+            android:spinnerMode="dropdown" />
 
 
-    <TextView
+        <Button
+            android:id="@+id/sortByPriceButton"
+            android:layout_width="103dp"
+            android:layout_height="40dp"
+            android:onClick="addBeverage"
+            android:text="Sort" />
+
+        <TextView
         android:id="@+id/textViewBeverageName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"/>
+
     <TableLayout
         android:id= "@+id/beverageTypeTableLayout"
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -50,7 +77,6 @@
             android:textStyle="bold"/>
     </TableRow>
 
-    <!-- Row for beverage data -->
     </TableLayout>
 
     <TableLayout
@@ -79,8 +105,6 @@
                 android:text="Price"
                 android:textStyle="bold"/>
         </TableRow>
-
-        <!-- Add rows programmatically for each establishment -->
 
     </TableLayout>
 

@@ -83,12 +83,31 @@ class BeverageServiceImpl : BeverageService {
     }
 
     override suspend fun getAllBeveragesByDrinkTypeSortByPriceDesc(drinkType: DrinkType): List<Beverage> {
-        TODO("Not yet implemented")
+        val reqURL = "$baseUrl/types/${drinkType.id}/price/desc"
+        return try {
+            val response = networkingService.getRequest(reqURL)
+            Log.d("BeverageServiceImpl", "Response: $response")
+            val gson = Gson()
+            gson.fromJson(response, Array<Beverage>::class.java).toList()
+        } catch (e: Exception) {
+            Log.e("BeverageServiceImpl", "Exception: $e")
+            emptyList()
+        }
     }
 
     override suspend fun getAllBeveragesByDrinkTypeSortByPriceAsc(drinkType: DrinkType): List<Beverage> {
-        TODO("Not yet implemented")
+        val reqURL = "$baseUrl/types/${drinkType.id}/price/asc"
+        return try {
+            val response = networkingService.getRequest(reqURL)
+            Log.d("BeverageServiceImpl", "Response: $response")
+            val gson = Gson()
+            gson.fromJson(response, Array<Beverage>::class.java).toList()
+        } catch (e: Exception) {
+            Log.e("BeverageServiceImpl", "Exception: $e")
+            emptyList()
+        }
     }
+
 
     override suspend fun getBeverageById(id: Long): Beverage {
         return withContext(Dispatchers.IO) {
