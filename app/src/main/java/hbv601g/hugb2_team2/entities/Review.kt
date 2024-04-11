@@ -8,5 +8,5 @@ data class Review(
     val user: User,
     val rating: Double,
     val comment: String,
-    val date: LocalDate
+    val date: String
 )

@@ -1,5 +1,6 @@
 package hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.fragments.establishment_reviews
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentReviewsBinding
 import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 import hbv601g.hugb2_team2.services.providers.ReviewServiceProvider
+import hbv601g.hugb2_team2.session.SessionManager
+import hbv601g.hugb2_team2.ui.activities.beverage.BeverageListActivity
+import hbv601g.hugb2_team2.ui.activities.main.fragments.drinktype_list_fragment.DrinkTypeAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,6 +25,8 @@ class EstablishmentReviewsFragment : Fragment() {
     private lateinit var reviewAdapter: ReviewAdapter
     private val reviewService = ReviewServiceProvider.getReviewService()
     private val establishmentService = EstablishmentServiceProvider.getEstablishmentService()
+    private lateinit var sessionManager: SessionManager
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentEstablishmentReviewsBinding.inflate(inflater, container, false)
@@ -30,11 +36,13 @@ class EstablishmentReviewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        reviewAdapter = ReviewAdapter(listOf()) // Define your ReviewsAdapter
+        sessionManager = SessionManager(requireContext())
+        reviewAdapter = ReviewAdapter(emptyList(), requireContext(), sessionManager)
 
         binding.rvReviews.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = reviewAdapter
+            setHasFixedSize(true)
+            this.adapter= reviewAdapter
         }
 
         val establishmentId = requireActivity().intent.getLongExtra("ESTABLISHMENT_ID", -1L)
