@@ -36,6 +36,7 @@ class ReviewAdapter(private var reviews: List<Review>,
         val dateView: TextView = view.findViewById(R.id.reviewDate)
         }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
+        Log.d("review adapter", "view created")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_reviews_list, parent, false)
         return ReviewViewHolder(view)
     }
