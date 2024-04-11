@@ -6,7 +6,7 @@ import hbv601g.hugb2_team2.entities.Review
 import hbv601g.hugb2_team2.entities.User
 
 interface ReviewService {
-    suspend fun createReview(review: Review): Review
+    suspend fun createReview(review: Review): Review?
     suspend fun editReview(review: Review): Review
     suspend fun deleteReview(review: Review): Boolean
     suspend fun getReviewById(id: Long): Review

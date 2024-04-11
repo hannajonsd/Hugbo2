@@ -100,6 +100,13 @@
     <string name="searching_for_all_establishments_within_km">Searching for all establishments within %1$s km...</string>
     <string name="searching_for_establishments_serving_within_km">Searching for establishments serving %1$s within %2$s km...</string>
     <string name="sorry_no_establishments_found">Sorry, no establishments found :(</string>
+    <string name="add_review">Add a review</string>
+    <string name="add_rating">Add a Rating</string>
+    <string name="hint_rating">0.0\n</string>
+    <string name="legend_add_cmt">Add a comment</string>
+    <string name="hint_add_cmt">Add comment</string>
+    <string name="btn_add_review">Add review</string>
+    <string name="hint_add_comment">Add comment...</string>
 
     <string-array name="sort_by_price_options">
         <item>Ascending</item>
