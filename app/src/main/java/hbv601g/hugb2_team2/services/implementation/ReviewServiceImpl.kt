@@ -5,6 +5,7 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import hbv601g.hugb2_team2.entities.Beverage
+import hbv601g.hugb2_team2.entities.DrinkType
 import hbv601g.hugb2_team2.entities.Establishment
 import hbv601g.hugb2_team2.entities.Review
 import hbv601g.hugb2_team2.entities.User
@@ -17,8 +18,18 @@ class ReviewServiceImpl() : ReviewService {
     private var networkingService = NetworkingServiceProvider.getNetworkingService()
     private var baseUrl = "/reviews"
 
-    override suspend fun createReview(review: Review): Review {
-        TODO("Not yet implemented")
+    override suspend fun createReview(review: Review): Review? {
+        val reqURL = "$baseUrl/create"
+        return try {
+            val reviewJson = Gson().toJson(review)
+            val response = networkingService.postRequest(reqURL, reviewJson)
+            Log.d("reviewJsonServiceImpl", "Response: $response")
+            // convert response to establishment
+            Gson().fromJson(response.toString(), Review::class.java)
+        } catch (e: Exception) {
+            Log.d("DrinkTypeServiceImpl", "Exception: $e")
+            null
+        }
     }
 
     override suspend fun editReview(review: Review): Review {

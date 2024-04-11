@@ -6,15 +6,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.databinding.FragmentEstablishmentReviewsBinding
 import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 import hbv601g.hugb2_team2.services.providers.ReviewServiceProvider
 import hbv601g.hugb2_team2.session.SessionManager
 import hbv601g.hugb2_team2.ui.activities.beverage.BeverageListActivity
+import hbv601g.hugb2_team2.ui.activities.drinktype.CreateDrinkTypeActivity
 import hbv601g.hugb2_team2.ui.activities.main.fragments.drinktype_list_fragment.DrinkTypeAdapter
+import hbv601g.hugb2_team2.ui.activities.reviews.CreateReviewActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,6 +52,19 @@ class EstablishmentReviewsFragment : Fragment() {
         val establishmentId = requireActivity().intent.getLongExtra("ESTABLISHMENT_ID", -1L)
         if (establishmentId != -1L) {
             getAndDisplayReviews(establishmentId)
+        }
+
+        val addReviewButton = view.findViewById<Button>(R.id.button_add_review)
+        if (sessionManager.isLoggedIn()) {
+            addReviewButton.visibility = View.VISIBLE
+            addReviewButton.setOnClickListener {
+                val intent = Intent(activity, CreateReviewActivity::class.java)
+                intent.putExtra("ESTABLISHMENT_ID", establishmentId)
+                intent.putExtra("USER_ID", sessionManager.getUserId())
+                startActivity(intent)
+            }
+        } else {
+            addReviewButton.visibility = View.GONE
         }
     }
 
