@@ -38,6 +38,16 @@ import kotlinx.coroutines.launch
 
 class NearbyEstablishmentsActivity : AppCompatActivity() {
 
+    // Declare UI elements as member variables
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var spinnerRadius: Spinner
+    private lateinit var spinnerDrinkType: Spinner
+    private lateinit var buttonSearch: Button
+    private lateinit var searchTempText: TextView
+    private lateinit var noEstablishmentsFound: TextView
+    private lateinit var searchInstructions: TextView
+    private lateinit var allDrinkTypes: List<DrinkType>
+
     private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()
     private var drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -48,31 +58,47 @@ class NearbyEstablishmentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nearby_establishments)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        setupUI()
+        setupLocationClient()
+        setupDrinkTypeSpinner()
+        setupSearchButton()
+    }
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewNearbyEstablishments)
+    private fun setupUI() {
+        recyclerView = findViewById<RecyclerView>(R.id.recyclerViewNearbyEstablishments)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val spinnerRadius = findViewById<Spinner>(R.id.spinnerRadius)
-        val spinnerDrinkType: Spinner = findViewById(R.id.spinnerDrinkType)
-        val buttonSearch = findViewById<Button>(R.id.buttonSearch)
-        val searchTempText = findViewById<TextView>(R.id.searchTempText)
-        val noEstablishmentsFound = findViewById<TextView>(R.id.noEstablishmentsFound)
+        spinnerRadius = findViewById<Spinner>(R.id.spinnerRadius)
+        spinnerDrinkType = findViewById(R.id.spinnerDrinkType)
+        buttonSearch = findViewById<Button>(R.id.buttonSearch)
+        searchTempText = findViewById<TextView>(R.id.searchTempText)
+        noEstablishmentsFound = findViewById<TextView>(R.id.noEstablishmentsFound)
         // searchTempText and noEstablishmentsFound are initially not visible
         searchTempText.visibility = TextView.GONE
         noEstablishmentsFound.visibility = TextView.GONE
-        val searchInstructions = findViewById<TextView>(R.id.searchInstructions)
+        searchInstructions = findViewById<TextView>(R.id.searchInstructions)
+    }
 
-        var allDrinkTypes: List<DrinkType>? = null
+    private fun setupLocationClient() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+    }
+
+    private fun setupDrinkTypeSpinner() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                allDrinkTypes = drinkTypeService.getAllDrinkTypes()
-                val drinkTypeNames = allDrinkTypes?.map { it.name } ?.toMutableList() ?: mutableListOf()
+                allDrinkTypes = drinkTypeService.getAllDrinkTypes()!!
+                val drinkTypeNames =
+                    allDrinkTypes?.map { it.name }?.toMutableList() ?: mutableListOf()
 
                 // add an "All" option to the list
                 drinkTypeNames.add(0, "All")
 
-                val adapter = ArrayAdapter(this@NearbyEstablishmentsActivity, android.R.layout.simple_spinner_item, drinkTypeNames)
+                val adapter = ArrayAdapter(
+                    this@NearbyEstablishmentsActivity,
+                    android.R.layout.simple_spinner_item,
+                    drinkTypeNames
+                )
 
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinnerDrinkType.adapter = adapter
@@ -82,6 +108,9 @@ class NearbyEstablishmentsActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun setupSearchButton() {
         buttonSearch.setOnClickListener {
             buttonSearch.isEnabled = false
             // hide the search instructions
@@ -94,7 +123,10 @@ class NearbyEstablishmentsActivity : AppCompatActivity() {
             val drinkTypeId = allDrinkTypes?.find { it.name == drinkType }?.id ?: -1L
             if (drinkTypeId == -1L) {
                 searchTempText.text =
-                    getString(R.string.searching_for_all_establishments_within_km, radius.toString())
+                    getString(
+                        R.string.searching_for_all_establishments_within_km,
+                        radius.toString()
+                    )
             } else {
                 searchTempText.text = getString(
                     R.string.searching_for_establishments_serving_within_km,
@@ -109,28 +141,33 @@ class NearbyEstablishmentsActivity : AppCompatActivity() {
             ) {
                 val cancellationTokenSource = CancellationTokenSource()
 
-                val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
-                    .setWaitForAccurateLocation(true)
-                    .build()
+                val locationRequest =
+                    LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
+                        .setWaitForAccurateLocation(true)
+                        .build()
 
 
-                fusedLocationClient.getCurrentLocation(locationRequest.priority, cancellationTokenSource.token)
+                fusedLocationClient.getCurrentLocation(
+                    locationRequest.priority,
+                    cancellationTokenSource.token
+                )
                     .addOnSuccessListener { location: Location? ->
                         val latitude = location?.latitude ?: 0.0
                         val longitude = location?.longitude ?: 0.0
 
                         CoroutineScope(Dispatchers.Main).launch {
                             // check to see if a drink type was selected
-                            val nearbyEstablishments = if (drinkTypeId == -1L) establishmentService.getNearbyEstablishments(
-                                latitude,
-                                longitude,
-                                radius,
-                            ) else establishmentService.getNearbyEstablishmentsByDrinkType(
-                                latitude,
-                                longitude,
-                                radius,
-                                drinkTypeId
-                            )
+                            val nearbyEstablishments =
+                                if (drinkTypeId == -1L) establishmentService.getNearbyEstablishments(
+                                    latitude,
+                                    longitude,
+                                    radius,
+                                ) else establishmentService.getNearbyEstablishmentsByDrinkType(
+                                    latitude,
+                                    longitude,
+                                    radius,
+                                    drinkTypeId
+                                )
                             if (nearbyEstablishments.isEmpty()) {
                                 noEstablishmentsFound.visibility = TextView.VISIBLE
                             }
@@ -143,7 +180,10 @@ class NearbyEstablishmentsActivity : AppCompatActivity() {
                                             this@NearbyEstablishmentsActivity,
                                             SingleEstablishmentActivity::class.java
                                         ).apply {
-                                            putExtra("ESTABLISHMENT_ID", establishment.establishment.id)
+                                            putExtra(
+                                                "ESTABLISHMENT_ID",
+                                                establishment.establishment.id
+                                            )
                                         }
                                         startActivity(intent)
                                     }
@@ -153,9 +193,12 @@ class NearbyEstablishmentsActivity : AppCompatActivity() {
                             searchTempText.visibility = TextView.GONE
                             buttonSearch.isEnabled = true
                         }
-                    }.addOnFailureListener {
-                        exception ->
-                        Toast.makeText(this, "Failed to get location: ${exception.message}", Toast.LENGTH_LONG).show()
+                    }.addOnFailureListener { exception ->
+                        Toast.makeText(
+                            this,
+                            "Failed to get location: ${exception.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
                         // clear the search text
                         searchTempText.text = ""
                         searchTempText.visibility = TextView.GONE
@@ -170,6 +213,6 @@ class NearbyEstablishmentsActivity : AppCompatActivity() {
                 )
             }
         }
+    }
 
     }
-}
