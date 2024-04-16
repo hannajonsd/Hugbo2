@@ -7,7 +7,7 @@
 
 -------------------------
 
-### Assignment 1
+### Assignment 2 - Design Model
 
 As of 11/2/2024:
 
@@ -17,7 +17,7 @@ Currently on schedule with regards to the project plan.
 
 - The java spring backend has been adapted: rest controllers have been added and appropriate functions have been created such that it can serve as an api for the android app.
 
-### Construction 1
+### Assignment 3 - Code Construction 1
 
 As of 3/3/2024:
 
@@ -29,7 +29,7 @@ Currently on schedule with regards to the project plan.
 - A single establishment fragment has been implemented and can display information about a single establishment split into 3 fragments: establishment info, establishment drinks and establishment reviews
 - Login, and sign up fragments have been implemented and can communicate with the backend
 
-### Construction 2
+### Assignment 4 - Code Construction Construction 2
 
 As of 24/3/2024:
 
@@ -39,3 +39,16 @@ Currently on schedule with regards to the project plan.
 - Drink types can be added, edited and deleted.
 - Menu drinks can be added, edited and deleted, each establishment has a menu with a list of drinks it serves.
 - A geolocation feature has been implemented, where users can get a list of nearby establishments based on their location, and specified range.
+
+### Assignment 5 - Final Product
+
+As of 16/4/2024:
+
+All user stories in the project plan have been implmeneted. 
+
+- The geolocation feature has been updated, users can now get a list of nearby establishments based on their location, specified range and a chosen drink type.
+- Users can now sort the drinks by price on the drink type page.
+- Users can add reviews to establishments if they are logged in.
+- The app has been tested by every member of the group. Final changes and small bugs have been fixed and final product is ready.
+- Backend has been hosted on Render: [WineNot?](https://winenot-mday.onrender.com/)
+
