@@ -32,7 +32,7 @@ class EditMenuDrinkActivity : AppCompatActivity() {
         val priceInput: EditText = findViewById(R.id.drink_price_input)
 
         val editDrinkButton: Button = findViewById(R.id.edit_drink_btn)
-        val cancelButton: Button = findViewById(R.id.cancel_add_drink_btn)
+        val cancelButton: Button = findViewById(R.id.cancel_edit_drinktype)
 
         var allDrinkTypes: List<DrinkType>? = null
 

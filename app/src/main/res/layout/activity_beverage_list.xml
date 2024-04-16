@@ -9,82 +9,88 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-
-    <!-- Beverage details -->
-
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="-60dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     <TextView
-        android:id="@+id/textViewBeverageName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"/>
-    <TableLayout
-        android:id= "@+id/beverageTypeTableLayout"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drinktype_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
+        android:text="TextView"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-    <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Type"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Subtype"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Percentage"
-            android:textStyle="bold"/>
-    </TableRow>
-
-    <!-- Row for beverage data -->
-    </TableLayout>
-
-    <TableLayout
-        android:id= "@+id/establishmentTableLayout"
+    <TextView
+        android:id="@+id/drinktype_subtype"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*">
+        android:paddingBottom="10dp"
+        android:text="TextView"
+        android:textSize="16sp" />
 
-        <TableRow>
+    <TextView
+        android:id="@+id/drinktype_percentage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Establishments with this drink:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
-                android:id="@+id/textViewEstablishmentHeader"
+                android:id="@+id/sortByPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Establishment"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/textViewVolumeHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Volume"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/textViewPriceHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Price"
-                android:textStyle="bold"/>
-        </TableRow>
+                android:text="Sort by price:"
+                android:textSize="17sp" />
 
-        <!-- Add rows programmatically for each establishment -->
+            <Spinner
+                android:id="@+id/sortByPriceDropdown"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:entries="@array/sort_by_price_options"
+                android:spinnerMode="dropdown" />
 
-    </TableLayout>
+            <Button
+                android:id="@+id/sortByPriceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:onClick="addBeverage"
+                android:layout_weight="0"
+                android:text="Sort" />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:id="@+id/establishmentTableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="10dp"
+            android:stretchColumns="*" />
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

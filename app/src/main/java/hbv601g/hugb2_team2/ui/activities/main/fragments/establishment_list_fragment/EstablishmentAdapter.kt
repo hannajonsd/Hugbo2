@@ -25,7 +25,7 @@ class EstablishmentAdapter(
     private var dataSet: List<Establishment>,
     private val context: Context,
     private val sessionManager: SessionManager,
-    private val onClick: (Establishment) -> Unit
+    private val coroutineScope: CoroutineScope
 ) : RecyclerView.Adapter<EstablishmentAdapter.MyViewHolder>() {
 
     private var establishmentService = EstablishmentServiceProvider.getEstablishmentService()

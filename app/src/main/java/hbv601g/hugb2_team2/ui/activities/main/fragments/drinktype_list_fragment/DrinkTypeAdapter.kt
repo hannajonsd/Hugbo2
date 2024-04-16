@@ -13,12 +13,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.entities.DrinkType
-import hbv601g.hugb2_team2.entities.Establishment
-import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 import hbv601g.hugb2_team2.session.SessionManager
 import hbv601g.hugb2_team2.ui.activities.beverage.BeverageListActivity
-import hbv601g.hugb2_team2.ui.activities.establishment.EditEstablishmentActivity
-import hbv601g.hugb2_team2.ui.activities.establishment.single_establishment.SingleEstablishmentActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,8 +25,7 @@ import hbv601g.hugb2_team2.ui.activities.drinktype.EditDrinkTypeActivity
 class DrinkTypeAdapter(private var dataSet: List<DrinkType>,
                        private val context: Context,
                        private val sessionManager: SessionManager,
-                       private val onClick: (DrinkType) -> Unit
-
+                       private val coroutineScope: CoroutineScope
 ) : RecyclerView.Adapter<DrinkTypeAdapter.DrinkTypeViewHolder>() {
 
         private var drinkTypeService = DrinkTypeServiceProvider.getDrinkTypeService()
@@ -43,8 +38,6 @@ class DrinkTypeAdapter(private var dataSet: List<DrinkType>,
                 val buttonDelete: Button = itemView.findViewById(R.id.buttonDeleteDrinkType)
         }
 
-
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrinkTypeViewHolder {
                 val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_drinktype_list, parent, false)
                 return DrinkTypeViewHolder(itemView)
@@ -55,7 +48,7 @@ class DrinkTypeAdapter(private var dataSet: List<DrinkType>,
                 holder.nameTextView.text = currentItem.name
                 holder.typeTextView.text = currentItem.type
                 holder.subtypeTextView.text = currentItem.subType
-                holder.percentageTextView.text = currentItem.percentage.toString()
+                holder.percentageTextView.text = "${currentItem.percentage.toString()}%"
 
                 holder.itemView.setOnClickListener {
                         val intent = Intent(context, BeverageListActivity::class.java).apply {

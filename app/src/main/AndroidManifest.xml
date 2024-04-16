@@ -17,64 +17,83 @@
         android:theme="@style/Theme.Hugb2_Team2"
         tools:targetApi="31"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:enableOnBackInvokedCallback="true">
+        android:enableOnBackInvokedCallback="true"
+        android:screenOrientation="portrait">
+
         <activity
             android:name=".ui.activities.reviews.EditReviewActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.reviews.CreateReviewActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.user.EditProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.user.CreateAccountActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.user.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.establishment.EditEstablishmentActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.establishment.CreateEstablishmentActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.establishment.NearbyEstablishmentsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.beverage.EditBeverageActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.beverage.CreateBeverageActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.beverage.BeverageListActivity"
             android:exported="false"
             android:label="@string/title_activity_beverage_list"
-            android:theme="@style/Theme.Hugb2_Team2" />
+            android:theme="@style/Theme.Hugb2_Team2"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.establishment.single_establishment.SingleEstablishmentActivity"
             android:exported="false"
-            android:label="@string/title_activity_single_establishment" />
+            android:label="@string/title_activity_single_establishment"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.drinktype.EditDrinkTypeActivity"
             android:exported="false"
             android:label="@string/title_activity_edit_drink_type"
-            android:theme="@style/Theme.Hugb2_Team2" />
+            android:theme="@style/Theme.Hugb2_Team2"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.drinktype.CreateDrinkTypeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.menu.AddMenuDrinkActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.menu.EditMenuDrinkActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ui.activities.main.MainActivity"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

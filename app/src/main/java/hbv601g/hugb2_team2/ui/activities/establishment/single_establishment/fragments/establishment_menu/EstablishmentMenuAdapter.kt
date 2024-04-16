@@ -11,9 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hbv601g.hugb2_team2.R
 import hbv601g.hugb2_team2.entities.Beverage
-import hbv601g.hugb2_team2.entities.Establishment
 import hbv601g.hugb2_team2.services.providers.DrinkTypeServiceProvider
-import hbv601g.hugb2_team2.services.providers.EstablishmentServiceProvider
 import hbv601g.hugb2_team2.session.SessionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,8 +59,8 @@ class EstablishmentMenuAdapter(
             }
         }
 
-        holder.priceTextView.text = "Price: ${beverage.price.toString()} kr"
-        holder.volumeTextView.text = "Volume: ${beverage.volume.toString()} ml"
+        holder.priceTextView.text = "${beverage.price.toString()} kr"
+        holder.volumeTextView.text = "${beverage.volume.toString()} ml"
 
         if (sessionManager.isLoggedIn() && sessionManager.isAdmin()) {
             holder.editButton.visibility = View.VISIBLE

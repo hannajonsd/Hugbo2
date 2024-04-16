@@ -6,68 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.main.fragments.establishment_list_fragment.EstablishmentListFragment">
 
-    <LinearLayout
-        android:layout_width="396dp"
-        android:layout_height="608dp"
-        android:gravity="center"
-        android:orientation="vertical"
+    <TextView
+        android:id="@+id/textViewNoEstablishments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="No establishments available"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewEstablishments"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/title_establishment_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+    </androidx.recyclerview.widget.RecyclerView>
 
-
-        <TextView
-            android:id="@+id/item_text"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:padding="16dp"
-            android:textSize="18sp" />
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="319dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewEstablishments"
-                android:layout_width="match_parent"
-
-                android:layout_height="319dp" />
-
-        </TableLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:orientation="horizontal">
-
-
-            <Button
-                android:id="@+id/button_nearby_establishments"
-                android:layout_width="377dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="Nearby Establishments" />
-
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="92dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="148dp">
 
         <Button
             android:id="@+id/button_create_establishment"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="wrap_content"
             android:text="@string/create_establishment" />
 
+        <Button
+            android:id="@+id/button_nearby_establishments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nearby Establishments"
+            android:visibility="visible" />
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

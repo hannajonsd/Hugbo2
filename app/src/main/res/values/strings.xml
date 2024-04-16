@@ -85,7 +85,7 @@
     <string name="btn_add_beverage">Add drink</string>
     <string name="btn_edit_beverage">Save drink</string>
     <string name="search">Search</string>
-    <string name="select_radius_in_km">Select Radius (in km):</string>
+    <string name="radius_km">Radius (km):</string>
     <string name="drinktype_name">Drinktype Name</string>
     <string name="hint_drinktype_name">enter drinktype name</string>
     <string name="Percentage">Percentage</string>
@@ -95,6 +95,24 @@
     <string name="hint_drinktypename">Enter name...</string>
     <string name="hint_drinktype_percentage">Enter percentage...</string>
     <string name="btn_edit_drinktype">Save DrinkType</string>
+    <string name="drink_type_optional">Drink Type (Optional)</string>
+    <string name="search_instructions">Select a radius to search for establishments nearby. Optionally, select a drink type to filter the results.</string>
+    <string name="searching_for_all_establishments_within_km">Searching for all establishments within %1$s km...</string>
+    <string name="searching_for_establishments_serving_within_km">Searching for establishments serving %1$s within %2$s km...</string>
+    <string name="sorry_no_establishments_found">Sorry, no establishments found :(</string>
+    <string name="add_review">Add a review</string>
+    <string name="add_rating">Add a Rating</string>
+    <string name="hint_rating">0.0\n</string>
+    <string name="legend_add_cmt">Add a comment</string>
+    <string name="hint_add_cmt">Add comment</string>
+    <string name="btn_add_review">Add review</string>
+    <string name="hint_add_comment">Add comment...</string>
+
+    <string-array name="sort_by_price_options">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+
 
 
 </resources>

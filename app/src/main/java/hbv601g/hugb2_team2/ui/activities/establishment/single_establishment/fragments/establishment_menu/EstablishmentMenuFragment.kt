@@ -86,8 +86,4 @@ class EstablishmentMenuFragment : Fragment() {
             getAndDisplayMenu(establishmentId)
         }
     }
-
-
-
-
 }

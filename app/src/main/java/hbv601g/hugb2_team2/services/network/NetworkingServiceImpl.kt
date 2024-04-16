@@ -14,7 +14,8 @@ import kotlin.coroutines.resumeWithException
 
 class NetworkingServiceImpl(applicationContext: Context) : NetworkingService {
 
-    private var BASE_URL = "http://10.0.2.2:8080/api"
+//    private var BASE_URL = "http://10.0.2.2:8080/api"
+    private var BASE_URL = "https://winenot-mday.onrender.com/api"
 
     private val context = applicationContext
     var apiRequestQueue: RequestQueue = Volley.newRequestQueue(context)
