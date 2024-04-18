@@ -52,3 +52,6 @@ All user stories in the project plan have been implmeneted.
 - The app has been tested by every member of the group. Final changes and small bugs have been fixed and final product is ready.
 - Backend has been hosted on Render: [WineNot?](https://winenot-mday.onrender.com/)
 
+The backend is located in this repository: https://github.com/bjoggi5/Hugb1
+
+If you would like to run the backend locally, please let us know so we can provide you with the necessary .env file.
